@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.rootViewController = rootViewController()
         self.window!.makeKeyAndVisible()
         return true
     }
@@ -43,7 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func rootViewController() -> SBTabBarController {
+        var homeViewController = SBNavigationController.instanceWithViewController(HomeViewController(title: "홈"))
+        var popularViewController = SBNavigationController.instanceWithViewController(PopularViewController(title: "인기"))
+        var themeViewController = SBNavigationController.instanceWithViewController(ThemeViewController(title: "테마"))
+        var sympathiesViewController = SBNavigationController.instanceWithViewController(SympathiesViewController(title: "천개의공감"))
+        
+        var tabBarController = SBTabBarController()
+        tabBarController.viewControllers = [homeViewController, popularViewController, themeViewController, sympathiesViewController]
+        
+        return tabBarController
+    }
 }
 
