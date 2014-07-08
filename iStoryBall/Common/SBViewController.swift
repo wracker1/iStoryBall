@@ -13,7 +13,6 @@ class SBViewController : UIViewController
     convenience init(title: String)
     {
         self.init(nibName: nil, bundle: nil)
-        
         self.title = title
     }
 }
