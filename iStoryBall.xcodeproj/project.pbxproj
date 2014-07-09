@@ -43,6 +43,8 @@
 		88089158196BF3DD00BE3F51 /* DHDomParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089142196BF3DD00BE3F51 /* DHDomParser.swift */; };
 		88089159196BF3DD00BE3F51 /* NetClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089144196BF3DD00BE3F51 /* NetClient.swift */; };
 		8808915A196BF3DD00BE3F51 /* NetClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089144196BF3DD00BE3F51 /* NetClient.swift */; };
+		880E2C30196CD69B0005375E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880E2C2F196CD69B0005375E /* MenuViewController.swift */; };
+		880E2C31196CD69B0005375E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880E2C2F196CD69B0005375E /* MenuViewController.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
@@ -88,6 +90,7 @@
 		88089140196BF3DD00BE3F51 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		88089142196BF3DD00BE3F51 /* DHDomParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHDomParser.swift; sourceTree = "<group>"; };
 		88089144196BF3DD00BE3F51 /* NetClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetClient.swift; sourceTree = "<group>"; };
+		880E2C2F196CD69B0005375E /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Menu/MenuViewController.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		880890F9196BEE5700BE3F51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				880E2C2E196CD67F0005375E /* Menu */,
 				880890FA196BEE5700BE3F51 /* Home */,
 				880890FB196BEE5700BE3F51 /* Popular */,
 				880890FC196BEE5700BE3F51 /* Sympathies */,
@@ -226,6 +230,14 @@
 				88089144196BF3DD00BE3F51 /* NetClient.swift */,
 			);
 			path = NetClient;
+			sourceTree = "<group>";
+		};
+		880E2C2E196CD67F0005375E /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				880E2C2F196CD69B0005375E /* MenuViewController.swift */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		889A9A21196BEB6600358119 = {
@@ -393,6 +405,7 @@
 				88089149196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
+				880E2C30196CD69B0005375E /* MenuViewController.swift in Sources */,
 				88089123196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
@@ -419,6 +432,7 @@
 				8808914A196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
 				88089127196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */,
+				880E2C31196CD69B0005375E /* MenuViewController.swift in Sources */,
 				88089124196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
 				8808914E196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
 				8808911B196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
