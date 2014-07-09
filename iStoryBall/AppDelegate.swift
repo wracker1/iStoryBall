@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetClient.instance.get(url: "http://m.storyball.daum.net/", parameters: nil, success: {
             (html: String) in
+            println(html)
             }, failure: nil)
         
         return true
