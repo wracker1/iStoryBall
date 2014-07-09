@@ -171,3 +171,9 @@ class DHDomParser {
         return ["<([\\S]*)[^>]*class=[\'\"]\(className)[\'\"][\\s\\S]*?", "\\\(capturingNum)>"]
     }
 }
+
+extension String {
+    func itemsWithQuery(query: String) -> DomItem[] {
+        return DHDomParser.itemsWithQuery(self, query: query)
+    }
+}

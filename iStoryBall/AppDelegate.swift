@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetClient.instance.get(url: "http://m.storyball.daum.net/", parameters: nil, success: {
             (html: String) in
-                println(html)
+                println(html.itemsWithQuery("li"))
             }, failure: nil)
         
         return true
@@ -56,10 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var popularViewController = SBNavigationController.instanceWithViewController(PopularViewController(title: "인기"))
         var themeViewController = SBNavigationController.instanceWithViewController(ThemeViewController(title: "테마"))
         var sympathiesViewController = SBNavigationController.instanceWithViewController(SympathiesViewController(title: "천개의공감"))
+        var menuViewController = SBNavigationController.instanceWithViewController(MenuViewController(title: "더보기"))
         
         var tabBarController = SBTabBarController()
-        tabBarController.viewControllers = [homeViewController, popularViewController, themeViewController, sympathiesViewController]
-        
+        tabBarController.viewControllers = [homeViewController, popularViewController, themeViewController, sympathiesViewController, menuViewController]
         return tabBarController
     }
 }
