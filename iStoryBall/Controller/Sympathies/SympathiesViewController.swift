@@ -6,6 +6,8 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
+import UIKit
+
 class SympathiesViewController : SBViewController, UITableViewDataSource, UITableViewDelegate
 {
     var tableView: UITableView?

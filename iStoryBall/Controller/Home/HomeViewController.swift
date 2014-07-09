@@ -8,14 +8,5 @@
 
 class HomeViewController : SBViewController
 {
-    var displayScrollView: UIScrollView?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        displayScrollView = UIScrollView(frame: CGRectMake(0, 0, 320, 180))
-        displayScrollView!.pagingEnabled = true
-        
-        self.view!.addSubview(displayScrollView)
-    }
 }
