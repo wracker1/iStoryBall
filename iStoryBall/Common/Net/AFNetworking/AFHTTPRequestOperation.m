@@ -125,17 +125,16 @@ static dispatch_group_t http_request_operation_completion_group() {
                 }
             } else {
                 id responseObject = self.responseObject;
-                
-                if (responseObject || self.error == nil) {
-                    if (success) {
-                        dispatch_group_async(self.completionGroup ?: http_request_operation_completion_group(), self.completionQueue ?: dispatch_get_main_queue(), ^{
-                            success(self, responseObject);
-                        });
-                    }
-                } else {
+                if (self.error) {
                     if (failure) {
                         dispatch_group_async(self.completionGroup ?: http_request_operation_completion_group(), self.completionQueue ?: dispatch_get_main_queue(), ^{
                             failure(self, self.error);
+                        });
+                    }
+                } else {
+                    if (success) {
+                        dispatch_group_async(self.completionGroup ?: http_request_operation_completion_group(), self.completionQueue ?: dispatch_get_main_queue(), ^{
+                            success(self, responseObject);
                         });
                     }
                 }
@@ -195,7 +194,7 @@ static dispatch_group_t http_request_operation_completion_group() {
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-    AFHTTPRequestOperation *operation = [[[self class] allocWithZone:zone] initWithRequest:self.request];
+    AFHTTPRequestOperation *operation = [super copyWithZone:zone];
 
     operation.responseSerializer = [self.responseSerializer copyWithZone:zone];
     operation.completionQueue = self.completionQueue;
