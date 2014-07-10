@@ -10,16 +10,20 @@ class HomeViewController : SBViewController
 {
     var doc: TFHpple?
     var recommendStories: [TFHppleElement]?
+    var recommendStoryScrollView: UIScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        recommendStoryScrollView = UIScrollView(frame: CGRectMake(0, 0, 320, 180))
+        recommendStoryScrollView!.backgroundColor = UIColor.redColor()
+        self.view.addSubview(recommendStoryScrollView)
         
         NetClient.instance.get("/", success: {
             (html: String) in
             
             self.doc = html.htmlDocument()
             self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
-            println(self.recommendStories!.count)
             })
     }
     
@@ -29,6 +33,6 @@ class HomeViewController : SBViewController
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        super.viewWillAppear(animated)
     }
 }
