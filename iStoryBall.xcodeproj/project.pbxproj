@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1B4E47196D238F0080F6EE /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B4E46196D238F0080F6EE /* Article.swift */; };
+		4C88F82E196D39E6001C77C4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C88F82D196D39E6001C77C4 /* DetailViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -84,6 +86,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1B4E46196D238F0080F6EE /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = SOURCE_ROOT; };
+		4C88F82D196D39E6001C77C4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +170,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C88F82C196D39D3001C77C4 /* Datail */ = {
+			isa = PBXGroup;
+			children = (
+				4C88F82D196D39E6001C77C4 /* DetailViewController.swift */,
+			);
+			name = Datail;
+			sourceTree = "<group>";
+		};
 		880890E1196BEE5700BE3F51 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +198,7 @@
 				880890FB196BEE5700BE3F51 /* Popular */,
 				880890FC196BEE5700BE3F51 /* Sympathies */,
 				880890FD196BEE5700BE3F51 /* Theme */,
+				4C88F82C196D39D3001C77C4 /* Datail */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -225,6 +238,7 @@
 		880890FE196BEE5700BE3F51 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4C1B4E46196D238F0080F6EE /* Article.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -497,6 +511,7 @@
 				88089145196BF3DD00BE3F51 /* AFHTTPRequestOperation.m in Sources */,
 				884FEC51196E88E000AF19CF /* TFHpple.m in Sources */,
 				8808911D196BEEAA00BE3F51 /* ThemeViewController.swift in Sources */,
+				4C1B4E47196D238F0080F6EE /* Article.swift in Sources */,
 				88089147196BF3DD00BE3F51 /* AFHTTPRequestOperationManager.m in Sources */,
 				884FEC53196E88E000AF19CF /* TFHppleElement.m in Sources */,
 				883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -520,6 +535,7 @@
 				8808914B196BF3DD00BE3F51 /* AFNetworkReachabilityManager.m in Sources */,
 				883524B4196D046700E89105 /* UIWebView+AFNetworking.m in Sources */,
 				88089153196BF3DD00BE3F51 /* AFURLResponseSerialization.m in Sources */,
+				4C88F82E196D39E6001C77C4 /* DetailViewController.swift in Sources */,
 				88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */,
 				883524AA196D046700E89105 /* UIAlertView+AFNetworking.m in Sources */,
 			);
