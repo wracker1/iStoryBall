@@ -8,5 +8,27 @@
 
 class HomeViewController : SBViewController
 {
+    var doc: TFHpple?
+    var recommendStories: [TFHppleElement]?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NetClient.instance.get("/", success: {
+            (html: String) in
+            
+            self.doc = html.htmlDocument()
+            self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
+            println(self.recommendStories!.count)
+            })
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+    }
 }

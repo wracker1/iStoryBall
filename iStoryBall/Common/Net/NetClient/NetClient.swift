@@ -19,11 +19,20 @@ class NetClient {
     }
     
     init() {
-        manager = AFHTTPRequestOperationManager()
+        var baseURL = NSURL(string: "http://m.storyball.daum.net/")
+        manager = AFHTTPRequestOperationManager(baseURL: baseURL)
         manager!.responseSerializer.acceptableContentTypes = nil
     }
     
-    func get(#url: String, parameters param: AnyObject?, success: ((html: String) -> Void)?, failure: ((error: NSError) -> Void)?) {
+    func get(url: String, parameters param: AnyObject?, success: ((html: String) -> Void)?, failure: ((error: NSError) -> Void)?) {
+        _get(url, parameters: param, success: success, failure: failure)
+    }
+    
+    func get(url: String, success: ((html: String) -> Void)?) {
+        _get(url, parameters: nil, success: success, failure: nil)
+    }
+    
+    func _get(url: String, parameters param: AnyObject?, success: ((html: String) -> Void)?, failure: ((error: NSError) -> Void)?) {
         manager!.GET(url, parameters: param,
             success: {
                 (operation: AFHTTPRequestOperation!, html: AnyObject!) in

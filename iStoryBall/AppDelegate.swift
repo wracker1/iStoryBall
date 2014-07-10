@@ -20,16 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.rootViewController = rootViewController()
         self.window!.makeKeyAndVisible()
-        
-        NetClient.instance.get(url: "http://m.storyball.daum.net/", parameters: nil, success: {
-            (html: String) in
-            var doc = html.htmlDocument()
-            var items = doc.itemsWithQuery(".link_banner")
-            println()
-            println(items[0].tagName)
-            println(items[0].attributes)
-            }, failure: nil)
-        
         return true
     }
 
