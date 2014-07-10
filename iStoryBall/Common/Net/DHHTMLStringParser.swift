@@ -9,8 +9,6 @@
 import Foundation
 
 class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
-    var parser: NSXMLParser?
-    
     class var instance: DHHTMLStringParser {
         struct Singleton {
             static let instance = DHHTMLStringParser()
@@ -80,5 +78,17 @@ class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
     
     func patternWithClassName(className: String) -> String {
         return "*[contains(concat(\" \", normalize-space(@class), \" \"), \" \(className) \")]"
+    }
+}
+
+extension String {
+    func htmlDocument() -> TFHpple {
+        return DHHTMLStringParser.instance.documentWithHTMLString(self)
+    }
+}
+
+extension TFHpple {
+    func itemsWithQuery(query: String) -> [TFHppleElement] {
+        return DHHTMLStringParser.instance.itemsWithDocument(self, query: query)
     }
 }

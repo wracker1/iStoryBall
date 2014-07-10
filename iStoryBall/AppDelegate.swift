@@ -23,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetClient.instance.get(url: "http://m.storyball.daum.net/", parameters: nil, success: {
             (html: String) in
-            var doc = DHHTMLStringParser.instance.documentWithHTMLString(html)
-            var items = DHHTMLStringParser.instance.itemsWithDocument(doc, query: ".link_product")
+            var doc = html.htmlDocument()
+            var items = doc.itemsWithQuery(".link_banner")
+            println()
             println(items[0].tagName)
             println(items[0].attributes)
             }, failure: nil)
