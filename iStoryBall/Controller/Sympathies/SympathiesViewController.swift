@@ -27,14 +27,13 @@ class SympathiesViewController : SBViewController, UITableViewDataSource, UITabl
 //    
 //    }
     
-    
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
-    
+
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         var cell: UITableViewCell = UITableViewCell(style: .Default, reuseIdentifier: "test_cell")
-        cell.text = "test"
+        cell.textLabel.text = "test"
         return cell
     }
     

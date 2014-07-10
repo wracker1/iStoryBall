@@ -23,7 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NetClient.instance.get(url: "http://m.storyball.daum.net/", parameters: nil, success: {
             (html: String) in
-            println(html)
+            var doc = DHHTMLStringParser.instance.documentWithHTMLString(html)
+            var items = DHHTMLStringParser.instance.itemsWithDocument(doc, query: ".link_product")
+            println(items[0].tagName)
+            println(items[0].attributes)
             }, failure: nil)
         
         return true
