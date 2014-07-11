@@ -70,6 +70,7 @@
 		884FEC58196E893300AF19CF /* DHHTMLStringParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884FEC57196E893300AF19CF /* DHHTMLStringParser.swift */; };
 		884FEC59196E893300AF19CF /* DHHTMLStringParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884FEC57196E893300AF19CF /* DHHTMLStringParser.swift */; };
 		884FEC6B196E8AC400AF19CF /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */; };
+		886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886132B5196FEF000094E99F /* DHPageScrollView.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
@@ -142,6 +143,7 @@
 		884FEC50196E88E000AF19CF /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		884FEC57196E893300AF19CF /* DHHTMLStringParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHHTMLStringParser.swift; sourceTree = "<group>"; };
 		884FEC6A196E8A1C00AF19CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Base; path = usr/lib/Base.lproj/libxml2.2.dylib; sourceTree = SDKROOT; };
+		886132B5196FEF000094E99F /* DHPageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHPageScrollView.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -343,9 +345,19 @@
 		884FEC61196E89B800AF19CF /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				886132B4196FEF000094E99F /* DHPageScrollView */,
 				884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		886132B4196FEF000094E99F /* DHPageScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				886132B5196FEF000094E99F /* DHPageScrollView.swift */,
+			);
+			name = DHPageScrollView;
+			path = Libraries/DHPageScrollView;
 			sourceTree = "<group>";
 		};
 		889A9A21196BEB6600358119 = {
@@ -521,6 +533,7 @@
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
+				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
 				883524B2196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
 				880E2C30196CD69B0005375E /* MenuViewController.swift in Sources */,
