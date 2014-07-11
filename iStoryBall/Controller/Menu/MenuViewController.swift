@@ -11,14 +11,41 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     var tableView: UITableView?
     var doc: TFHpple?
     var menus: [TFHppleElement]?
+    var refinedMenu: [TFHppleElement]?
+    let exceptiveMenuUrl = ["/story/pop", "/episode/hit", "/story/list"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         requestMenuData()
         //initView()
-        
         //self.view.adds
         
+    }
+    
+    func isValidMenu(url: String) -> Bool {
+        var isValid = true;
+        for exceptiveUrl in exceptiveMenuUrl {
+            if url == exceptiveUrl {
+                isValid = false
+                break
+            }
+        }
+        return isValid
+    }
+    
+    func refineMenus(menus: [TFHppleElement]?) -> [TFHppleElement] {
+        var refined = [TFHppleElement]()
+        var count = menus!.count
+        
+        for i in 0..<count {
+            var menu = menus![i]
+            var url = menu.attributes["href"] as NSString
+            if isValidMenu(url) {
+                refined.append(menu)
+            }
+        }
+        
+        return refined
     }
     
     func requestMenuData() {
@@ -26,7 +53,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
             (html: String) in
             
             self.doc = html.htmlDocument()
-            self.menus = self.doc!.itemsWithQuery(".link_menu")
+            self.menus = self.refineMenus(self.doc!.itemsWithQuery(".link_menu"))
             
             println(self.menus!.count)
             println("\n")
@@ -51,6 +78,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         var row = indexPath.row
         var menu = self.menus![row]
         var name = menu.text()
+        var link = menu.attributes["href"]
         
         if !menu.firstChild.isTextNode() {
             var textnode = menu.firstChildWithClassName("txt_menu")
