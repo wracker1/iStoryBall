@@ -15,7 +15,7 @@ class HomeViewController : SBViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recommendStoryScrollView = UIScrollView(frame: CGRectMake(0, 0, 320, 180))
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 180))
         recommendStoryScrollView!.backgroundColor = UIColor.redColor()
         self.view.addSubview(recommendStoryScrollView)
         

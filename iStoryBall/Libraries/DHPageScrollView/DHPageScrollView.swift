@@ -35,24 +35,9 @@ class DHPageScrollViewContainer: UIScrollView
                 
                 var parentSize = self.bounds.size
                 var size = v.bounds.size
-                v.setTranslatesAutoresizingMaskIntoConstraints(false)
-                
-                var hMargin = (parentSize.width - size.width) / 2
-                var vMargin = (parentSize.height - size.height) / 2
-                
-                self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(<=\(hMargin))-[view(>=\(size.width))]-(<=\(hMargin))-|",
-                    options: NSLayoutFormatOptions.AlignAllBaseline,
-                    metrics: nil,
-                    views: ["view" : v]
-                    ))
-                
-                self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(<=\(vMargin))-[view(>=\(size.height))]-(<=\(vMargin))-|",
-                    options: NSLayoutFormatOptions.AlignAllBaseline,
-                    metrics: nil,
-                    views: ["view" : v]
-                    ))
-                
-                self.layoutIfNeeded()
+                var origin = CGPointMake((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2)
+                v.frame = CGRectMake(origin.x, origin.y, size.width, size.height)
+                v.autoresizingMask = ~UIViewAutoresizing.None
             }
         }
     }
@@ -60,7 +45,7 @@ class DHPageScrollViewContainer: UIScrollView
         return _contentView
     }
     }
- 
+    
     weak var _scrollView: DHPageScrollView!
     var scrollView: DHPageScrollView {
     set {
@@ -79,7 +64,7 @@ class DHPageScrollViewContainer: UIScrollView
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
         var dict = change as Dictionary
         var present: AnyObject? = dict["new"]
-
+        
         if let p = present as? Double {
             var diff = fabs(p - Double(page))
             
@@ -104,7 +89,6 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
     var dataSource: DHPageScrollViewDataSource!
     var delegator: DHPageScrollViewDelegate!
     var useZoom = false
-    var gap = 0.0
     var presentPage = 0
     var pageViews: [DHPageScrollViewContainer] = []
     
@@ -150,20 +134,26 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
             removePageView(diff)
         }
         
+        
         if diff > 0 {
             for var i = 0; i < pageViews.count; i++ {
                 var pageView = pageViews[i]
                 pageView.page = i
             }
-            
-            var size = self.bounds.size
-            self.contentSize = CGSizeMake(size.width * CGFloat(pages), size.height)
+        }
+        
+        var size = self.bounds.size
+        var contentSize = CGSizeMake(size.width * CGFloat(pages), size.height)
+        
+        if !CGSizeEqualToSize(contentSize, self.contentSize) {
+            self.contentSize = contentSize
             layoutPageViews()
         }
     }
     
     func createPageView(count: Int) {
         let initialCall = pageViews.count == 0
+        var size = self.bounds.size
         
         for var i = 0; i < count; i++ {
             var pageView = DHPageScrollViewContainer(frame: self.bounds)
@@ -192,7 +182,8 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         
         for var i = 0; i < pageViews.count; i++ {
             var pageView = pageViews[i]
-            pageView.frame = CGRectMake(CGFloat(i) * size.width, 0, size.width, size.height)
+            pageView.frame = CGRectMake(Float(i) * size.width, 0, size.width, size.height)
+            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
         }
     }
     
@@ -214,7 +205,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         }
     }
     
-//    UIScrollViewDelegate
+    //    UIScrollViewDelegate
     
     func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
         changePage(self.page)
