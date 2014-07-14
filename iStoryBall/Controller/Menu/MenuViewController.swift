@@ -90,4 +90,33 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
+        switch indexPath.row {
+        case 1: // 구매 스토리
+            println(indexPath.row)
+        case 2: // 공감 스토리
+            println(indexPath.row)
+        case 3: // 맞춤한 스토리
+            println(indexPath.row)
+        case 4: // 설레는 이벤트
+            println(indexPath.row)
+        case 5: // 스토리볼 페이스북
+            println(indexPath.row)
+            var urlString:String? = "http://www.facebook.com/daumstoryball"
+            var url = NSURL(string: urlString)
+            UIApplication.sharedApplication().openURL(url)
+        case 6: // 스토리볼 사용 설명서
+            println(indexPath.row)
+        case 7: // 스토리볼 공지
+            println(indexPath.row)
+            // 다시 테이블 뷰 컨트롤러로 만들어야 한다!
+            
+        case 8: // 스토리볼 연재 제안
+            println(indexPath.row)
+        default:
+            println(indexPath.row)
+        }
+    }
+
 }
