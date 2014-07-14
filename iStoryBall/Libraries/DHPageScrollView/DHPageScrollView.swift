@@ -50,7 +50,7 @@ class DHPageScrollViewContainer: UIScrollView
     var scrollView: DHPageScrollView {
     set {
         _scrollView = newValue
-        _scrollView.addObserver(self, forKeyPath: "presentPage", options: NSKeyValueObservingOptions.New, context: nil)
+        _scrollView.addObserver(self, forKeyPath: "currentPage", options: NSKeyValueObservingOptions.New, context: nil)
     }
     get {
         return _scrollView
@@ -61,11 +61,12 @@ class DHPageScrollViewContainer: UIScrollView
         super.init(frame: frame)
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
+        self.directionalLockEnabled = true
         self.scrollsToTop = false
     }
     
     deinit {
-        _scrollView.removeObserver(self, forKeyPath: "presentPage", context: nil)
+        _scrollView.removeObserver(self, forKeyPath: "currentPage", context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
@@ -73,12 +74,12 @@ class DHPageScrollViewContainer: UIScrollView
         var present: AnyObject? = dict["new"]
         
         if let p = present as? Double {
-            checkPresentPage(p)
+            checkcurrentPage(p)
         }
     }
     
-    func checkPresentPage(presentPage: Double) {
-        var diff = fabs(presentPage - Double(page))
+    func checkcurrentPage(currentPage: Double) {
+        var diff = fabs(currentPage - Double(page))
         
         if Int(diff) > bufferSize {
             removeContentView()
@@ -102,14 +103,15 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
     var dataSource: DHPageScrollViewDataSource!
     var delegator: DHPageScrollViewDelegate!
     var useZoom = false
-    var presentPage = 0
+    var currentPage = 0
+    var pages = 0
     var pageViews: [DHPageScrollViewContainer] = []
     
     var page: Int {
     get {
         let width = self.bounds.size.width
         var p = Int((self.contentOffset.x + (width / 2)) / width)
-        let max = numberOfPage()! - 1
+        let max = pages - 1
         
         if max < p {
             p = max
@@ -129,21 +131,10 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         self.scrollsToTop = false
         self.delegate = self
         self.dataSource = dataSource
-        
-        var delay = 5 * Double(NSEC_PER_SEC)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay) ), dispatch_get_main_queue(), {
-                var pages = self.numberOfPage()
-            })
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        syncronizePageView()
-    }
-    
-    func syncronizePageView() {
-        var pages = numberOfPage()!
+    func reloadData() {
+        pages = numberOfPage()
         var diff = pages - pageViews.count
         
         if diff > 0 {
@@ -168,10 +159,10 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
             layoutPageViews()
             
             /**
-            * presentPage를 DHPageScrollViewContainer아 옵저버를 하고 있기 때문에 페이지 확인 후 컨텐츠를 불러오게 된다.
+            * currentPage를 DHPageScrollViewContainer아 옵저버를 하고 있기 때문에 페이지 확인 후 컨텐츠를 불러오게 된다.
             */
-            var temp = presentPage
-            presentPage = temp
+            var temp = currentPage
+            currentPage = temp
         }
     }
     
@@ -210,22 +201,24 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         return dataSource?.scrollViewContentViewAtPage(self, contentViewAtPage: page)
     }
     
-    func numberOfPage() -> Int? {
-        return dataSource?.numberOfPagesInScrollView(self)
+    func numberOfPage() -> Int {
+        var count = 0
+        
+        if let d = dataSource {
+            count = d.numberOfPagesInScrollView(self)
+        }
+        
+        return count
     }
     
     func changePage(page: Int) {
-        if presentPage != page {
-            presentPage = page
+        if currentPage != page {
+            currentPage = page
             
             if let d = delegator {
                 d.scrollViewDidChangePage(self, didChangePage: page)
             }
         }
-    }
-    
-    func reloadData() {
-        self.setNeedsLayout()
     }
     
     //    UIScrollViewDelegate

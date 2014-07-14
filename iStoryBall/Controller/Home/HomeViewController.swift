@@ -6,11 +6,12 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class HomeViewController : SBViewController, DHPageScrollViewDataSource
+class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate
 {
     var doc: TFHpple?
     var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
+    var recommendStoryPageControl: UIPageControl?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +36,39 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource
     
     func createTopFeaturingSlide() {
         var topMargin = Common.commonTopMargin()
-        self.recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self)
-        self.recommendStoryScrollView!.dataSource = self
-        self.view.addSubview(self.recommendStoryScrollView)
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self)
+        recommendStoryScrollView!.setTranslatesAutoresizingMaskIntoConstraints(false)
+        recommendStoryScrollView!.dataSource = self
+        recommendStoryScrollView!.delegator = self
+        self.view.addSubview(recommendStoryScrollView)
+        
+        var slideDict = Dictionary<String, UIView>()
+        slideDict["slide"] = recommendStoryScrollView
+        var slideHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|[slide(>=320)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: slideDict)
+        self.view.addConstraints(slideHConst)
+        
+        var pageControl = UIPageControl()
+        pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        pageControl.frame = CGRectMake(0, 0, 130, 10)
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = self.recommendStories.count
+        pageControl.currentPageIndicatorTintColor = UIColor.blueColor()
+        pageControl.pageIndicatorTintColor = UIColor.grayColor()
+        self.view.addSubview(pageControl)
+        self.recommendStoryPageControl = pageControl
+        
+        var pageControlDict = Dictionary<String, UIView>()
+        pageControlDict["page"] = pageControl
+        var pageHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=110)-[page(100)]-(>=110)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: pageControlDict)
+        self.view.addConstraints(pageHConst)
+        
+        var dict = Dictionary<String, UIView>()
+        dict["slide"] = recommendStoryScrollView
+        dict["pageControl"] = pageControl
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(<=\(topMargin))-[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
+        self.view.addConstraints(vConst)
+        
+        recommendStoryScrollView!.reloadData()
     }
     
 //    DHPageScrollViewDataSource
@@ -70,5 +101,10 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource
         }
         
         return button
+    }
+    
+//    DHPageScrollViewDelegate
+    func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void {
+        self.recommendStoryPageControl!.currentPage = page
     }
 }
