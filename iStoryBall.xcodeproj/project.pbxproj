@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C1B4E47196D238F0080F6EE /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B4E46196D238F0080F6EE /* Article.swift */; };
 		4C88F82E196D39E6001C77C4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C88F82D196D39E6001C77C4 /* DetailViewController.swift */; };
+		5EF805651973A18B00EFF888 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF805641973A18B00EFF888 /* NoticeViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		4C1B4E46196D238F0080F6EE /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = SOURCE_ROOT; };
 		4C88F82D196D39E6001C77C4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5EF805641973A18B00EFF888 /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				880E2C2F196CD69B0005375E /* MenuViewController.swift */,
+				5EF805641973A18B00EFF888 /* NoticeViewController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				883524AC196D046700E89105 /* UIButton+AFNetworking.m in Sources */,
 				883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
+				5EF805651973A18B00EFF888 /* NoticeViewController.swift in Sources */,
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,
