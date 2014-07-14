@@ -62,7 +62,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     }
     
     func initView() {
-        tableView = UITableView(frame: self.view.frame, style: .Grouped)
+        tableView = UITableView(frame: self.view.frame, style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
         self.view.addSubview(tableView)
