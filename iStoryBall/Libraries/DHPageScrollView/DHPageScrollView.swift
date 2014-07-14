@@ -66,13 +66,17 @@ class DHPageScrollViewContainer: UIScrollView
         var present: AnyObject? = dict["new"]
         
         if let p = present as? Double {
-            var diff = fabs(p - Double(page))
-            
-            if Int(diff) > bufferSize {
-                removeContentView()
-            } else {
-                self.contentView = self.scrollView.loadPageScrollViewContentViewAtPage(page)
-            }
+            checkPresentPage(p)
+        }
+    }
+    
+    func checkPresentPage(presentPage: Double) {
+        var diff = fabs(presentPage - Double(page))
+        
+        if Int(diff) > bufferSize {
+            removeContentView()
+        } else {
+            self.contentView = self.scrollView.loadPageScrollViewContentViewAtPage(page)
         }
     }
     
@@ -148,11 +152,16 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         if !CGSizeEqualToSize(contentSize, self.contentSize) {
             self.contentSize = contentSize
             layoutPageViews()
+            
+            /**
+            * presentPage를 DHPageScrollViewContainer아 옵저버를 하고 있기 때문에 페이지 확인 후 컨텐츠를 불러오게 된다.
+            */
+            var temp = presentPage
+            presentPage = temp
         }
     }
     
     func createPageView(count: Int) {
-        let initialCall = pageViews.count == 0
         var size = self.bounds.size
         
         for var i = 0; i < count; i++ {
@@ -160,10 +169,6 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
             pageView.scrollView = self
             self.addSubview(pageView)
             pageViews.append(pageView)
-        }
-        
-        if initialCall {
-            presentPage = 0
         }
     }
     
@@ -203,6 +208,10 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
                 d.scrollViewDidChangePage(self, didChangePage: page)
             }
         }
+    }
+    
+    func reloadData() {
+        self.setNeedsLayout()
     }
     
     //    UIScrollViewDelegate
