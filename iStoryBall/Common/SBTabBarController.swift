@@ -10,5 +10,11 @@ import UIKit
 
 class SBTabBarController : UITabBarController
 {
+    override func shouldAutorotate() -> Bool {
+        return self.selectedViewController.shouldAutorotate()
+    }
     
+    override func supportedInterfaceOrientations() -> Int {
+        return self.selectedViewController.supportedInterfaceOrientations()
+    }
 }

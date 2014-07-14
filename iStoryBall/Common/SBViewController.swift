@@ -15,4 +15,12 @@ class SBViewController : UIViewController
         self.init(nibName: nil, bundle: nil)
         self.title = title
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.toRaw())
+    }
 }

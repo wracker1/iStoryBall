@@ -13,4 +13,12 @@ class SBNavigationController : UINavigationController
     class func instanceWithViewController(viewController : UIViewController) -> SBNavigationController {
         return SBNavigationController(rootViewController: viewController)
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return self.topViewController.shouldAutorotate()
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return self.topViewController.supportedInterfaceOrientations()
+    }
 }
