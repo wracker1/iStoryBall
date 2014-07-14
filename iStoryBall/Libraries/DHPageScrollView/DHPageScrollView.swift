@@ -8,16 +8,16 @@
 
 import UIKit
 
-protocol DHPageScrollViewDataSource: NSObjectProtocol
+@class_protocol protocol DHPageScrollViewDataSource
 {
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int
     
     func scrollViewContentViewAtPage(scrollView: DHPageScrollView, contentViewAtPage page: Int) -> UIView?
 }
 
-protocol DHPageScrollViewDelegate: UIScrollViewDelegate
+@class_protocol protocol DHPageScrollViewDelegate
 {
-    func scrollViewDidChangePage(scrollView: DHPageScrollView, didChangePage page: Int) -> Void
+    func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void
 }
 
 class DHPageScrollViewContainer: UIScrollView
@@ -64,6 +64,10 @@ class DHPageScrollViewContainer: UIScrollView
         self.scrollsToTop = false
     }
     
+    deinit {
+        _scrollView.removeObserver(self, forKeyPath: "presentPage", context: nil)
+    }
+    
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
         var dict = change as Dictionary
         var present: AnyObject? = dict["new"]
@@ -81,7 +85,7 @@ class DHPageScrollViewContainer: UIScrollView
         } else {
             var content = self.scrollView.loadPageScrollViewContentViewAtPage(page)
             self.contentView = content
-//            self.contentSize = self.bounds.size
+            self.contentSize = self.bounds.size
         }
     }
     
@@ -105,7 +109,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
     get {
         let width = self.bounds.size.width
         var p = Int((self.contentOffset.x + (width / 2)) / width)
-        let max = numberOfPage() - 1
+        let max = numberOfPage()! - 1
         
         if max < p {
             p = max
@@ -116,7 +120,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
     }
     }
     
-    init(frame: CGRect) {
+    init(frame: CGRect, dataSource: DHPageScrollViewDataSource) {
         super.init(frame: frame)
         
         self.pagingEnabled = true
@@ -124,6 +128,12 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         self.showsVerticalScrollIndicator = false
         self.scrollsToTop = false
         self.delegate = self
+        self.dataSource = dataSource
+        
+        var delay = 5 * Double(NSEC_PER_SEC)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay) ), dispatch_get_main_queue(), {
+                var pages = self.numberOfPage()
+            })
     }
     
     override func layoutSubviews() {
@@ -133,7 +143,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
     }
     
     func syncronizePageView() {
-        var pages = numberOfPage()
+        var pages = numberOfPage()!
         var diff = pages - pageViews.count
         
         if diff > 0 {
@@ -142,7 +152,6 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
             diff *= -1
             removePageView(diff)
         }
-        
         
         if diff > 0 {
             for var i = 0; i < pageViews.count; i++ {
@@ -193,16 +202,16 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         for var i = 0; i < pageViews.count; i++ {
             var pageView = pageViews[i]
             pageView.frame = CGRectMake(Float(i) * size.width, 0, size.width, size.height)
-//            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
+            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
         }
     }
     
     func loadPageScrollViewContentViewAtPage(page: Int) -> UIView? {
-        return dataSource.scrollViewContentViewAtPage(self, contentViewAtPage: page)
+        return dataSource?.scrollViewContentViewAtPage(self, contentViewAtPage: page)
     }
     
-    func numberOfPage() -> Int {
-        return dataSource!.numberOfPagesInScrollView(self)
+    func numberOfPage() -> Int? {
+        return dataSource?.numberOfPagesInScrollView(self)
     }
     
     func changePage(page: Int) {

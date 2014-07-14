@@ -9,19 +9,20 @@
 class HomeViewController : SBViewController, DHPageScrollViewDataSource
 {
     var doc: TFHpple?
-    var recommendStories: [TFHppleElement]?
+    var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetClient.instance.get("/", success: {
-            (html: String) in
-            
-            self.doc = html.htmlDocument()
-            self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
-            self.createTopFeaturingSlide()
-            })
+        if recommendStories.count == 0 {
+            NetClient.instance.get("/", success: {
+                (html: String) in
+                self.doc = html.htmlDocument()
+                self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
+                self.createTopFeaturingSlide()
+                })
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -34,7 +35,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource
     
     func createTopFeaturingSlide() {
         var topMargin = Common.commonTopMargin()
-        self.recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90))
+        self.recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self)
         self.recommendStoryScrollView!.dataSource = self
         self.view.addSubview(self.recommendStoryScrollView)
     }
@@ -44,9 +45,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource
         var count = 0
         
         if scrollView == recommendStoryScrollView {
-            if let recomm = recommendStories {
-                count = recomm.count
-            }
+            count = recommendStories.count
         }
         
         return count
@@ -60,7 +59,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource
         button.imageView.contentMode = UIViewContentMode.ScaleAspectFill
 
         if scrollView == recommendStoryScrollView {
-            data = recommendStories![page]
+            data = recommendStories[page]
             var results = data.itemsWithQuery(".thumb_img")
             
             if results.count > 0 {
