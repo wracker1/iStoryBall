@@ -24,8 +24,7 @@ class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
     }
     
     func itemsWithDocument(document: TFHpple, query: String) -> [TFHppleElement] {
-        let queries = query.componentsSeparatedByString(" ")
-        let pattern = patternWithQueries(queries)
+        let pattern = convertFromSizzleQueryToXPathQuery(query)
         var result = document.searchWithXPathQuery(pattern)
         return result as [TFHppleElement]
     }
@@ -40,6 +39,11 @@ class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
         case let x where x.hasPrefix("."): return .ClassSelector
         default: return .TagSelector
         }
+    }
+    
+    func convertFromSizzleQueryToXPathQuery(query: String) -> String {
+        let queries = query.componentsSeparatedByString(" ")
+        return patternWithQueries(queries)
     }
     
     func patternWithQueries(queries: [String]) -> String {
@@ -90,5 +94,12 @@ extension String {
 extension TFHpple {
     func itemsWithQuery(query: String) -> [TFHppleElement] {
         return DHHTMLStringParser.instance.itemsWithDocument(self, query: query)
+    }
+}
+
+extension TFHppleElement {
+    func itemsWithQuery(query: String) -> [AnyObject] {
+        var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
+        return self.searchWithXPathQuery(q)
     }
 }

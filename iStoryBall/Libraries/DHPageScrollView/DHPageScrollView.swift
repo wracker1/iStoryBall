@@ -59,6 +59,9 @@ class DHPageScrollViewContainer: UIScrollView
     
     init(frame: CGRect) {
         super.init(frame: frame)
+        self.showsHorizontalScrollIndicator = false
+        self.showsVerticalScrollIndicator = false
+        self.scrollsToTop = false
     }
     
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
@@ -76,7 +79,9 @@ class DHPageScrollViewContainer: UIScrollView
         if Int(diff) > bufferSize {
             removeContentView()
         } else {
-            self.contentView = self.scrollView.loadPageScrollViewContentViewAtPage(page)
+            var content = self.scrollView.loadPageScrollViewContentViewAtPage(page)
+            self.contentView = content
+//            self.contentSize = self.bounds.size
         }
     }
     
@@ -188,7 +193,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         for var i = 0; i < pageViews.count; i++ {
             var pageView = pageViews[i]
             pageView.frame = CGRectMake(Float(i) * size.width, 0, size.width, size.height)
-            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
+//            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
         }
     }
     

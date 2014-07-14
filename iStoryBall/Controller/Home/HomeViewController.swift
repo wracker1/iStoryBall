@@ -6,33 +6,70 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class HomeViewController : SBViewController
+class HomeViewController : SBViewController, DHPageScrollViewDataSource
 {
     var doc: TFHpple?
     var recommendStories: [TFHppleElement]?
-    var recommendStoryScrollView: UIScrollView?
+    var recommendStoryScrollView: DHPageScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 180))
-        recommendStoryScrollView!.backgroundColor = UIColor.redColor()
-        self.view.addSubview(recommendStoryScrollView)
         
         NetClient.instance.get("/", success: {
             (html: String) in
             
             self.doc = html.htmlDocument()
             self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
+            self.createTopFeaturingSlide()
             })
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    func createTopFeaturingSlide() {
+        var topMargin = Common.commonTopMargin()
+        self.recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90))
+        self.recommendStoryScrollView!.dataSource = self
+        self.view.addSubview(self.recommendStoryScrollView)
+    }
+    
+//    DHPageScrollViewDataSource
+    func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
+        var count = 0
+        
+        if scrollView == recommendStoryScrollView {
+            if let recomm = recommendStories {
+                count = recomm.count
+            }
+        }
+        
+        return count
+    }
+    
+    func scrollViewContentViewAtPage(scrollView: DHPageScrollView, contentViewAtPage page: Int) -> UIView? {
+        var data: TFHppleElement!
+
+        var button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = self.recommendStoryScrollView!.bounds
+        button.imageView.contentMode = UIViewContentMode.ScaleAspectFill
+
+        if scrollView == recommendStoryScrollView {
+            data = recommendStories![page]
+            var results = data.itemsWithQuery(".thumb_img")
+            
+            if results.count > 0 {
+                var thumbImageNode = results[0] as TFHppleElement
+                var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
+                button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
+            }
+        }
+        
+        return button
     }
 }
