@@ -14,6 +14,8 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     var refinedMenu: [TFHppleElement]?
     let exceptiveMenuUrl = ["/story/pop", "/episode/hit", "/story/list"]
     
+    var noticeViewController = NoticeViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         requestMenuData()
@@ -110,8 +112,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
             println(indexPath.row)
         case 7: // 스토리볼 공지
             println(indexPath.row)
-            // 다시 테이블 뷰 컨트롤러를 만들어야 한다!
-            
+            self.navigationController.pushViewController(noticeViewController, animated: true)
         case 8: // 스토리볼 연재 제안
             println(indexPath.row)
         default:
