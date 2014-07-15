@@ -13,15 +13,13 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
     
     var doc: TFHpple?
     var notices: [TFHppleElement]?
-    
-    var noticeViewDetailController = NoticeDetailViewController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        getNoticeData()
+        getNoticeListData()
     }
     
-    func getNoticeData() {
+    func getNoticeListData() {
         var url = "/notice/list_more?page=1"
         NetClient.instance.get(url, success: {
             (html: String) in
@@ -64,6 +62,10 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        self.navigationController.pushViewController(noticeViewDetailController, animated: true)
+        var noticeViewDetailController = NoticeDetailViewController()
+        var notice:TFHppleElement = self.notices![indexPath.row]
+        var url = notice.attributes["href"] as NSString
+        noticeViewDetailController.url = url
+        self.navigationController.pushViewController(noticeViewDetailController, animated: false)
     }
 }

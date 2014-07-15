@@ -7,6 +7,9 @@
 //
 
 class NoticeDetailViewController : SBViewController {
+    var url:String = "/"
+    var doc: TFHpple?
+    var notices: [TFHppleElement]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,8 +17,53 @@ class NoticeDetailViewController : SBViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        var label = UILabel()
-        label.text = "큐큐"
-        self.view.addSubview(label)
+        getNoticeContentData()
     }
+    
+    func getNoticeContentData() {
+        println("url: " + url)
+        NetClient.instance.get(url, success: {
+            (html: String) in
+            
+            self.doc = html.htmlDocument()
+            self.notices = self.doc!.itemsWithQuery(".box_notice")
+            self.initView()
+            })
+    }
+    
+    func initView() {
+        var topMargin = Common.commonTopMargin()
+        var titleLabel = UILabel(frame: CGRectMake(0, topMargin, 320, 90))
+        var notice:TFHppleElement = self.notices![0]
+        
+        var titleEl = notice.itemsWithQuery(".tit_info")
+        var title = ""
+        if titleEl.count > 0 {
+            var el = titleEl[0] as TFHppleElement
+            title = el.text()
+        }
+        
+        titleLabel.text = title
+        self.view.addSubview(titleLabel)
+        
+        var contentEl = notice.itemsWithQuery(".desc_notice")
+        var content = ""
+        if contentEl.count > 0 {
+            var el = contentEl[0] as TFHppleElement
+            content = el.raw
+        }
+
+        var html = "<html><head><title></title></head><body style=\"background:transparent;\">"
+        html += content
+        html += "</body></html>"
+        
+        var webView = UIWebView(frame: CGRectMake(0, topMargin + 90, 320, 500))
+        webView.backgroundColor = UIColor.clearColor()
+        webView.loadHTMLString(html, baseURL: nil)
+        self.view.addSubview(webView)
+
+        println("title: " + title);
+        println("content: " + content)
+    }
+    
 }
