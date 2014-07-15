@@ -14,10 +14,10 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
     var doc: TFHpple?
     var notices: [TFHppleElement]?
     
+    var noticeViewDetailController = NoticeDetailViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //initView()
-        //self.view.adds
         getNoticeData()
     }
     
@@ -58,10 +58,12 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
             var el = titleEl[0] as TFHppleElement
             title = el.text()
         }
-//
-//        var date = ""
-//        
+        
         cell.textLabel.text = title
         return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        self.navigationController.pushViewController(noticeViewDetailController, animated: true)
     }
 }

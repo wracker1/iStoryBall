@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C1B4E47196D238F0080F6EE /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B4E46196D238F0080F6EE /* Article.swift */; };
 		4C88F82E196D39E6001C77C4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C88F82D196D39E6001C77C4 /* DetailViewController.swift */; };
+		5E0631FF1974F07B00003E27 /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */; };
 		5EF805651973A18B00EFF888 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF805641973A18B00EFF888 /* NoticeViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
@@ -92,6 +93,7 @@
 /* Begin PBXFileReference section */
 		4C1B4E46196D238F0080F6EE /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = SOURCE_ROOT; };
 		4C88F82D196D39E6001C77C4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		5EF805641973A18B00EFF888 /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			children = (
 				880E2C2F196CD69B0005375E /* MenuViewController.swift */,
 				5EF805641973A18B00EFF888 /* NoticeViewController.swift */,
+				5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
+				5E0631FF1974F07B00003E27 /* NoticeViewDetailController.swift in Sources */,
 				883524B2196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
 				880E2C30196CD69B0005375E /* MenuViewController.swift in Sources */,
 				88089123196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
