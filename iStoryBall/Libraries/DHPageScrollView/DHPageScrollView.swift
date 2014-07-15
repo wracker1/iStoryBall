@@ -8,14 +8,14 @@
 
 import UIKit
 
-@class_protocol protocol DHPageScrollViewDataSource
+protocol DHPageScrollViewDataSource
 {
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int
     
     func scrollViewContentViewAtPage(scrollView: DHPageScrollView, contentViewAtPage page: Int) -> UIView?
 }
 
-@class_protocol protocol DHPageScrollViewDelegate
+protocol DHPageScrollViewDelegate
 {
     func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void
 }
@@ -131,6 +131,11 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         self.scrollsToTop = false
         self.delegate = self
         self.dataSource = dataSource
+    }
+    
+    convenience init(frame: CGRect, dataSource: DHPageScrollViewDataSource, delegator: DHPageScrollViewDelegate) {
+        self.init(frame: frame, dataSource: dataSource)
+        self.delegator = delegator
     }
     
     func reloadData() {

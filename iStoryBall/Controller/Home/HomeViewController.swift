@@ -36,10 +36,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     func createTopFeaturingSlide() {
         var topMargin = Common.commonTopMargin()
-        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self)
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self, delegator: self)
         recommendStoryScrollView!.setTranslatesAutoresizingMaskIntoConstraints(false)
-        recommendStoryScrollView!.dataSource = self
-        recommendStoryScrollView!.delegator = self
         self.view.addSubview(recommendStoryScrollView)
         
         var slideDict = Dictionary<String, UIView>()
@@ -47,7 +45,15 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var slideHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|[slide(>=320)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: slideDict)
         self.view.addConstraints(slideHConst)
         
+        createPageControl()
+        
+        recommendStoryScrollView!.reloadData()
+    }
+    
+    func createPageControl() {
+        var topMargin = Common.commonTopMargin()
         var pageControl = UIPageControl()
+        
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
         pageControl.frame = CGRectMake(0, 0, 130, 10)
         pageControl.currentPage = 0
@@ -67,8 +73,6 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         dict["pageControl"] = pageControl
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(<=\(topMargin))-[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
         self.view.addConstraints(vConst)
-        
-        recommendStoryScrollView!.reloadData()
     }
     
 //    DHPageScrollViewDataSource
