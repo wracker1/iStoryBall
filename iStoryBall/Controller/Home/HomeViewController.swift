@@ -12,6 +12,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
     var recommendStoryPageControl: UIPageControl?
+    var dailyScrollView: DHPageScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +56,12 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var pageControl = UIPageControl()
         
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
-        pageControl.frame = CGRectMake(0, 0, 130, 10)
+        pageControl.frame = CGRectMake(0, 0, 80, 5)
         pageControl.currentPage = 0
         pageControl.numberOfPages = self.recommendStories.count
         pageControl.currentPageIndicatorTintColor = UIColor.blueColor()
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
+        pageControl.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
         self.view.addSubview(pageControl)
         self.recommendStoryPageControl = pageControl
         
@@ -73,6 +75,11 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         dict["pageControl"] = pageControl
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(<=\(topMargin))-[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
         self.view.addConstraints(vConst)
+    }
+    
+    func pageControlDidTouched() {
+        var page = self.recommendStoryPageControl!.currentPage
+        self.recommendStoryScrollView!.scrollToPage(page, animated: true)
     }
     
 //    DHPageScrollViewDataSource
@@ -95,12 +102,18 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
 
         if scrollView == recommendStoryScrollView {
             data = recommendStories[page]
-            var results = data.itemsWithQuery(".thumb_img")
+            var imageNode = data.itemsWithQuery(".thumb_img")
+            var textNode = data.itemsWithQuery(".tit_banner")
             
-            if results.count > 0 {
-                var thumbImageNode = results[0] as TFHppleElement
+            if imageNode.count > 0 {
+                var thumbImageNode = imageNode[0] as TFHppleElement
                 var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
                 button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
+            }
+            
+            if textNode.count > 0 {
+                var titleNode = textNode[0] as TFHppleElement
+                println(titleNode.raw)
             }
         }
         

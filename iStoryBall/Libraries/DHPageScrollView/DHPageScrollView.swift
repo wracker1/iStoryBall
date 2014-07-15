@@ -171,6 +171,16 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         }
     }
     
+    func scrollToPage(page: Int, animated: Bool) {
+        var rect = rectByPage(page)
+        self.scrollRectToVisible(rect, animated: animated)
+    }
+    
+    func rectByPage(page: Int) -> CGRect {
+        var size = self.bounds.size
+        return CGRectMake(Float(page) * size.width, 0, size.width, size.height)
+    }
+    
     func createPageView(count: Int) {
         var size = self.bounds.size
         
@@ -197,7 +207,7 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         
         for var i = 0; i < pageViews.count; i++ {
             var pageView = pageViews[i]
-            pageView.frame = CGRectMake(Float(i) * size.width, 0, size.width, size.height)
+            pageView.frame = rectByPage(i)
             pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
         }
     }
