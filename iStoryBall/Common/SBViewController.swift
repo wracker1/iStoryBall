@@ -16,6 +16,12 @@ class SBViewController : UIViewController
         self.title = title
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.edgesForExtendedLayout = UIRectEdge.None
+    }
+    
     override func shouldAutorotate() -> Bool {
         return true
     }
