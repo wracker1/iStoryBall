@@ -79,8 +79,8 @@
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
 		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
-		88E70B211973AF3000B38A0F /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* Common.swift */; };
-		88E70B221973AF3000B38A0F /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* Common.swift */; };
+		88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
+		88E70B221973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,7 +163,7 @@
 		889A9A3C196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A3D196BEB6600358119 /* iStoryBallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iStoryBallTests.swift; sourceTree = "<group>"; };
 		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
-		88E70B201973AF3000B38A0F /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		88E70B201973AF3000B38A0F /* CommonUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +201,7 @@
 				8808911F196BF00000BE3F51 /* SBViewController.swift */,
 				88089122196BF0D800BE3F51 /* SBTabBarController.swift */,
 				88089125196BF0E900BE3F51 /* SBNavigationController.swift */,
-				88E70B201973AF3000B38A0F /* Common.swift */,
+				88E70B201973AF3000B38A0F /* CommonUtil.swift */,
 				88C070BB1977B0A3003C1FA5 /* CommonUI.swift */,
 			);
 			path = Common;
@@ -550,7 +550,7 @@
 				88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */,
 				88089120196BF00000BE3F51 /* SBViewController.swift in Sources */,
 				88089149196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
-				88E70B211973AF3000B38A0F /* Common.swift in Sources */,
+				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
@@ -599,7 +599,7 @@
 				883524AF196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				883524B1196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */,
-				88E70B221973AF3000B38A0F /* Common.swift in Sources */,
+				88E70B221973AF3000B38A0F /* CommonUtil.swift in Sources */,
 				883524B3196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
 				880E2C31196CD69B0005375E /* MenuViewController.swift in Sources */,
 				88089124196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
