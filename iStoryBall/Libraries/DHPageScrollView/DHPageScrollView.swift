@@ -12,19 +12,17 @@ protocol DHPageScrollViewDataSource
 {
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int
     
-    func scrollViewContentViewAtPage(scrollView: DHPageScrollView, contentViewAtPage page: Int) -> UIView?
+    func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView?
 }
 
-protocol DHPageScrollViewDelegate
+@objc protocol DHPageScrollViewDelegate: UIScrollViewDelegate
 {
-    func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void
+    @optional func scrollViewDidChangePage(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
 }
 
-class DHPageScrollViewContainer: UIScrollView
+class DHPageView: UIScrollView
 {
     var page = 0
-    var bufferSize = 2
-    
     var _contentView: UIView?
     var contentView: UIView? {
     set {
@@ -32,12 +30,6 @@ class DHPageScrollViewContainer: UIScrollView
             if let v = newValue {
                 _contentView = v
                 self.addSubview(v)
-                
-                var parentSize = self.bounds.size
-                var size = v.bounds.size
-                var origin = CGPointMake((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2)
-                v.frame = CGRectMake(origin.x, origin.y, size.width, size.height)
-                v.autoresizingMask = ~UIViewAutoresizing.None
             }
         }
     }
@@ -46,47 +38,24 @@ class DHPageScrollViewContainer: UIScrollView
     }
     }
     
-    weak var _scrollView: DHPageScrollView!
-    var scrollView: DHPageScrollView {
-    set {
-        _scrollView = newValue
-        _scrollView.addObserver(self, forKeyPath: "currentPage", options: NSKeyValueObservingOptions.New, context: nil)
-    }
-    get {
-        return _scrollView
-    }
-    }
-    
-    init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRectZero)
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.directionalLockEnabled = true
         self.scrollsToTop = false
     }
     
-    deinit {
-        _scrollView.removeObserver(self, forKeyPath: "currentPage", context: nil)
-    }
-    
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
-        var dict = change as Dictionary
-        var present: AnyObject? = dict["new"]
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        if let p = present as? Double {
-            checkcurrentPage(p)
-        }
-    }
-    
-    func checkcurrentPage(currentPage: Double) {
-        var diff = fabs(currentPage - Double(page))
-        
-        if Int(diff) > bufferSize {
-            removeContentView()
-        } else {
-            var content = self.scrollView.loadPageScrollViewContentViewAtPage(page)
-            self.contentView = content
-            self.contentSize = self.bounds.size
+        if let v = _contentView {
+            var selfSize = self.bounds.size
+            var viewSize = v.bounds.size
+            var x = (selfSize.width - viewSize.width) / 2
+            var y = (selfSize.height - viewSize.height) / 2
+            
+            v.frame = CGRectMake(x, y, viewSize.width, viewSize.height)
         }
     }
     
@@ -98,24 +67,29 @@ class DHPageScrollViewContainer: UIScrollView
     }
 }
 
-class DHPageScrollView: UIScrollView, UIScrollViewDelegate
+class DHPageScrollView: UIScrollView
 {
     var dataSource: DHPageScrollViewDataSource!
-    var delegator: DHPageScrollViewDelegate!
-    var useZoom = false
+    var _delegate: DHPageScrollViewDelegate!
+    override var delegate: UIScrollViewDelegate! {
+    set {
+        _delegate = newValue as DHPageScrollViewDelegate
+        super.delegate = newValue
+    }
+    get {
+        return super.delegate
+    }
+    }
     var currentPage = 0
-    var pages = 0
-    var pageViews: [DHPageScrollViewContainer] = []
-    
+    var bufferSize = 2
+    var pageViews: [DHPageView] = []
+    var pageViewDict = Dictionary<String, DHPageView>()
     var page: Int {
     get {
         let width = self.bounds.size.width
-        var p = Int((self.contentOffset.x + (width / 2)) / width)
-        let max = pages - 1
+        var p = Int(self.contentOffset.x / width)
         
-        if max < p {
-            p = max
-        } else if p < 0 {
+        if p < 0 {
             p = 0
         }
         return p
@@ -129,94 +103,137 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.scrollsToTop = false
-        self.delegate = self
         self.dataSource = dataSource
-    }
-    
-    convenience init(frame: CGRect, dataSource: DHPageScrollViewDataSource, delegator: DHPageScrollViewDelegate) {
-        self.init(frame: frame, dataSource: dataSource)
-        self.delegator = delegator
-    }
-    
-    func reloadData() {
-        pages = numberOfPage()
-        var diff = pages - pageViews.count
+        self.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
         
-        if diff > 0 {
-            createPageView(diff)
-        } else if diff < 0 {
-            diff *= -1
-            removePageView(diff)
+        forcedChangePage(0)
+    }
+    
+    deinit {
+        self.removeObserver(self, forKeyPath: "contentOffset")
+    }
+    
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
+        if page != currentPage {
+            changePage(page)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        if diff > 0 {
-            for var i = 0; i < pageViews.count; i++ {
-                var pageView = pageViews[i]
-                pageView.page = i
+        var p = numberOfPages()
+        var cSize = contentSizeByPages(p)
+        
+        if !CGSizeEqualToSize(cSize, self.contentSize) {
+            self.contentSize = cSize
+        }
+    }
+    
+    func changePage(page: Int) {
+        if currentPage != page {
+            _changePage(page)
+        }
+    }
+    
+    func forcedChangePage(page: Int) {
+        _changePage(page)
+    }
+    
+    func _changePage(page: Int) {
+        currentPage = page
+        
+        requestPageViewAtPage(currentPage)
+        checkContentLeft(currentPage - 1)
+        checkContentRight(currentPage + 1)
+        
+        _delegate?.scrollViewDidChangePage?(self, didChangePage: page)
+    }
+    
+    func checkContentLeft(page: Int) {
+        if (page > -1) {
+            var minIdx = currentPage - bufferSize
+            
+            if page < minIdx {
+                dettachPageViewAtPage(page)
+            } else {
+                requestPageViewAtPage(page)
+            }
+            
+            checkContentLeft(page - 1)
+        }
+    }
+    
+    func checkContentRight(page: Int) {
+        if page < numberOfPages() {
+            var maxIdx = currentPage + bufferSize
+            
+            if page > maxIdx {
+                dettachPageViewAtPage(page)
+            } else {
+                requestPageViewAtPage(page)
+            }
+            
+            checkContentRight(page + 1)
+        }
+    }
+    
+    func requestPageViewAtPage(page: Int) {
+        var key = "\(page)"
+        var old = pageViewDict[key]
+        
+        if old == nil {
+            if let d = dataSource {
+                var pageView = d.scrollView(self, pageViewAtPage: page)
+                
+                if let item = pageView {
+                    item.page = page
+                    
+                    if !contains(pageViews, item) {
+                        pageViews += item
+                    }
+                    
+                    item.frame = rectByPage(page)
+                    self.addSubview(item)
+                    
+                    pageViewDict[key] = item
+                }
             }
         }
+    }
+    
+    func dettachPageViewAtPage(page: Int) {
+        var key = "\(page)"
+        var pageView = pageViewDict[key]
         
-        var size = self.bounds.size
-        var contentSize = CGSizeMake(size.width * CGFloat(pages), size.height)
-        
-        if !CGSizeEqualToSize(contentSize, self.contentSize) {
-            self.contentSize = contentSize
-            layoutPageViews()
-            
-            /**
-            * currentPage를 DHPageScrollViewContainer아 옵저버를 하고 있기 때문에 페이지 확인 후 컨텐츠를 불러오게 된다.
-            */
-            var temp = currentPage
-            currentPage = temp
+        if let item = pageView {
+            if item.superview != nil {
+                item.removeContentView()
+                item.removeFromSuperview()
+                pageViewDict.removeValueForKey(key)
+            }
         }
     }
     
     func scrollToPage(page: Int, animated: Bool) {
-        var rect = rectByPage(page)
-        self.scrollRectToVisible(rect, animated: animated)
+        if page < pageViews.count {
+            var rect = rectByPage(page)
+            changePage(page)
+            self.scrollRectToVisible(rect, animated: animated)
+        }
     }
     
     func rectByPage(page: Int) -> CGRect {
         var size = self.bounds.size
-        return CGRectMake(Float(page) * size.width, 0, size.width, size.height)
+        return CGRectMake(CGFloat(page) * size.width, 0, size.width, size.height)
     }
     
-    func createPageView(count: Int) {
+    func contentSizeByPages(pages: Int) -> CGSize {
         var size = self.bounds.size
-        
-        for var i = 0; i < count; i++ {
-            var pageView = DHPageScrollViewContainer(frame: self.bounds)
-            pageView.scrollView = self
-            self.addSubview(pageView)
-            pageViews.append(pageView)
-        }
+        return CGSizeMake(size.width * CGFloat(pages), size.height)
     }
     
-    func removePageView(count: Int) {
-        var i = 0
-        
-        while i < count {
-            var pageView = pageViews.removeLast()
-            pageView.removeFromSuperview()
-            i++
-        }
-    }
-    
-    func layoutPageViews() {
-        var size = self.bounds.size
-        
-        for var i = 0; i < pageViews.count; i++ {
-            var pageView = pageViews[i]
-            pageView.frame = rectByPage(i)
-            pageView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin
-        }
-    }
-    
-    func loadPageScrollViewContentViewAtPage(page: Int) -> UIView? {
-        return dataSource?.scrollViewContentViewAtPage(self, contentViewAtPage: page)
-    }
-    
-    func numberOfPage() -> Int {
+    func numberOfPages() -> Int {
         var count = 0
         
         if let d = dataSource {
@@ -226,23 +243,31 @@ class DHPageScrollView: UIScrollView, UIScrollViewDelegate
         return count
     }
     
-    func changePage(page: Int) {
-        if currentPage != page {
-            currentPage = page
-            
-            if let d = delegator {
-                d.scrollViewDidChangePage(self, didChangePage: page)
+    func dequeueReusablePageView() -> DHPageView? {
+        var pageView: DHPageView?
+        
+        for item in pageViews {
+            if item.superview == nil {
+                item.page = -1
+                pageView = item
+                break
             }
         }
+        return pageView
     }
     
-    //    UIScrollViewDelegate
-    
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
-        changePage(self.page)
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
-        changePage(self.page)
+    func reloadData() {
+        var p = numberOfPages()
+        
+        for i in 0 ..< pageViews.count {
+            dettachPageViewAtPage(i)
+            
+            if i >= p {
+                pageViews.removeAtIndex(i)
+            }
+        }
+        
+        forcedChangePage(currentPage)
+        setNeedsLayout()
     }
 }

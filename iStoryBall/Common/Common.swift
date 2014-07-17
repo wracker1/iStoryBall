@@ -33,14 +33,20 @@ class Common {
     
     class func navigationBarHeight() -> Float {
         var navigator = selectedController() as UINavigationController
-        return navigator.navigationBar.bounds.size.height
+        return navigator.navigationBar.bounds.size.height.swValue()
     }
     
     class func statusBarHeight() -> Float {
-        return UIApplication.sharedApplication().statusBarFrame.size.height
+        return UIApplication.sharedApplication().statusBarFrame.size.height.swValue()
     }
     
     class func commonTopMargin() -> Float {
         return statusBarHeight() + navigationBarHeight()
+    }
+}
+
+extension CGFloat {
+    func swValue() -> Float {
+        return Float(self)
     }
 }
