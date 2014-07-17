@@ -37,8 +37,9 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     func createTopFeaturingSlide() {
         var topMargin = Common.commonTopMargin()
-        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, topMargin, 320, 90), dataSource: self, delegator: self)
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 90), dataSource: self)
         recommendStoryScrollView!.setTranslatesAutoresizingMaskIntoConstraints(false)
+        recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
         
         var slideDict = Dictionary<String, UIView>()
@@ -52,7 +53,6 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func createPageControl() {
-        var topMargin = Common.commonTopMargin()
         var pageControl = UIPageControl()
         
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -73,7 +73,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var dict = Dictionary<String, UIView>()
         dict["slide"] = recommendStoryScrollView
         dict["pageControl"] = pageControl
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(<=\(topMargin))-[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
         self.view.addConstraints(vConst)
     }
     
@@ -93,31 +93,43 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         return count
     }
     
-    func scrollViewContentViewAtPage(scrollView: DHPageScrollView, contentViewAtPage page: Int) -> UIView? {
-        var data: TFHppleElement!
-
+    func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView? {
+        var pageView: DHPageView!
+        
+        pageView = scrollView.dequeueReusablePageView()
+        
+        if pageView == nil {
+            pageView = DHPageView()
+        }
+        
+        if scrollView == recommendStoryScrollView {
+            updateRecommendStoryPageView(pageView, atPage: page)
+        }
+        
+        return pageView
+    }
+    
+    func updateRecommendStoryPageView(pageView: DHPageView, atPage page: Int) {
+        var data = recommendStories[page]
         var button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         button.frame = self.recommendStoryScrollView!.bounds
         button.imageView.contentMode = UIViewContentMode.ScaleAspectFill
-
-        if scrollView == recommendStoryScrollView {
-            data = recommendStories[page]
-            var imageNode = data.itemsWithQuery(".thumb_img")
-            var textNode = data.itemsWithQuery(".tit_banner")
-            
-            if imageNode.count > 0 {
-                var thumbImageNode = imageNode[0] as TFHppleElement
-                var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
-                button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
-            }
-            
-            if textNode.count > 0 {
-                var titleNode = textNode[0] as TFHppleElement
-                println(titleNode.raw)
-            }
+        
+        var imageNode = data.itemsWithQuery(".thumb_img")
+        var textNode = data.itemsWithQuery(".tit_banner")
+        
+        if imageNode.count > 0 {
+            var thumbImageNode = imageNode[0] as TFHppleElement
+            var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
+            button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
         }
         
-        return button
+        if textNode.count > 0 {
+            var titleNode = textNode[0] as TFHppleElement
+            println(titleNode.raw)
+        }
+        
+        pageView.contentView = button
     }
     
 //    DHPageScrollViewDelegate

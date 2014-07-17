@@ -50,3 +50,9 @@ extension CGFloat {
         return Float(self)
     }
 }
+
+extension Float {
+    func cgValue() -> CGFloat {
+        return CGFloat(self)
+    }
+}

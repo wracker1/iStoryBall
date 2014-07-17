@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DHPageScrollViewDataSource
+@objc protocol DHPageScrollViewDataSource
 {
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int
     
@@ -69,8 +69,8 @@ class DHPageView: UIScrollView
 
 class DHPageScrollView: UIScrollView
 {
-    var dataSource: DHPageScrollViewDataSource!
-    var _delegate: DHPageScrollViewDelegate!
+    weak var dataSource: DHPageScrollViewDataSource!
+    weak var _delegate: DHPageScrollViewDelegate!
     override var delegate: UIScrollViewDelegate! {
     set {
         _delegate = newValue as DHPageScrollViewDelegate
@@ -87,7 +87,7 @@ class DHPageScrollView: UIScrollView
     var page: Int {
     get {
         let width = self.bounds.size.width
-        var p = Int(self.contentOffset.x / width)
+        var p = Int((self.contentOffset.x + (width / 2)) / width)
         
         if p < 0 {
             p = 0
