@@ -14,8 +14,6 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     var refinedMenu: [TFHppleElement]?
     let exceptiveMenuUrl = ["/story/pop", "/episode/hit", "/story/list"]
     
-    var noticeViewController = NoticeViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         requestMenuData()
@@ -39,7 +37,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         var refined = [TFHppleElement]()
         var count = menus!.count
         
-        for i in 0..<count {
+        for i in 0 ..< count {
             var menu = menus![i]
             var url = menu.attributes["href"] as NSString
             if isValidMenu(url) {
@@ -100,6 +98,8 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         case 2: // 공감 스토리
             println(indexPath.row)
         case 3: // 맞춤한 스토리
+            var choiceViewController = ChoiceViewController()
+            self.navigationController.pushViewController(choiceViewController, animated: true)
             println(indexPath.row)
         case 4: // 설레는 이벤트
             println(indexPath.row)
@@ -112,6 +112,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
             println(indexPath.row)
         case 7: // 스토리볼 공지
             println(indexPath.row)
+            var noticeViewController = NoticeViewController()
             self.navigationController.pushViewController(noticeViewController, animated: true)
         case 8: // 스토리볼 연재 제안
             println(indexPath.row)

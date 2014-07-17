@@ -1,5 +1,5 @@
 //
-//  NoticeViewDetail.swift
+//  NoticeViewDetailController.swift
 //  iStoryBall
 //
 //  Created by 정 다정 on 2014. 7. 15..
