@@ -78,6 +78,7 @@
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
+		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
 		88E70B211973AF3000B38A0F /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* Common.swift */; };
 		88E70B221973AF3000B38A0F /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* Common.swift */; };
 /* End PBXBuildFile section */
@@ -161,6 +162,7 @@
 		889A9A37196BEB6600358119 /* iStoryBallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iStoryBallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A3C196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A3D196BEB6600358119 /* iStoryBallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iStoryBallTests.swift; sourceTree = "<group>"; };
+		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		88E70B201973AF3000B38A0F /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +202,7 @@
 				88089122196BF0D800BE3F51 /* SBTabBarController.swift */,
 				88089125196BF0E900BE3F51 /* SBNavigationController.swift */,
 				88E70B201973AF3000B38A0F /* Common.swift */,
+				88C070BB1977B0A3003C1FA5 /* CommonUI.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				8808911D196BEEAA00BE3F51 /* ThemeViewController.swift in Sources */,
 				4C1B4E47196D238F0080F6EE /* Article.swift in Sources */,
 				88089147196BF3DD00BE3F51 /* AFHTTPRequestOperationManager.m in Sources */,
+				88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */,
 				884FEC53196E88E000AF19CF /* TFHppleElement.m in Sources */,
 				883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */,
@@ -654,7 +658,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Daum Communications";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Daum Communications";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -671,7 +676,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -697,7 +702,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Daum Communications";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Daum Communications";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -708,7 +714,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -8,20 +8,7 @@
 
 import Foundation
 
-class Common {
-    class func imageUrlFromHppleElement(element: TFHppleElement) -> String? {
-        var url: String?
-        var info = element.attributes["style"] as NSString
-        
-        if info != nil {
-            var regex = NSRegularExpression.regularExpressionWithPattern("background-image:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
-            var result = regex.firstMatchInString(info, options: NSMatchingOptions(0), range: NSMakeRange(0, info.length))
-            url = info.substringWithRange(result.rangeAtIndex(1))
-        }
-        
-        return url
-    }
-    
+class CommonUtil {
     class func mainWindow() -> UIWindow {
         return UIApplication.sharedApplication().windows[0] as UIWindow
     }

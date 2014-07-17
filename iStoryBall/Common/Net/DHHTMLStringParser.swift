@@ -102,4 +102,17 @@ extension TFHppleElement {
         var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
         return self.searchWithXPathQuery(q)
     }
+    
+    func imageUrlFromHppleElement() -> String? {
+        var url: String?
+        var info = self.attributes["style"] as NSString
+        
+        if info != nil {
+            var regex = NSRegularExpression.regularExpressionWithPattern("background-image:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
+            var result = regex.firstMatchInString(info, options: NSMatchingOptions(0), range: NSMakeRange(0, info.length))
+            url = info.substringWithRange(result.rangeAtIndex(1))
+        }
+        
+        return url
+    }
 }
