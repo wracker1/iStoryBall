@@ -57,7 +57,8 @@ class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
         return pattern
     }
     
-    func patternWithQuery(query: String) -> String {
+    func patternWithQuery(q: String) -> String {
+        var query = q as NSString
         let type = selectorTypeWithQuery(query)
         
         switch type {
