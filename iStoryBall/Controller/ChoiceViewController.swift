@@ -7,11 +7,12 @@
 //
 
 class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDataSource {
-    var tableView: UITableView?
     var doc: TFHpple?
     var choiceTitles = [String]()
     var choiceValues = [String]()
     var form: TFHppleElement?
+    var tableView: UITableView?
+    var label:UILabel?
     
     override func viewWillAppear(animated: Bool)  {
         NetClient.instance.get("/choice", success: {
@@ -19,7 +20,6 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
             
             self.doc = html.htmlDocument()
 
-            var title = self.doc!.itemsWithQuery(".tit_form")[0].text()
             self.form = self.doc!.itemsWithQuery(".item_form")[0]
             self.initView()
             })
@@ -49,12 +49,30 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         tableView = UITableView(frame: self.view.bounds, style: .Grouped)
         tableView!.delegate = self
         tableView!.dataSource = self
-        
+        tableView!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(tableView)
         
-        //버튼도 붙여야 하는데
+        // 중복으로 붙는다...
+        
+        if var title = label {
+            title.removeFromSuperview()
+        }
+        label = UILabel()
+        label!.frame = CGRectMake(0, 0, 0, 0)
+        label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
+        label!.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.view.addSubview(label)
+        
+        var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
+        
+        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[table(>=300)]-(0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
+        
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(>=300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!])
         
         
+        self.view.addConstraints(labelHConst)
+        self.view.addConstraints(tableHConst)
+        self.view.addConstraints(vConst)
         
     }
     
@@ -63,9 +81,9 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     }
 
 //    구림 viewForHeaderInSection 으로 커스터마이징 가능
-    func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
-        return doc?.itemsWithQuery(".tit_form")[0].text()
-    }
+//    func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+//        return doc?.itemsWithQuery(".tit_form")[0].text()
+//    }
     
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {

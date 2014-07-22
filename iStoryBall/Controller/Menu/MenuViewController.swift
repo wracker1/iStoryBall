@@ -8,7 +8,6 @@
 
 class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDataSource
 {
-    var tableView: UITableView?
     var doc: TFHpple?
     var menus: [TFHppleElement]?
     var refinedMenu: [TFHppleElement]?
@@ -51,7 +50,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
             
             self.doc = html.htmlDocument()
             self.menus = self.refineMenus(self.doc!.itemsWithQuery(".link_menu"))
-            
+
             println(self.menus!.count)
             println("\n")
             self.initView()
@@ -59,10 +58,29 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     }
     
     func initView() {
-        tableView = UITableView(frame: self.view.bounds, style: .Plain)
-        tableView!.delegate = self
-        tableView!.dataSource = self
+        var tableView = UITableView(frame: self.view.bounds, style: .Plain)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(tableView)
+        
+//        var label = UILabel()
+//        label.frame = CGRectMake(0, 0, 0, 0)
+//        label.text = "ㅌ테테테ㅔ테테테테"
+//        label.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        self.view.addSubview(label)
+//        var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label])
+//        
+        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[table(>=300)]-(0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView])
+        
+//        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(>=300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label, "table": tableView])
+//        
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[table(>=300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView])
+        
+        
+//        self.view.addConstraints(labelHConst)
+        self.view.addConstraints(tableHConst)
+        self.view.addConstraints(vConst)
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
