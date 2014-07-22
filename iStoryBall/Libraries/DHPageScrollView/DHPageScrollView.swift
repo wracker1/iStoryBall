@@ -17,7 +17,7 @@ import UIKit
 
 @objc protocol DHPageScrollViewDelegate: UIScrollViewDelegate
 {
-    @optional func scrollViewDidChangePage(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
+    optional func scrollViewDidChangePage(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
 }
 
 class DHPageView: UIScrollView
@@ -55,7 +55,7 @@ class DHPageView: UIScrollView
             var x = (selfSize.width - viewSize.width) / 2
             var y = (selfSize.height - viewSize.height) / 2
             
-            v.frame = CGRectMake(x, y, viewSize.width, viewSize.height)
+            v.frame = CGRectMake(CGFloat(x), CGFloat(y), viewSize.width, viewSize.height)
         }
     }
     

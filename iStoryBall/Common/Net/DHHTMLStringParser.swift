@@ -57,7 +57,8 @@ class DHHTMLStringParser: NSObject, NSXMLParserDelegate {
         return pattern
     }
     
-    func patternWithQuery(query: String) -> String {
+    func patternWithQuery(q: String) -> String {
+        var query = q as NSString
         let type = selectorTypeWithQuery(query)
         
         switch type {
@@ -101,5 +102,18 @@ extension TFHppleElement {
     func itemsWithQuery(query: String) -> [AnyObject] {
         var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
         return self.searchWithXPathQuery(q)
+    }
+    
+    func imageUrlFromHppleElement() -> String? {
+        var url: String?
+        var info = self.attributes["style"] as NSString
+        
+        if info != nil {
+            var regex = NSRegularExpression.regularExpressionWithPattern("background-image:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
+            var result = regex.firstMatchInString(info, options: NSMatchingOptions(0), range: NSMakeRange(0, info.length))
+            url = info.substringWithRange(result.rangeAtIndex(1))
+        }
+        
+        return url
     }
 }

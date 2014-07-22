@@ -524,7 +524,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
 #import <CoreGraphics/CoreGraphics.h>
 
 static UIImage * AFImageWithDataAtScale(NSData *data, CGFloat scale) {
-    UIImage *image = [[UIImage alloc] initWithData:data];
+    UIImage *image = [UIImage imageWithData:data];
 
     return [[UIImage alloc] initWithCGImage:[image CGImage] scale:scale orientation:image.imageOrientation];
 }

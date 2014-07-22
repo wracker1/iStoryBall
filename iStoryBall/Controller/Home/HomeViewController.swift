@@ -36,7 +36,6 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func createTopFeaturingSlide() {
-        var topMargin = Common.commonTopMargin()
         recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 90), dataSource: self)
         recommendStoryScrollView!.setTranslatesAutoresizingMaskIntoConstraints(false)
         recommendStoryScrollView!.delegate = self
@@ -120,13 +119,28 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         if imageNode.count > 0 {
             var thumbImageNode = imageNode[0] as TFHppleElement
-            var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
+            var imageUrl = thumbImageNode.imageUrlFromHppleElement()
             button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
         }
         
         if textNode.count > 0 {
             var titleNode = textNode[0] as TFHppleElement
-            println(titleNode.raw)
+            var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
+            var title = titleNode.children[1] as TFHppleElement
+            
+            var pointLabel = CommonUI.boldFontLabel(point.text(), fontSize: 9)
+            pointLabel.textColor = UIColor.whiteColor()
+            pointLabel.backgroundColor = UIColor.redColor()
+            button.addSubview(pointLabel)
+            
+            var titleLabel = CommonUI.systemFontLabel(title.text(), fontSize: 9)
+            titleLabel.textColor = UIColor.whiteColor()
+            titleLabel.shadowColor = UIColor.blackColor()
+            titleLabel.shadowOffset = CGSizeMake(1, 1)
+            button.addSubview(titleLabel)
+            
+            titleLabel.layoutBottomInParentView()
+            pointLabel.layoutTopFromSibling(titleLabel, horizontalAlign: .Center, offset: CGPointMake(-10, 0))
         }
         
         pageView.contentView = button
