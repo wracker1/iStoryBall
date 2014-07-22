@@ -32,17 +32,13 @@ class NoticeDetailViewController : SBViewController {
     }
     
     func initView() {
-<<<<<<< HEAD
-=======
         var screenBounds = UIScreen.mainScreen().bounds
         var frameHeight:Float = screenBounds.size.height.swValue()
         var topMargin:Float = CommonUtil.commonTopMargin()
         var bottomMargin:Float  = self.tabBarController.tabBar.frame.size.height.swValue()
         var titleHeight:Float = 50
         var contentHeight:Float = frameHeight - topMargin - bottomMargin - titleHeight
-        var titleLabel = UILabel(frame: CGRectMake(0, topMargin.cgValue(), 320, titleHeight.cgValue()))
-        
->>>>>>> FETCH_HEAD
+//        var titleLabel = UILabel(frame: CGRectMake(0, topMargin.cgValue(), 320, titleHeight.cgValue()))
         var notice:TFHppleElement = self.notices![0]
         
         var titleEl = notice.itemsWithQuery(".tit_info")
@@ -68,11 +64,7 @@ class NoticeDetailViewController : SBViewController {
         html += content
         html += "</body></html>"
         
-<<<<<<< HEAD
         var webView = UIWebView(frame: CGRectMake(0, 0, 0, 0))
-=======
-        var webView = UIWebView(frame: CGRectMake(0, (topMargin + titleHeight).cgValue(), 320, contentHeight.cgValue()))
->>>>>>> FETCH_HEAD
         webView.backgroundColor = UIColor.clearColor()
         webView.loadHTMLString(html, baseURL: nil)
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
