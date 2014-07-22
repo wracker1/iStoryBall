@@ -17,9 +17,6 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         requestMenuData()
-        //initView()
-        //self.view.adds
-        
     }
     
     func isValidMenu(url: String) -> Bool {
@@ -62,7 +59,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     }
     
     func initView() {
-        tableView = UITableView(frame: self.view.frame, style: .Plain)
+        tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
         self.view.addSubview(tableView)
@@ -86,7 +83,6 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         }
         
         cell.textLabel.text = name
-        
         return cell
     }
     

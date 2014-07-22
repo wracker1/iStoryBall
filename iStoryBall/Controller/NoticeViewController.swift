@@ -31,7 +31,7 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
     }
     
     func initView() {
-        tableView = UITableView(frame: self.view.frame, style: .Plain)
+        tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
         self.view.addSubview(tableView)

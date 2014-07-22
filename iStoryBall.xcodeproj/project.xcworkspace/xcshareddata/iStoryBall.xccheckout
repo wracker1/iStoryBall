@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7DF94AF9-C64E-43E2-A021-92E544F84AEA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iStoryBall</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</key>
+		<string>ssh://github.com/wracker1/iStoryBall.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iStoryBall.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/wracker1/iStoryBall.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iStoryBall</string>
+		</dict>
+	</array>
+</dict>
+</plist>

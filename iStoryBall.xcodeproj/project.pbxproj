@@ -13,6 +13,7 @@
 		5E8F6E6C197762750004218D /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F6E6B197762750004218D /* ChoiceViewController.swift */; };
 		5E8F6E6E197762900004218D /* ProposalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F6E6D197762900004218D /* ProposalViewController.swift */; };
 		5EF805651973A18B00EFF888 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF805641973A18B00EFF888 /* NoticeViewController.swift */; };
+		5EFC2C17197CE8A9007B1E8A /* ChoiceViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC2C16197CE8A9007B1E8A /* ChoiceViewDetailController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -97,8 +98,9 @@
 		4C88F82D196D39E6001C77C4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		5E8F6E6B197762750004218D /* ChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceViewController.swift; sourceTree = "<group>"; };
-		5E8F6E6D197762900004218D /* ProposalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposalViewController.swift; sourceTree = "<group>"; };
+		5E8F6E6D197762900004218D /* ProposalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProposalViewController.swift; path = ../ProposalViewController.swift; sourceTree = "<group>"; };
 		5EF805641973A18B00EFF888 /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		5EFC2C16197CE8A9007B1E8A /* ChoiceViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceViewDetailController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				88089113196BEE7E00BE3F51 /* HomeViewController.swift */,
+				5E8F6E6D197762900004218D /* ProposalViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -309,7 +312,7 @@
 				5EF805641973A18B00EFF888 /* NoticeViewController.swift */,
 				5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */,
 				5E8F6E6B197762750004218D /* ChoiceViewController.swift */,
-				5E8F6E6D197762900004218D /* ProposalViewController.swift */,
+				5EFC2C16197CE8A9007B1E8A /* ChoiceViewDetailController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
 				5E8F6E6C197762750004218D /* ChoiceViewController.swift in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,
+				5EFC2C17197CE8A9007B1E8A /* ChoiceViewDetailController.swift in Sources */,
 				88089159196BF3DD00BE3F51 /* NetClient.swift in Sources */,
 				8808914B196BF3DD00BE3F51 /* AFNetworkReachabilityManager.m in Sources */,
 				883524B4196D046700E89105 /* UIWebView+AFNetworking.m in Sources */,
