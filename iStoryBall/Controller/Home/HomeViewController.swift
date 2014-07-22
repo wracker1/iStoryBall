@@ -14,6 +14,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
     var recommendStoryPageControl: UIPageControl?
+    
+    var dailyStories: [TFHppleElement] = []
     var dailyScrollView: DHPageScrollView?
     
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 self.doc = html.htmlDocument()
                 self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
                 self.createTopFeaturingSlide()
+                
+                self.dailyStories = self.doc!.itemsWithQuery(".list_product li a")
                 self.createContentTable()
                 })
         }
@@ -40,47 +44,28 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     func createTopFeaturingSlide() {
         recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 90), dataSource: self)
-        recommendStoryScrollView!.setTranslatesAutoresizingMaskIntoConstraints(false)
         recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
-        
-        var slideDict = Dictionary<String, UIView>()
-        slideDict["slide"] = recommendStoryScrollView
-        var slideHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|[slide(>=320)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: slideDict)
-        self.view.addConstraints(slideHConst)
+        recommendStoryScrollView!.layoutTopInParentView()
         
         createPageControl()
-        
         recommendStoryScrollView!.reloadData()
     }
     
     func createPageControl() {
-        var pageControl = UIPageControl()
+        recommendStoryPageControl = UIPageControl()
+        recommendStoryPageControl!.currentPage = 0
+        recommendStoryPageControl!.numberOfPages = recommendStories.count
+        recommendStoryPageControl!.currentPageIndicatorTintColor = UIColor.blueColor()
+        recommendStoryPageControl!.pageIndicatorTintColor = UIColor.grayColor()
+        recommendStoryPageControl!.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
+        self.view.addSubview(recommendStoryPageControl)
         
-        pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
-        pageControl.frame = CGRectMake(0, 0, 80, 5)
-        pageControl.currentPage = 0
-        pageControl.numberOfPages = self.recommendStories.count
-        pageControl.currentPageIndicatorTintColor = UIColor.blueColor()
-        pageControl.pageIndicatorTintColor = UIColor.grayColor()
-        pageControl.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
-        self.view.addSubview(pageControl)
-        self.recommendStoryPageControl = pageControl
-        
-        var pageControlDict = Dictionary<String, UIView>()
-        pageControlDict["page"] = pageControl
-        var pageHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=110)-[page(100)]-(>=110)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: pageControlDict)
-        self.view.addConstraints(pageHConst)
-        
-        var dict = Dictionary<String, UIView>()
-        dict["slide"] = recommendStoryScrollView
-        dict["pageControl"] = pageControl
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
-        self.view.addConstraints(vConst)
+        recommendStoryPageControl!.layoutBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
     }
     
     func createContentTable() {
-        
+        println(self.dailyStories)
     }
     
     func pageControlDidTouched() {

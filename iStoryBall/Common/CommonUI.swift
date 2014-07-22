@@ -154,7 +154,7 @@ extension UIView {
     }
     
     func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        var topMargin = -offset.y
+        var topMargin = offset.y
         var visualFormat = "V:[s]-(\(topMargin))-[v(\(self.bounds.size.height))]"
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
