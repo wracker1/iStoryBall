@@ -15,6 +15,15 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     var label:UILabel?
     
     override func viewWillAppear(animated: Bool)  {
+        requestData()
+        super.viewWillAppear(animated)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    func requestData() {
         NetClient.instance.get("/choice", success: {
             (html: String) in
             
@@ -23,7 +32,6 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
             self.form = self.doc!.itemsWithQuery(".item_form")[0]
             self.initView()
             })
-        super.viewWillAppear(animated)
     }
     
     func initView() {
@@ -73,6 +81,9 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         self.view.addConstraints(labelHConst)
         self.view.addConstraints(tableHConst)
         self.view.addConstraints(vConst)
+
+        // 버튼
+        
         
     }
     
