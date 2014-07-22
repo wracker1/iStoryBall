@@ -81,6 +81,7 @@ class DHPageScrollView: UIScrollView
     }
     }
     var currentPage = 0
+    var reloadFinishBlock: (() -> Void)?
     var bufferSize = 2
     var pageViews: [DHPageView] = []
     var pageViewDict = Dictionary<String, DHPageView>()
@@ -127,6 +128,10 @@ class DHPageScrollView: UIScrollView
         
         if !CGSizeEqualToSize(cSize, self.contentSize) {
             self.contentSize = cSize
+            
+            if let finish = reloadFinishBlock {
+                finish()
+            }
         }
     }
     
@@ -217,7 +222,7 @@ class DHPageScrollView: UIScrollView
     }
     
     func scrollToPage(page: Int, animated: Bool) {
-        if page < pageViews.count {
+        if page < numberOfPages() {
             var rect = rectByPage(page)
             changePage(page)
             self.scrollRectToVisible(rect, animated: animated)
@@ -256,8 +261,9 @@ class DHPageScrollView: UIScrollView
         return pageView
     }
     
-    func reloadData() {
+    func reloadData(finishBlock: (() -> Void)?) {
         var p = numberOfPages()
+        reloadFinishBlock = finishBlock
         
         for i in 0 ..< pageViews.count {
             dettachPageViewAtPage(i)

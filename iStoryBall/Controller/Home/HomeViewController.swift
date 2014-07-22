@@ -16,6 +16,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     var recommendStoryPageControl: UIPageControl?
     
     var dailyStories: [TFHppleElement] = []
+    var dayOfWeeks: [NSDate] = []
     var dailyScrollView: DHPageScrollView?
     
     override func viewDidLoad() {
@@ -49,7 +50,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryScrollView!.layoutTopInParentView()
         
         createPageControl()
-        recommendStoryScrollView!.reloadData()
+        recommendStoryScrollView!.reloadData(nil)
     }
     
     func createPageControl() {
@@ -65,7 +66,27 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func createContentTable() {
-        println(self.dailyStories)
+        var components = NSDateComponents()
+        var cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        
+        for fromNow in 0 ... 6 {
+            components.day = (fromNow * -1)
+            var date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0))
+            dayOfWeeks += date
+        }
+        
+        dayOfWeeks = dayOfWeeks.reverse()
+        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, 180, 43), dataSource: self)
+        dailyScrollView = scrollView
+        dailyScrollView!.delegate = self
+        dailyScrollView!.clipsToBounds = false
+        self.view.addSubview(dailyScrollView)
+        
+        var pageCount = dayOfWeeks.count - 1
+        dailyScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
+        dailyScrollView!.reloadData {
+            scrollView.scrollToPage(pageCount, animated: false)
+        }
     }
     
     func pageControlDidTouched() {
@@ -79,6 +100,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         if scrollView == recommendStoryScrollView {
             count = recommendStories.count
+        } else if scrollView === dailyScrollView {
+            count = dayOfWeeks.count
         }
         
         return count
@@ -93,8 +116,10 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             pageView = DHPageView()
         }
         
-        if scrollView == recommendStoryScrollView {
+        if scrollView === recommendStoryScrollView {
             updateRecommendStoryPageView(pageView, atPage: page)
+        } else if scrollView === dailyScrollView {
+            updateDailyScrollViewPageView(pageView, atPage: page)
         }
         
         return pageView
@@ -120,14 +145,15 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
             var title = titleNode.children[2] as TFHppleElement
             
-            var pointLabel = CommonUI.boldFontLabel(point.text().trim(), fontSize: 9)
+            var pointLabel = CommonUI.boldFontLabel(point.text().trim(), fontSize: 8)
             pointLabel.textColor = UIColor.whiteColor()
+            pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
             pointLabel.backgroundColor = UIColor.redColor()
             pointLabel.layer.masksToBounds = true
-            pointLabel.layer.cornerRadius = 1.5
+            pointLabel.layer.cornerRadius = 5.0
             button.addSubview(pointLabel)
             
-            var titleLabel = CommonUI.systemFontLabel(title.content.trim(), fontSize: 9)
+            var titleLabel = CommonUI.systemFontLabel(title.content.trim(), fontSize: 10)
             titleLabel.textColor = UIColor.whiteColor()
             titleLabel.shadowColor = UIColor.blackColor()
             titleLabel.shadowOffset = CGSizeMake(1, 1)
@@ -140,8 +166,39 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         pageView.contentView = button
     }
     
+    func updateDailyScrollViewPageView(pageView: DHPageView, atPage page: Int) {
+        var data = dayOfWeeks[page]
+        var view = UIView(frame: dailyScrollView!.bounds)
+        var color = UIColor.rgb(76.0, g: 134.0, b: 237.0)
+        
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "EEEE"
+        var weekday = formatter.stringFromDate(data)
+        var weekdayLabel = CommonUI.boldFontLabel(weekday, fontSize: 17)
+        weekdayLabel.textColor = color
+        view.addSubview(weekdayLabel)
+        weekdayLabel.layoutTopInParentView()
+        
+        formatter.dateFormat = "M.dd"
+        var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
+        var dateLabel = CommonUI.systemFontLabel(dateString, fontSize: 10)
+        dateLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
+        dateLabel.textColor = color
+        dateLabel.layer.borderColor = color.CGColor
+        dateLabel.layer.borderWidth = 1.0
+        dateLabel.layer.cornerRadius = 5.0
+        
+        view.addSubview(dateLabel)
+        dateLabel.layoutBottomFromSibling(weekdayLabel)
+        
+        
+        pageView.contentView = view
+    }
+    
 //    DHPageScrollViewDelegate
     func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void {
-        self.recommendStoryPageControl!.currentPage = page
+        if scrollView === self.recommendStoryScrollView {
+            self.recommendStoryPageControl!.currentPage = page
+        }
     }
 }

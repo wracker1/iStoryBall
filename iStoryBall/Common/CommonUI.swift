@@ -13,6 +13,7 @@ class CommonUI {
         var label = UILabel()
         label.font = UIFont.systemFontOfSize(fontSize)
         label.text = text
+        label.textAlignment = .Center
         label.sizeToFit()
         return label
     }
@@ -21,6 +22,7 @@ class CommonUI {
         var label = UILabel()
         label.font = UIFont.boldSystemFontOfSize(fontSize)
         label.text = text
+        label.textAlignment = .Center
         label.sizeToFit()
         return label
     }
@@ -33,6 +35,14 @@ extension UIView {
     
     enum UIViewVerticalAlign {
         case Top, Center, Bottom
+    }
+    
+    func padding(value: UIEdgeInsets) {
+        var top = -value.top
+        var right = -value.right
+        var bottom = -value.bottom
+        var left = -value.left
+        self.frame = UIEdgeInsetsInsetRect(self.frame, UIEdgeInsetsMake(top, left, bottom, right))
     }
     
 //    parent basis layout
