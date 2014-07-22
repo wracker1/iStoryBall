@@ -139,8 +139,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             titleLabel.shadowOffset = CGSizeMake(1, 1)
             button.addSubview(titleLabel)
             
-            pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(5, -15))
-            titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(5, -15))
+            pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(7, -15))
+            titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
         }
         
         pageView.contentView = button

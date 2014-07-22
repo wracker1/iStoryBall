@@ -9,9 +9,6 @@
 import Foundation
 
 class CommonUtil {
-<<<<<<< HEAD
-=======
-
     class func imageUrlFromHppleElement(element: TFHppleElement) -> String? {
         var url: String?
         var info = element.attributes["style"] as NSString
@@ -27,7 +24,6 @@ class CommonUtil {
         return url
     }
     
->>>>>>> FETCH_HEAD
     class func mainWindow() -> UIWindow {
         return UIApplication.sharedApplication().windows[0] as UIWindow
     }
