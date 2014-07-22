@@ -6,6 +6,8 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
+import QuartzCore
+
 class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate
 {
     var doc: TFHpple?
@@ -23,6 +25,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 self.doc = html.htmlDocument()
                 self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
                 self.createTopFeaturingSlide()
+                self.createContentTable()
                 })
         }
     }
@@ -74,6 +77,10 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         dict["pageControl"] = pageControl
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|[slide(>=90)]-(-25)-[pageControl]", options: NSLayoutFormatOptions(0), metrics: nil, views: dict)
         self.view.addConstraints(vConst)
+    }
+    
+    func createContentTable() {
+        
     }
     
     func pageControlDidTouched() {
@@ -131,6 +138,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var pointLabel = CommonUI.boldFontLabel(point.text().trim(), fontSize: 9)
             pointLabel.textColor = UIColor.whiteColor()
             pointLabel.backgroundColor = UIColor.redColor()
+            pointLabel.layer.masksToBounds = true
+            pointLabel.layer.cornerRadius = 1.5
             button.addSubview(pointLabel)
             
             var titleLabel = CommonUI.systemFontLabel(title.content.trim(), fontSize: 9)

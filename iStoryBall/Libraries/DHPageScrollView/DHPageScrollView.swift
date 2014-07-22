@@ -22,7 +22,7 @@ import UIKit
 
 class DHPageView: UIScrollView
 {
-    var page = 0
+    var page: Int?
     var _contentView: UIView?
     var contentView: UIView? {
     set {
@@ -210,6 +210,7 @@ class DHPageScrollView: UIScrollView
             if item.superview != nil {
                 item.removeContentView()
                 item.removeFromSuperview()
+                item.page = nil
                 pageViewDict.removeValueForKey(key)
             }
         }
@@ -247,8 +248,7 @@ class DHPageScrollView: UIScrollView
         var pageView: DHPageView?
         
         for item in pageViews {
-            if item.superview == nil {
-                item.page = -1
+            if item.page == nil {
                 pageView = item
                 break
             }
