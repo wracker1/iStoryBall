@@ -62,3 +62,9 @@ extension Float {
         return CGFloat(self)
     }
 }
+
+extension String {
+    func trim() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+}
