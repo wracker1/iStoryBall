@@ -43,6 +43,7 @@ class NoticeDetailViewController : SBViewController {
         
         var titleLabel = UILabel(frame: CGRectMake(0, 0, 0, 0))
         titleLabel.text = title
+        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(titleLabel)
         
         var contentEl = notice.itemsWithQuery(".desc_notice")
@@ -59,8 +60,15 @@ class NoticeDetailViewController : SBViewController {
         var webView = UIWebView(frame: CGRectMake(0, 0, 0, 0))
         webView.backgroundColor = UIColor.clearColor()
         webView.loadHTMLString(html, baseURL: nil)
+        webView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(webView)
-
+        
+        var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": titleLabel])
+        self.view.addConstraints(labelHConst)
+        var webViewHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[webview(>=250)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["webview": webView])
+        self.view.addConstraints(webViewHConst)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[webview(>=300)]-|", options:NSLayoutFormatOptions(0), metrics: nil, views: ["label": titleLabel, "webview": webView])
+        self.view.addConstraints(vConst)
         println("title: " + title);
         println("content: " + content)
     }
