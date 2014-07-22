@@ -37,6 +37,7 @@ extension UIView {
     
 //    parent basis layout
     
+//    top
     func layoutTopInParentView() {
         self.layoutTopInParentView(.Center)
     }
@@ -46,14 +47,17 @@ extension UIView {
     }
     
     func layoutTopInParentView(horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutHorizontal(horizontalAlign, offset: offset)
-
         var topMargin = offset.y
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(\(topMargin))-[view(==\(self.bounds.size.height))]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(vConst)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(\(topMargin))-[view(==\(self.bounds.size.height))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["view": self]
+        )
+        
+        addVerticalConstraintsWithSibling(nil, horizontalAlign: horizontalAlign, offset: offset, verticalConstraint: vConst)
     }
     
+//    bottom
     func layoutBottomInParentView() {
         self.layoutBottomInParentView(.Center)
     }
@@ -63,14 +67,17 @@ extension UIView {
     }
     
     func layoutBottomInParentView(horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutHorizontal(horizontalAlign, offset: offset)
-        
         var bottomMargin = offset.y
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(==\(self.bounds.size.height))]-(\(bottomMargin))-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(vConst)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(==\(self.bounds.size.height))]-(\(bottomMargin))-|",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["view": self]
+        )
+        
+        addVerticalConstraintsWithSibling(nil, horizontalAlign: horizontalAlign, offset: offset, verticalConstraint: vConst)
     }
     
+//    left
     func layoutLeftInParentView() {
         self.layoutLeftInParentView(.Center)
     }
@@ -80,14 +87,17 @@ extension UIView {
     }
     
     func layoutLeftInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutVertical(verticalAlign, offset: offset)
-        
         var leftMargin = offset.x
-        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(\(leftMargin))-[view(\(self.bounds.size.width))]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(hConst)
+        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(\(leftMargin))-[view(\(self.bounds.size.width))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["view": self]
+        )
+        
+        addHorizontalConstraintsWithSibling(nil, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
     }
     
+//    right
     func layoutRightInParentView() {
         self.layoutRightInParentView(.Center)
     }
@@ -97,16 +107,19 @@ extension UIView {
     }
     
     func layoutRightInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutVertical(verticalAlign, offset: offset)
-        
         var rightMargin = (offset.x * -1)
-        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(\(self.bounds.size.width))]-(\(rightMargin))-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(hConst)
+        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(\(self.bounds.size.width))]-(\(rightMargin))-|",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["view": self]
+        )
+        
+        addHorizontalConstraintsWithSibling(nil, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
     }
     
 //    sibling basis layout
     
+//    top
     func layoutTopFromSibling(sibling: UIView) {
         self.layoutTopFromSibling(sibling, horizontalAlign: .Center)
     }
@@ -116,15 +129,17 @@ extension UIView {
     }
     
     func layoutTopFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutHorizontal(horizontalAlign, offset: offset)
-        
         var bottomMargin = offset.y
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[v(\(self.bounds.size.height))]-(\(bottomMargin))-[s(\(sibling.bounds.size.height))]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["v": self, "s": sibling])
-        var target = commonParent(self, sibling: sibling, times: 0)
-        target.addConstraints(vConst)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[v(\(self.bounds.size.height))]-(\(bottomMargin))-[s(\(sibling.bounds.size.height))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["v": self, "s": sibling]
+        )
+        
+        addVerticalConstraintsWithSibling(sibling, horizontalAlign: horizontalAlign, offset: offset, verticalConstraint: vConst)
     }
     
+//    bottom
     func layoutBottomFromSibling(sibling: UIView) {
         self.layoutBottomFromSibling(sibling, horizontalAlign: .Center)
     }
@@ -134,16 +149,80 @@ extension UIView {
     }
     
     func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        layoutHorizontal(horizontalAlign, offset: offset)
-        
         var topMargin = offset.y
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[s(\(sibling.bounds.size.height))]-(\(topMargin))-[v(\(self.bounds.size.height))]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["v": self, "s": sibling])
-        var target = commonParent(self, sibling: sibling, times: 0)
-        target.addConstraints(vConst)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:[s(\(sibling.bounds.size.height))]-(\(topMargin))-[v(\(self.bounds.size.height))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["v": self, "s": sibling]
+        )
+        
+        addVerticalConstraintsWithSibling(sibling, horizontalAlign: horizontalAlign, offset: offset, verticalConstraint: vConst)
+    }
+    
+//    left
+    func layoutLeftFromSibling(sibling: UIView) {
+        self.layoutLeftFromSibling(sibling, verticalAlign: .Center)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign) {
+        self.layoutLeftFromSibling(sibling, verticalAlign: verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        var rightMargin = -offset.x
+        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:[v(\(self.bounds.size.height))]-(\(rightMargin))-[s(\(sibling.bounds.size.height))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["v": self, "s": sibling]
+        )
+        
+        addHorizontalConstraintsWithSibling(sibling, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
+    }
+    
+//    right
+    func layoutRightFromSibling(sibling: UIView) {
+        self.layoutRightFromSibling(sibling, verticalAlign: .Center)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign) {
+        self.layoutRightFromSibling(sibling, verticalAlign: verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        var leftMargin = offset.x
+        var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:[s(\(sibling.bounds.size.height))]-(\(leftMargin))-[v(\(self.bounds.size.height))]",
+            options: NSLayoutFormatOptions(0),
+            metrics: nil,
+            views: ["v": self, "s": sibling]
+        )
+        
+        addHorizontalConstraintsWithSibling(sibling, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
     }
     
 //    align & util
+    
+    func addVerticalConstraintsWithSibling(sibling: UIView?, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint, verticalConstraint: [AnyObject]) {
+        findCommonParentAndAddConstraintsWithSibling(sibling, constraint: verticalConstraint)
+        layoutHorizontal(horizontalAlign, offset: offset)
+    }
+    
+    func addHorizontalConstraintsWithSibling(sibling: UIView?, verticalAlign: UIViewVerticalAlign, offset: CGPoint, horizontalConstraint: [AnyObject]) {
+        findCommonParentAndAddConstraintsWithSibling(sibling, constraint: horizontalConstraint)
+        layoutVertical(verticalAlign, offset: offset)
+    }
+    
+    func findCommonParentAndAddConstraintsWithSibling(sibling: UIView?, constraint: [AnyObject]) {
+        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        var target: UIView?
+        
+        if let s = sibling {
+            target = commonParent(self, sibling: s, times: 0)
+        } else {
+            target = self.superview
+        }
+        
+        target?.addConstraints(constraint)
+    }
     
     func commonParent(view: UIView, sibling: UIView, times: Int) -> UIView! {
         var odd = (times % 2) == 1
@@ -186,17 +265,18 @@ extension UIView {
         var parentSize = self.superview.bounds.size
         var leftMargin = 0.0
         var rightMargin = 0.0
+        var width = Double(self.bounds.size.width)
         
         switch horizontalAlign {
         case .Center:
-            leftMargin = (Double(parentSize.width) - Double(self.bounds.size.width)) / 2.0
+            leftMargin = (Double(parentSize.width) - width) / 2.0
             rightMargin = leftMargin
         case .Right:
-            leftMargin = Double(parentSize.width) - Double(self.bounds.size.width)
+            leftMargin = Double(parentSize.width) - width
             rightMargin = 0.0
         default:
             leftMargin = 0.0
-            rightMargin = Double(parentSize.width) - Double(self.bounds.size.width)
+            rightMargin = Double(parentSize.width) - width
         }
         
         leftMargin += Double(offset.x)
