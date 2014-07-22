@@ -17,7 +17,9 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     var dailyStories: [TFHppleElement] = []
     var dayOfWeeks: [NSDate] = []
-    var dailyScrollView: DHPageScrollView?
+    var dayOfWeekScrollView: DHPageScrollView?
+    
+    var contentsScrollView: UITableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 self.createTopFeaturingSlide()
                 
                 self.dailyStories = self.doc!.itemsWithQuery(".list_product li a")
-                self.createContentTable()
+                self.createDayOfWeekScrollView()
+                self.createContentTableView()
                 })
         }
     }
@@ -44,7 +47,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func createTopFeaturingSlide() {
-        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, 320, 90), dataSource: self)
+        var bounds = self.view.bounds
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, bounds.width, 90), dataSource: self)
         recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
         recommendStoryScrollView!.layoutTopInParentView()
@@ -65,7 +69,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryPageControl!.layoutBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
     }
     
-    func createContentTable() {
+    func createDayOfWeekScrollView() {
         var components = NSDateComponents()
         var cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
         
@@ -77,16 +81,26 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         dayOfWeeks = dayOfWeeks.reverse()
         var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, 180, 43), dataSource: self)
-        dailyScrollView = scrollView
-        dailyScrollView!.delegate = self
-        dailyScrollView!.clipsToBounds = false
-        self.view.addSubview(dailyScrollView)
+        dayOfWeekScrollView = scrollView
+        dayOfWeekScrollView!.delegate = self
+        dayOfWeekScrollView!.clipsToBounds = false
+        self.view.addSubview(dayOfWeekScrollView)
         
         var pageCount = dayOfWeeks.count - 1
-        dailyScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
-        dailyScrollView!.reloadData {
+        dayOfWeekScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
+        dayOfWeekScrollView!.reloadData {
             scrollView.scrollToPage(pageCount, animated: false)
         }
+    }
+
+    func createContentTableView() {
+        var bounds = self.view.bounds
+        var height = bounds.size.height - (recommendStoryScrollView!.bounds.size.height + dayOfWeekScrollView!.bounds.size.height)
+        contentsScrollView = UITableView(frame: CGRectMake(0, 0, bounds.width, height), style: .Plain)
+        contentsScrollView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
+        contentsScrollView!.layer.borderWidth = 1.0
+        self.view.addSubview(contentsScrollView)
+        contentsScrollView!.layoutBottomInParentView()
     }
     
     func pageControlDidTouched() {
@@ -100,7 +114,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         if scrollView == recommendStoryScrollView {
             count = recommendStories.count
-        } else if scrollView === dailyScrollView {
+        } else if scrollView === dayOfWeekScrollView {
             count = dayOfWeeks.count
         }
         
@@ -118,8 +132,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         if scrollView === recommendStoryScrollView {
             updateRecommendStoryPageView(pageView, atPage: page)
-        } else if scrollView === dailyScrollView {
-            updateDailyScrollViewPageView(pageView, atPage: page)
+        } else if scrollView === dayOfWeekScrollView {
+            updatedayOfWeekScrollViewPageView(pageView, atPage: page)
         }
         
         return pageView
@@ -166,9 +180,9 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         pageView.contentView = button
     }
     
-    func updateDailyScrollViewPageView(pageView: DHPageView, atPage page: Int) {
+    func updatedayOfWeekScrollViewPageView(pageView: DHPageView, atPage page: Int) {
         var data = dayOfWeeks[page]
-        var view = UIView(frame: dailyScrollView!.bounds)
+        var view = UIView(frame: dayOfWeekScrollView!.bounds)
         var color = UIColor.rgb(76.0, g: 134.0, b: 237.0)
         
         var formatter = NSDateFormatter()
