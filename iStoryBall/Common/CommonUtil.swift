@@ -8,8 +8,8 @@
 
 import Foundation
 
-<<<<<<< HEAD:iStoryBall/Common/Common.swift
-class Common {
+class CommonUtil {
+
     class func imageUrlFromHppleElement(element: TFHppleElement) -> String? {
         var url: String?
         var info = element.attributes["style"] as NSString
@@ -25,9 +25,6 @@ class Common {
         return url
     }
     
-=======
-class CommonUtil {
->>>>>>> FETCH_HEAD:iStoryBall/Common/CommonUtil.swift
     class func mainWindow() -> UIWindow {
         return UIApplication.sharedApplication().windows[0] as UIWindow
     }

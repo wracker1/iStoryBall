@@ -33,12 +33,12 @@ class NoticeDetailViewController : SBViewController {
     
     func initView() {
         var screenBounds = UIScreen.mainScreen().bounds
-        var frameHeight:Float = screenBounds.size.height
-        var topMargin:Float = Common.commonTopMargin()
-        var bottomMargin:Float  = self.tabBarController.tabBar.frame.size.height
+        var frameHeight:Float = screenBounds.size.height.swValue()
+        var topMargin:Float = CommonUtil.commonTopMargin()
+        var bottomMargin:Float  = self.tabBarController.tabBar.frame.size.height.swValue()
         var titleHeight:Float = 50
         var contentHeight:Float = frameHeight - topMargin - bottomMargin - titleHeight
-        var titleLabel = UILabel(frame: CGRectMake(0, topMargin, 320, titleHeight))
+        var titleLabel = UILabel(frame: CGRectMake(0, topMargin.cgValue(), 320, titleHeight.cgValue()))
         
         var notice:TFHppleElement = self.notices![0]
         
@@ -63,7 +63,7 @@ class NoticeDetailViewController : SBViewController {
         html += content
         html += "</body></html>"
         
-        var webView = UIWebView(frame: CGRectMake(0, topMargin + titleHeight, 320, contentHeight))
+        var webView = UIWebView(frame: CGRectMake(0, (topMargin + titleHeight).cgValue(), 320, contentHeight.cgValue()))
         webView.backgroundColor = UIColor.clearColor()
         webView.loadHTMLString(html, baseURL: nil)
         self.view.addSubview(webView)
