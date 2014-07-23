@@ -48,8 +48,9 @@
 		881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA3197F88160014B39C /* NoticeViewController.swift */; };
 		881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */; };
 		881A6CAD197F88510014B39C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CAC197F88510014B39C /* Article.swift */; };
-		881A6CAF197F887A0014B39C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CAE197F887A0014B39C /* DetailViewController.swift */; };
 		881A6CB3197F890C0014B39C /* HomeContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB2197F890C0014B39C /* HomeContentCell.swift */; };
+		881A6CB7197FBCE80014B39C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB6197FBCE80014B39C /* DetailViewController.swift */; };
+		881A6CBA197FBD560014B39C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB9197FBD560014B39C /* ListViewController.swift */; };
 		883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A7196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352498196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -130,8 +131,9 @@
 		881A6CA3197F88160014B39C /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewController.swift; path = Menu/NoticeViewController.swift; sourceTree = "<group>"; };
 		881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewDetailController.swift; path = Menu/NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		881A6CAC197F88510014B39C /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		881A6CAE197F887A0014B39C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Detail/DetailViewController.swift; sourceTree = "<group>"; };
 		881A6CB2197F890C0014B39C /* HomeContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeContentCell.swift; path = View/TableViewCell/HomeContentCell.swift; sourceTree = "<group>"; };
+		881A6CB6197FBCE80014B39C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		881A6CB9197FBD560014B39C /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = List/ListViewController.swift; sourceTree = "<group>"; };
 		88352495196D046700E89105 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		88352497196D046700E89105 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -188,14 +190,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4C88F82C196D39D3001C77C4 /* Datail */ = {
-			isa = PBXGroup;
-			children = (
-				881A6CAE197F887A0014B39C /* DetailViewController.swift */,
-			);
-			name = Datail;
-			sourceTree = "<group>";
-		};
 		880890E1196BEE5700BE3F51 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,12 +207,12 @@
 		880890F9196BEE5700BE3F51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				881A6CB4197FBCB20014B39C /* Common */,
 				880E2C2E196CD67F0005375E /* Menu */,
 				880890FA196BEE5700BE3F51 /* Home */,
 				880890FB196BEE5700BE3F51 /* Popular */,
 				880890FC196BEE5700BE3F51 /* Sympathies */,
 				880890FD196BEE5700BE3F51 /* Theme */,
-				4C88F82C196D39D3001C77C4 /* Datail */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -335,6 +329,32 @@
 				881A6CB2197F890C0014B39C /* HomeContentCell.swift */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		881A6CB4197FBCB20014B39C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				881A6CB8197FBD310014B39C /* List */,
+				881A6CB5197FBCE80014B39C /* Detail */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		881A6CB5197FBCE80014B39C /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				881A6CB6197FBCE80014B39C /* DetailViewController.swift */,
+			);
+			name = Detail;
+			path = Common/Detail;
+			sourceTree = "<group>";
+		};
+		881A6CB8197FBD310014B39C /* List */ = {
+			isa = PBXGroup;
+			children = (
+				881A6CB9197FBD560014B39C /* ListViewController.swift */,
+			);
+			name = List;
 			sourceTree = "<group>";
 		};
 		88352494196D046700E89105 /* UIKit+AFNetworking */ = {
@@ -577,6 +597,7 @@
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				881A6CA7197F88160014B39C /* DatailViewController.swift in Sources */,
+				881A6CBA197FBD560014B39C /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
 				881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */,
@@ -584,7 +605,7 @@
 				883524B2196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
 				88089123196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
 				883524AC196D046700E89105 /* UIButton+AFNetworking.m in Sources */,
-				881A6CAF197F887A0014B39C /* DetailViewController.swift in Sources */,
+				881A6CB7197FBCE80014B39C /* DetailViewController.swift in Sources */,
 				883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */,
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,

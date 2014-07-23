@@ -221,32 +221,33 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func updatedayOfWeekScrollViewPageView(pageView: DHPageView, atPage page: Int) {
-        var data = dayOfWeeks[page]
-        var view = UIView(frame: dayOfWeekScrollView!.bounds)
-        var color = UIColor.rgb(76.0, g: 134.0, b: 237.0)
-        
-        var formatter = NSDateFormatter()
-        formatter.dateFormat = "EEEE"
-        var weekday = formatter.stringFromDate(data)
-        var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
-        weekdayLabel.textColor = color
-        view.addSubview(weekdayLabel)
-        weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
-        
-        formatter.dateFormat = "M.dd"
-        var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
-        var dateLabel = UILabel.systemFontLabel(dateString, fontSize: 10)
-        dateLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
-        dateLabel.textColor = color
-        dateLabel.layer.borderColor = color.CGColor
-        dateLabel.layer.borderWidth = 1.0
-        dateLabel.layer.cornerRadius = 5.0
-        
-        view.addSubview(dateLabel)
-        dateLabel.layoutBottomFromSibling(weekdayLabel)
-        
-        
-        pageView.contentView = view
+        if page < dayOfWeeks.count {
+            var data = dayOfWeeks[page]
+            var view = UIView(frame: dayOfWeekScrollView!.bounds)
+            var color = UIColor.rgb(76.0, g: 134.0, b: 237.0)
+            
+            var formatter = NSDateFormatter()
+            formatter.dateFormat = "EEEE"
+            var weekday = formatter.stringFromDate(data)
+            var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
+            weekdayLabel.textColor = color
+            view.addSubview(weekdayLabel)
+            weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
+            
+            formatter.dateFormat = "M.dd"
+            var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
+            var dateLabel = UILabel.systemFontLabel(dateString, fontSize: 10)
+            dateLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
+            dateLabel.textColor = color
+            dateLabel.layer.borderColor = color.CGColor
+            dateLabel.layer.borderWidth = 1.0
+            dateLabel.layer.cornerRadius = 5.0
+            
+            view.addSubview(dateLabel)
+            dateLabel.layoutBottomFromSibling(weekdayLabel)
+            
+            pageView.contentView = view
+        }
     }
     
 //    DHPageScrollViewDelegate
