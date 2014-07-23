@@ -32,7 +32,7 @@ class ChoiceViewDetailController: SBViewController{
         var recommend:TFHppleElement = self.doc?.itemsWithQuery(".link_recomm")[0] as TFHppleElement
         var imageElement:TFHppleElement = recommend.itemsWithQuery(".thumb_img")[0] as TFHppleElement
 
-        var image = CommonUtil.imageUrlFromHppleElement(imageElement)
+        var image = imageElement.imageUrlFromHppleElement()
         var title = recommend.attributes["title"] as NSString
 
         var label = UILabel()
