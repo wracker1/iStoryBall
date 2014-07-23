@@ -148,76 +148,37 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         return formatter.stringFromDate(date)
     }
     
-//    DHPageScrollViewDataSource
-    func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
-        var count = 0
-        
-        if scrollView == recommendStoryScrollView {
-            count = recommendStories.count
-        } else if scrollView === dayOfWeekScrollView {
-            count = dayOfWeeks.count
-        }
-        
-        return count
-    }
-    
-    func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView? {
-        var pageView: DHPageView!
-        
-        pageView = scrollView.dequeueReusablePageView()
-        
-        if pageView == nil {
-            pageView = DHPageView()
-        }
-        
-        if scrollView === recommendStoryScrollView {
-            updateRecommendStoryPageView(pageView, atPage: page)
-        } else if scrollView === dayOfWeekScrollView {
-            updatedayOfWeekScrollViewPageView(pageView, atPage: page)
-        }
-        
-        return pageView
-    }
-    
     func updateRecommendStoryPageView(pageView: DHPageView, atPage page: Int) {
         var data = recommendStories[page]
-        var button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        button.frame = self.recommendStoryScrollView!.bounds
-        button.imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        var contentView = UIImageView(frame: recommendStoryScrollView!.bounds)
+        contentView.contentMode = UIViewContentMode.ScaleAspectFill
         
-        var imageNode = data.itemsWithQuery(".thumb_img")
-        var textNode = data.itemsWithQuery(".tit_banner")
+        var thumbImageNode = data.itemWithQuery(".thumb_img")
+        var imageUrl = thumbImageNode.imageUrlFromHppleElement()
+        contentView.setImageWithURL(NSURL(string: imageUrl))
         
-        if imageNode.count > 0 {
-            var thumbImageNode = imageNode[0] as TFHppleElement
-            var imageUrl = thumbImageNode.imageUrlFromHppleElement()
-            button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
-        }
+        var titleNode = data.itemWithQuery(".tit_banner")
+        var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
+        var title = titleNode.children[2] as TFHppleElement
         
-        if textNode.count > 0 {
-            var titleNode = textNode[0] as TFHppleElement
-            var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
-            var title = titleNode.children[2] as TFHppleElement
-            
-            var pointLabel = UILabel.boldFontLabel(point.text().trim(), fontSize: 8)
-            pointLabel.textColor = UIColor.whiteColor()
-            pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
-            pointLabel.backgroundColor = UIColor.redColor()
-            pointLabel.layer.masksToBounds = true
-            pointLabel.layer.cornerRadius = 5.0
-            button.addSubview(pointLabel)
-            
-            var titleLabel = UILabel.systemFontLabel(title.content.trim(), fontSize: 10)
-            titleLabel.textColor = UIColor.whiteColor()
-            titleLabel.shadowColor = UIColor.blackColor()
-            titleLabel.shadowOffset = CGSizeMake(1, 1)
-            button.addSubview(titleLabel)
-            
-            pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(7, -15))
-            titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
-        }
+        var pointLabel = UILabel.boldFontLabel(point.text().trim(), fontSize: 8)
+        pointLabel.textColor = UIColor.whiteColor()
+        pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
+        pointLabel.backgroundColor = UIColor.redColor()
+        pointLabel.layer.masksToBounds = true
+        pointLabel.layer.cornerRadius = 5.0
+        contentView.addSubview(pointLabel)
         
-        pageView.contentView = button
+        var titleLabel = UILabel.systemFontLabel(title.content.trim(), fontSize: 10)
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.shadowColor = UIColor.blackColor()
+        titleLabel.shadowOffset = CGSizeMake(1, 1)
+        contentView.addSubview(titleLabel)
+        
+        pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(7, -15))
+        titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
+        
+        pageView.contentView = contentView
     }
     
     func updatedayOfWeekScrollViewPageView(pageView: DHPageView, atPage page: Int) {
@@ -248,6 +209,37 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             
             pageView.contentView = view
         }
+    }
+    
+//    DHPageScrollViewDataSource
+    func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
+        var count = 0
+        
+        if scrollView == recommendStoryScrollView {
+            count = recommendStories.count
+        } else if scrollView === dayOfWeekScrollView {
+            count = dayOfWeeks.count
+        }
+        
+        return count
+    }
+    
+    func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView? {
+        var pageView: DHPageView!
+        
+        pageView = scrollView.dequeueReusablePageView()
+        
+        if pageView == nil {
+            pageView = DHPageView()
+        }
+        
+        if scrollView === recommendStoryScrollView {
+            updateRecommendStoryPageView(pageView, atPage: page)
+        } else if scrollView === dayOfWeekScrollView {
+            updatedayOfWeekScrollViewPageView(pageView, atPage: page)
+        }
+        
+        return pageView
     }
     
 //    DHPageScrollViewDelegate
