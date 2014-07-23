@@ -29,18 +29,12 @@ class ChoiceViewDetailController: SBViewController{
     }
     
     func initView() {
-//        var imageUrl = Common.imageUrlFromHppleElement(thumbImageNode)
-//        button.setImageForState(UIControlState.Normal, withURL: NSURL(string: imageUrl))
-//        var text = self.doc?.itemsWithQuery(".link_recomm")[0].attributes["title"] as NSString
-//        println(text)
         var recommend:TFHppleElement = self.doc?.itemsWithQuery(".link_recomm")[0] as TFHppleElement
         var imageElement:TFHppleElement = recommend.itemsWithQuery(".thumb_img")[0] as TFHppleElement
 
-        //var image = Common.imageUrlFromHppleElement(imageElement)
+        var image = CommonUtil.imageUrlFromHppleElement(imageElement)
         var title = recommend.attributes["title"] as NSString
-        //println(image)
-        println(title)
-        //println(imageUrl)
+
         var label = UILabel()
         label.frame = CGRectMake(0, 0, 320, 70)
         label.text = title

@@ -15,10 +15,10 @@ class CommonUtil {
         
         if info != nil {
             // |background:url\\(([^)]+) 만 추가하면 될 줄 알았는데 안됨...
-            var regex = NSRegularExpression.regularExpressionWithPattern("background-image:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
+            var regex = NSRegularExpression.regularExpressionWithPattern("background(-image)?:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
             var result = regex.firstMatchInString(info, options: NSMatchingOptions(0), range: NSMakeRange(0, info.length))
             println(result)
-            url = info.substringWithRange(result.rangeAtIndex(1))
+            url = info.substringWithRange(result.rangeAtIndex(2))
         }
         
         return url

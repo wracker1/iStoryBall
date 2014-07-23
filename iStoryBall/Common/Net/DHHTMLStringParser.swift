@@ -109,9 +109,9 @@ extension TFHppleElement {
         var info = self.attributes["style"] as NSString
         
         if info != nil {
-            var regex = NSRegularExpression.regularExpressionWithPattern("background-image:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
+            var regex = NSRegularExpression.regularExpressionWithPattern("background(-image)?:url\\(([^)]+)", options: NSRegularExpressionOptions(0), error: nil)
             var result = regex.firstMatchInString(info, options: NSMatchingOptions(0), range: NSMakeRange(0, info.length))
-            url = info.substringWithRange(result.rangeAtIndex(1))
+            url = info.substringWithRange(result.rangeAtIndex(2))
         }
         
         return url
