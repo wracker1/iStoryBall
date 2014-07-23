@@ -222,7 +222,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var weekdayLabel = CommonUI.boldFontLabel(weekday, fontSize: 17)
         weekdayLabel.textColor = color
         view.addSubview(weekdayLabel)
-        weekdayLabel.layoutTopInParentView()
+        weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
         
         formatter.dateFormat = "M.dd"
         var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
@@ -258,32 +258,16 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        var cellId = "ContentCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? UITableViewCell
+        var cellId = HomeContentCell.reuseIdentifier()
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? HomeContentCell
         
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: cellId)
-            cell!.imageView.frame = CGRectMake(0, 0, 55, 43)
+            cell = HomeContentCell()
         }
         
         var data = presentContent[indexPath.row]
-        updateContentCell(cell!, data: data)
+        cell!.update(data)
         
         return cell
-    }
-    
-    func updateContentCell(cell: UITableViewCell, data: TFHppleElement) {
-        var imageNode = data.itemWithQuery(".thumb_view")
-        var imageUrlString = imageNode.attributes["src"] as? NSString
-        cell.imageView.setImageWithURL(NSURL(string:imageUrlString))
-        
-        var titleNode = data.itemWithQuery(".tit_product")
-        cell.textLabel.font = UIFont.boldSystemFontOfSize(12)
-        cell.textLabel.text = titleNode.text()
-        
-        var subTitle = data.attributes["title"] as NSString
-        cell.detailTextLabel.text = subTitle
-        cell.detailTextLabel.textColor = UIColor.grayColor()
-        cell.detailTextLabel.font = UIFont.systemFontOfSize(9)
     }
 }
