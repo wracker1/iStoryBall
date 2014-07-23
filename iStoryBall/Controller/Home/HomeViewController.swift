@@ -24,6 +24,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     var presentContent = Array<TFHppleElement>()
     var allowContentLoad = false
     
+    var contentSearchQuery = ".list_product li a"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +38,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 
                 self.createDayOfWeekScrollView()
                 
-                var todayStories = self.doc!.itemsWithQuery(".list_product li a")
+                var todayStories = self.doc!.itemsWithQuery(self.contentSearchQuery)
                 var key = self.contentKeyAtIndex(self.dayOfWeeksCount)
                 self.contentsData[key] = todayStories
                 
@@ -127,7 +129,14 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 presentContent = c
                 contentTableView!.reloadData()
             } else {
-                println("\(key): 가져와")
+                NetClient.instance.get("/episode/part/day/\(key)") {
+                    (html: String) in
+                    var doc = html.htmlDocument()
+                    var items = doc.itemsWithQuery(self.contentSearchQuery)
+                    self.contentsData[key] = items
+                    self.presentContent = items
+                    self.contentTableView!.reloadData()
+                }
             }
         }
     }

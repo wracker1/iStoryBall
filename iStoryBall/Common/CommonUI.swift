@@ -68,7 +68,7 @@ extension UIView {
     
     func layoutTopInParentView(horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
         var topMargin = offset.y
-        var visualFormat = "V:|-(\(topMargin))-[view(==\(self.bounds.size.height))]"
+        var visualFormat = "V:|-(\(topMargin))-[view(\(self.bounds.size.height))]"
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -89,7 +89,7 @@ extension UIView {
     
     func layoutBottomInParentView(horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
         var bottomMargin = -offset.y
-        var visualFormat = "V:[view(==\(self.bounds.size.height))]-(\(bottomMargin))-|"
+        var visualFormat = "V:[view(\(self.bounds.size.height))]-(\(bottomMargin))-|"
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -153,8 +153,13 @@ extension UIView {
     }
     
     func layoutTopFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.layoutTopFromSibling(sibling, horizontalAlign: horizontalAlign, offset: offset, flexible: false)
+    }
+    
+    func layoutTopFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint, flexible: Bool) {
         var bottomMargin = offset.y
-        var visualFormat = "V:[v(\(self.bounds.size.height))]-(\(bottomMargin))-[s]"
+        var sizeFormat = flexible ? ">=\(self.bounds.size.height)" : "\(self.bounds.size.height)"
+        var visualFormat = "V:[v(\(sizeFormat))]-(\(bottomMargin))-[s]"
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -174,8 +179,13 @@ extension UIView {
     }
     
     func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.layoutBottomFromSibling(sibling, horizontalAlign: horizontalAlign, offset: offset, flexible: false)
+    }
+    
+    func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint, flexible: Bool) {
         var topMargin = offset.y
-        var visualFormat = "V:[s]-(\(topMargin))-[v(\(self.bounds.size.height))]"
+        var sizeFormat = flexible ? ">=\(self.bounds.size.height)" : "\(self.bounds.size.height)"
+        var visualFormat = "V:[s]-(\(topMargin))-[v(\(sizeFormat))]"
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -195,8 +205,13 @@ extension UIView {
     }
     
     func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.layoutLeftFromSibling(sibling, verticalAlign: verticalAlign, offset: offset, flexible: false)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint, flexible: Bool) {
         var rightMargin = -offset.x
-        var visualFormat = "H:[v(\(self.bounds.size.width))]-(\(rightMargin))-[s]"
+        var sizeFormat = flexible ? ">=\(self.bounds.size.width)" : "\(self.bounds.size.width)"
+        var visualFormat = "H:[v(\(sizeFormat))]-(\(rightMargin))-[s]"
         var hConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -216,8 +231,13 @@ extension UIView {
     }
     
     func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.layoutRightFromSibling(sibling, verticalAlign: verticalAlign, offset: offset, flexible: false)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint, flexible: Bool) {
         var leftMargin = offset.x
-        var visualFormat = "H:[s]-(\(leftMargin))-[v(\(self.bounds.size.width))]"
+        var sizeFormat = flexible ? ">=\(self.bounds.size.width)" : "\(self.bounds.size.width)"
+        var visualFormat = "H:[s]-(\(leftMargin))-[v(\(sizeFormat))]"
         var hConst = NSLayoutConstraint.constraintsWithVisualFormat(visualFormat,
             options: NSLayoutFormatOptions(0),
             metrics: nil,
@@ -230,70 +250,18 @@ extension UIView {
 //    align & util
     
     func addVerticalConstraintsWithSibling(sibling: UIView?, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint, verticalConstraint: [AnyObject]) {
-        var target = findCommonParentAndAddConstraintsWithSibling(sibling, constraint: verticalConstraint)
-        layoutHorizontalWithTarget(target, horizontalAlign: horizontalAlign, offset: offset)
+        NSLayoutConstraint.activateConstraints(verticalConstraint)
+        layoutHorizontalWithTarget(horizontalAlign, offset: offset)
     }
     
     func addHorizontalConstraintsWithSibling(sibling: UIView?, verticalAlign: UIViewVerticalAlign, offset: CGPoint, horizontalConstraint: [AnyObject]) {
-        var target = findCommonParentAndAddConstraintsWithSibling(sibling, constraint: horizontalConstraint)
-        layoutVerticalWithTarget(target, verticalAlign: verticalAlign, offset: offset)
+        NSLayoutConstraint.activateConstraints(horizontalConstraint)
+        layoutVerticalWithTarget(verticalAlign, offset: offset)
     }
     
-    func findCommonParentAndAddConstraintsWithSibling(sibling: UIView?, constraint: [AnyObject]) -> UIView {
+    func layoutVerticalWithTarget(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
         self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        var target: UIView?
         
-        if let s = sibling {
-            target = commonParent(self, sibling: s)
-        } else {
-            target = self.superview
-        }
-        
-        target?.addConstraints(constraint)
-        return target!
-    }
-    
-    func commonParent(view: UIView?, sibling: UIView?) -> UIView? {
-        if view != nil && sibling != nil {
-            var a = Array<UIView>()
-            var b = Array<UIView>()
-            var c: [UIView]!
-            
-            var aNode = view
-            var bNode = sibling
-            
-            while true {
-                aNode = increaseSuperview(&a, view: aNode)
-                bNode = increaseSuperview(&b, view: bNode)
-                
-                c = unique(a, b)
-
-                if c.count > 0 {
-                    break
-                } else if a.count == 0 || b.count == 0 {
-                    return nil
-                }
-            }
-            
-            return c[c.count - 1]
-        } else {
-            return nil
-        }
-    }
-    
-    func increaseSuperview(inout a: [UIView], view: UIView?) -> UIView? {
-        var node: UIView?
-        
-        if let v = view {
-            a.append(v)
-            node = v.superview
-        }
-        
-        return node
-    }
-
-    
-    func layoutVerticalWithTarget(target: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
         var parentSize = self.superview.bounds.size
         var topMargin = 0.0
         var bottomMargin = 0.0
@@ -315,10 +283,12 @@ extension UIView {
         bottomMargin -= Double(offset.y)
         
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(\(topMargin))-[view(\(height))]-(\(bottomMargin))-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(vConst)
+        NSLayoutConstraint.activateConstraints(vConst)
     }
     
-    func layoutHorizontalWithTarget(target: UIView,  horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+    func layoutHorizontalWithTarget(horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         var parentSize = self.superview.bounds.size
         var leftMargin = 0.0
         var rightMargin = 0.0
@@ -340,6 +310,6 @@ extension UIView {
         rightMargin -= Double(offset.x)
         
         var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(\(leftMargin))-[view(\(self.bounds.size.width))]-(\(rightMargin))-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
-        self.superview.addConstraints(hConst)
+        NSLayoutConstraint.activateConstraints(hConst)
     }
 }

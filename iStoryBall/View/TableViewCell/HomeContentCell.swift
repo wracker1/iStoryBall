@@ -20,7 +20,9 @@ class HomeContentCell: UITableViewCell {
     init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         titleLabel = UILabel.boldFontLabel("", fontSize: 12)
+        titleLabel.textAlignment = .Left
         subTitleLabel = UILabel.systemFontLabel("", fontSize: 9)
+        subTitleLabel.textAlignment = .Left
         subTitleLabel.textColor = UIColor.grayColor()
         
         super.init(style: .Default, reuseIdentifier: HomeContentCell.reuseIdentifier())
@@ -38,11 +40,12 @@ class HomeContentCell: UITableViewCell {
         var titleNode = data.itemWithQuery(".tit_product")
         titleLabel.text = titleNode.text()
         titleLabel.sizeToFit()
-        titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
         
         var subTitle = data.attributes["title"] as NSString
         subTitleLabel.text = subTitle
         subTitleLabel.sizeToFit()
-        subTitleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -8))
+        
+        titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8), flexible: true)
+        subTitleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -8), flexible: true)
     }
 }
