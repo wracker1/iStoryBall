@@ -108,6 +108,10 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         self.recommendStoryScrollView!.scrollToPage(page, animated: true)
     }
     
+    func loadContentAtIndex(index: Int) {
+        
+    }
+    
 //    DHPageScrollViewDataSource
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
         var count = 0
@@ -211,8 +215,13 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
 //    DHPageScrollViewDelegate
     func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void {
-        if scrollView === self.recommendStoryScrollView {
-            self.recommendStoryPageControl!.currentPage = page
+        switch scrollView {
+        case let x where x! === recommendStoryScrollView:
+            recommendStoryPageControl!.currentPage = page
+        case let x where x! === dayOfWeekScrollView:
+            loadContentAtIndex(page)
+        default:
+            assert(false)
         }
     }
 }
