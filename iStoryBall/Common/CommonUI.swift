@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CommonUI {
+extension UILabel {
     class func systemFontLabel(text: String, fontSize: CGFloat) -> UILabel {
         var label = UILabel()
         label.font = UIFont.systemFontOfSize(fontSize)
@@ -25,6 +25,16 @@ class CommonUI {
         label.textAlignment = .Center
         label.sizeToFit()
         return label
+    }
+}
+
+extension UIColor {
+    class func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
+        return self.rgba(r, g: g, b: b, a: 1.0)
+    }
+    
+    class func rgba(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
+        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
     }
 }
 
@@ -234,7 +244,7 @@ extension UIView {
         var target: UIView?
         
         if let s = sibling {
-            target = commonParent(self, sibling: s, times: 0)
+            target = commonParent(self, sibling: s)
         } else {
             target = self.superview
         }
@@ -243,17 +253,45 @@ extension UIView {
         return target!
     }
     
-    func commonParent(view: UIView, sibling: UIView, times: Int) -> UIView! {
-        var odd = (times % 2) == 1
-        var a = odd ? view.superview : view
-        var b = odd ? sibling : sibling.superview
-        
-        if a == b {
-            return a
+    func commonParent(view: UIView?, sibling: UIView?) -> UIView? {
+        if view != nil && sibling != nil {
+            var a = Array<UIView>()
+            var b = Array<UIView>()
+            var c: [UIView]!
+            
+            var aNode = view
+            var bNode = sibling
+            
+            while true {
+                aNode = increaseSuperview(&a, view: aNode)
+                bNode = increaseSuperview(&b, view: bNode)
+                
+                c = unique(a, b)
+
+                if c.count > 0 {
+                    break
+                } else if a.count == 0 || b.count == 0 {
+                    return nil
+                }
+            }
+            
+            return c[c.count - 1]
         } else {
-            return commonParent(a, sibling: b, times: times + 1)
+            return nil
         }
     }
+    
+    func increaseSuperview(inout a: [UIView], view: UIView?) -> UIView? {
+        var node: UIView?
+        
+        if let v = view {
+            a.append(v)
+            node = v.superview
+        }
+        
+        return node
+    }
+
     
     func layoutVerticalWithTarget(target: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
         var parentSize = self.superview.bounds.size

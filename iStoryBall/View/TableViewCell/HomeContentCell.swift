@@ -14,33 +14,35 @@ class HomeContentCell: UITableViewCell {
     }
     
     var thumbnailView: UIImageView
+    var titleLabel: UILabel
+    var subTitleLabel: UILabel
     
     init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
-        thumbnailView.backgroundColor = UIColor.redColor()
+        titleLabel = UILabel.boldFontLabel("", fontSize: 12)
+        subTitleLabel = UILabel.systemFontLabel("", fontSize: 9)
+        subTitleLabel.textColor = UIColor.grayColor()
         
         super.init(style: .Default, reuseIdentifier: HomeContentCell.reuseIdentifier())
         
         self.addSubview(thumbnailView)
-        
-        
-        
-//        imageView.frame = CGRectMake(0, 0, 55, 43)
-//        imageView.backgroundColor = UIColor.redColor()
+        self.addSubview(titleLabel)
+        self.addSubview(subTitleLabel)
     }
     
     func update(data: TFHppleElement) {
-//        var imageNode = data.itemWithQuery(".thumb_view")
-//        var imageUrlString = imageNode.attributes["src"] as? NSString
-//        imageView.setImageWithURL(NSURL(string:imageUrlString))
-//        
-//        var titleNode = data.itemWithQuery(".tit_product")
-//        textLabel.font = UIFont.boldSystemFontOfSize(12)
-//        textLabel.text = titleNode.text()
+        var imageNode = data.itemWithQuery(".thumb_view")
+        var imageUrlString = imageNode.attributes["src"] as? NSString
+        thumbnailView.setImageWithURL(NSURL(string:imageUrlString))
+
+        var titleNode = data.itemWithQuery(".tit_product")
+        titleLabel.text = titleNode.text()
+        titleLabel.sizeToFit()
+        titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
         
-//        var subTitle = data.attributes["title"] as NSString
-//        detailTextLabel.text = subTitle
-//        detailTextLabel.textColor = UIColor.grayColor()
-//        detailTextLabel.font = UIFont.systemFontOfSize(9)
+        var subTitle = data.attributes["title"] as NSString
+        subTitleLabel.text = subTitle
+        subTitleLabel.sizeToFit()
+        subTitleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -8))
     }
 }

@@ -8,37 +8,31 @@
 
 import Foundation
 
-class CommonUtil {
-    class func mainWindow() -> UIWindow {
-        return UIApplication.sharedApplication().windows[0] as UIWindow
-    }
-    
-    class func selectedController() -> UIViewController {
-        var tabBarController = mainWindow().rootViewController as UITabBarController
-        return tabBarController.selectedViewController
-    }
-    
-    class func navigationBarHeight() -> Float {
-        var navigator = selectedController() as UINavigationController
-        return navigator.navigationBar.bounds.size.height.swValue()
-    }
-    
-    class func statusBarHeight() -> Float {
-        return UIApplication.sharedApplication().statusBarFrame.size.height.swValue()
-    }
-    
-    class func commonTopMargin() -> Float {
-        return statusBarHeight() + navigationBarHeight()
-    }
+func mainWindow() -> UIWindow {
+    return UIApplication.sharedApplication().windows[0] as UIWindow
 }
 
-extension UIColor {
-    class func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
-        return self.rgba(r, g: g, b: b, a: 1.0)
-    }
-    
-    class func rgba(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
-        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+func selectedController() -> UIViewController {
+    var tabBarController = mainWindow().rootViewController as UITabBarController
+    return tabBarController.selectedViewController
+}
+
+func navigationBarHeight() -> Float {
+    var navigator = selectedController() as UINavigationController
+    return navigator.navigationBar.bounds.size.height.swValue()
+}
+
+func statusBarHeight() -> Float {
+    return UIApplication.sharedApplication().statusBarFrame.size.height.swValue()
+}
+
+func commonTopMargin() -> Float {
+    return statusBarHeight() + navigationBarHeight()
+}
+
+func unique<T: Equatable>(a: [T], b: [T]) -> [T] {
+    return a.filter {
+        return contains(b, $0)
     }
 }
 

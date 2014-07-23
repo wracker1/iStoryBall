@@ -190,7 +190,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
             var title = titleNode.children[2] as TFHppleElement
             
-            var pointLabel = CommonUI.boldFontLabel(point.text().trim(), fontSize: 8)
+            var pointLabel = UILabel.boldFontLabel(point.text().trim(), fontSize: 8)
             pointLabel.textColor = UIColor.whiteColor()
             pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
             pointLabel.backgroundColor = UIColor.redColor()
@@ -198,7 +198,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             pointLabel.layer.cornerRadius = 5.0
             button.addSubview(pointLabel)
             
-            var titleLabel = CommonUI.systemFontLabel(title.content.trim(), fontSize: 10)
+            var titleLabel = UILabel.systemFontLabel(title.content.trim(), fontSize: 10)
             titleLabel.textColor = UIColor.whiteColor()
             titleLabel.shadowColor = UIColor.blackColor()
             titleLabel.shadowOffset = CGSizeMake(1, 1)
@@ -219,14 +219,14 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE"
         var weekday = formatter.stringFromDate(data)
-        var weekdayLabel = CommonUI.boldFontLabel(weekday, fontSize: 17)
+        var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
         weekdayLabel.textColor = color
         view.addSubview(weekdayLabel)
         weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
         
         formatter.dateFormat = "M.dd"
         var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
-        var dateLabel = CommonUI.systemFontLabel(dateString, fontSize: 10)
+        var dateLabel = UILabel.systemFontLabel(dateString, fontSize: 10)
         dateLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
         dateLabel.textColor = color
         dateLabel.layer.borderColor = color.CGColor
