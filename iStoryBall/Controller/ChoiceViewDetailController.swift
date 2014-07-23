@@ -6,8 +6,6 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-import Foundation
-
 class ChoiceViewDetailController: SBViewController{
     var doc: TFHpple?
     var url: String?

@@ -6,4 +6,10 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-import Foundation
+class ProposalViewController: SBViewController{
+
+    override func viewDidAppear(animated: Bool) {
+    
+    }
+    
+}

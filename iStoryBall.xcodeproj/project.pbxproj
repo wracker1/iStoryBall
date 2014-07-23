@@ -99,7 +99,7 @@
 		4C88F82D196D39E6001C77C4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		5E8F6E6B197762750004218D /* ChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceViewController.swift; sourceTree = "<group>"; };
-		5E8F6E6D197762900004218D /* ProposalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProposalViewController.swift; path = ../ProposalViewController.swift; sourceTree = "<group>"; };
+		5E8F6E6D197762900004218D /* ProposalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProposalViewController.swift; sourceTree = "<group>"; };
 		5EF805641973A18B00EFF888 /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		5EFC2C16197CE8A9007B1E8A /* ChoiceViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceViewDetailController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
@@ -226,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				88089113196BEE7E00BE3F51 /* HomeViewController.swift */,
-				5E8F6E6D197762900004218D /* ProposalViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -316,6 +315,7 @@
 				5E0631FE1974F07B00003E27 /* NoticeViewDetailController.swift */,
 				5E8F6E6B197762750004218D /* ChoiceViewController.swift */,
 				5EFC2C16197CE8A9007B1E8A /* ChoiceViewDetailController.swift */,
+				5E8F6E6D197762900004218D /* ProposalViewController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
