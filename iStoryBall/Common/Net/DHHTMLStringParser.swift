@@ -99,6 +99,11 @@ extension TFHpple {
 }
 
 extension TFHppleElement {
+    func itemWithQuery(query: String) -> TFHppleElement {
+        var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
+        return self.searchWithXPathQuery(q)[0] as TFHppleElement
+    }
+    
     func itemsWithQuery(query: String) -> [AnyObject] {
         var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
         return self.searchWithXPathQuery(q)

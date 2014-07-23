@@ -8,18 +8,21 @@
 
 import QuartzCore
 
-class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate
+class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource
 {
     var doc: TFHpple?
     var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
     var recommendStoryPageControl: UIPageControl?
     
-    var dailyStories: [TFHppleElement] = []
     var dayOfWeeks: [NSDate] = []
+    var dayOfWeeksCount = 6
     var dayOfWeekScrollView: DHPageScrollView?
     
-    var contentsScrollView: UITableView?
+    var contentsData = Dictionary<String, [TFHppleElement]>()
+    var contentTableView: UITableView?
+    var presentContent = Array<TFHppleElement>()
+    var allowContentLoad = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +34,12 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
                 self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
                 self.createTopFeaturingSlide()
                 
-                self.dailyStories = self.doc!.itemsWithQuery(".list_product li a")
                 self.createDayOfWeekScrollView()
+                
+                var todayStories = self.doc!.itemsWithQuery(".list_product li a")
+                var key = self.contentKeyAtIndex(self.dayOfWeeksCount)
+                self.contentsData[key] = todayStories
+                
                 self.createContentTableView()
                 })
         }
@@ -73,7 +80,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var components = NSDateComponents()
         var cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
         
-        for fromNow in 0 ... 6 {
+        for fromNow in 0 ... dayOfWeeksCount {
             components.day = (fromNow * -1)
             var date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0))
             dayOfWeeks += date
@@ -86,21 +93,24 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         dayOfWeekScrollView!.clipsToBounds = false
         self.view.addSubview(dayOfWeekScrollView)
         
-        var pageCount = dayOfWeeks.count - 1
+        var pageCount = dayOfWeeksCount
         dayOfWeekScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
         dayOfWeekScrollView!.reloadData {
             scrollView.scrollToPage(pageCount, animated: false)
+            self.allowContentLoad = true
+            self.loadContentAtIndex(pageCount)
         }
     }
 
     func createContentTableView() {
         var bounds = self.view.bounds
         var height = bounds.size.height - (recommendStoryScrollView!.bounds.size.height + dayOfWeekScrollView!.bounds.size.height)
-        contentsScrollView = UITableView(frame: CGRectMake(0, 0, bounds.width, height), style: .Plain)
-        contentsScrollView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
-        contentsScrollView!.layer.borderWidth = 1.0
-        self.view.addSubview(contentsScrollView)
-        contentsScrollView!.layoutBottomInParentView()
+        contentTableView = UITableView(frame: CGRectMake(0, 0, bounds.width, height), style: .Plain)
+        contentTableView!.dataSource = self
+        contentTableView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
+        contentTableView!.layer.borderWidth = 1.0
+        self.view.addSubview(contentTableView)
+        contentTableView!.layoutBottomInParentView()
     }
     
     func pageControlDidTouched() {
@@ -109,7 +119,24 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func loadContentAtIndex(index: Int) {
-        
+        if allowContentLoad {
+            var key = contentKeyAtIndex(index)
+            var contents = contentsData[key]
+            
+            if let c = contents {
+                presentContent = c
+                contentTableView!.reloadData()
+            } else {
+                println("\(key): 가져와")
+            }
+        }
+    }
+    
+    func contentKeyAtIndex(index: Int) -> String {
+        var date = dayOfWeeks[index]
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        return formatter.stringFromDate(date)
     }
     
 //    DHPageScrollViewDataSource
@@ -223,5 +250,40 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         default:
             assert(false)
         }
+    }
+    
+//    UITableViewDataSource
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        return presentContent.count
+    }
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        var cellId = "ContentCell"
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? UITableViewCell
+        
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: cellId)
+            cell!.imageView.frame = CGRectMake(0, 0, 55, 43)
+        }
+        
+        var data = presentContent[indexPath.row]
+        updateContentCell(cell!, data: data)
+        
+        return cell
+    }
+    
+    func updateContentCell(cell: UITableViewCell, data: TFHppleElement) {
+        var imageNode = data.itemWithQuery(".thumb_view")
+        var imageUrlString = imageNode.attributes["src"] as? NSString
+        cell.imageView.setImageWithURL(NSURL(string:imageUrlString))
+        
+        var titleNode = data.itemWithQuery(".tit_product")
+        cell.textLabel.font = UIFont.boldSystemFontOfSize(12)
+        cell.textLabel.text = titleNode.text()
+        
+        var subTitle = data.attributes["title"] as NSString
+        cell.detailTextLabel.text = subTitle
+        cell.detailTextLabel.textColor = UIColor.grayColor()
+        cell.detailTextLabel.font = UIFont.systemFontOfSize(9)
     }
 }
