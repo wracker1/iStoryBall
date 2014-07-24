@@ -55,7 +55,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
-        tableView = UITableView(frame: self.view.bounds, style: .Grouped)
+        tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
         tableView!.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -66,39 +66,54 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         if var title = label {
             title.removeFromSuperview()
         }
+        
         label = UILabel()
-        label!.frame = CGRectMake(0, 0, 0, 0)
+        label!.frame = CGRectZero
         label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
         label!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(label)
         
         // 버튼
         
-//        var shareButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-//        shareButton.frame = CGRectMake(0, 0, 0, 0)
-//        shareButton.setTitle("공유하기", forState: UIControlState.Normal)
-//        shareButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-//        shareButton.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-//        self.view.addSubview(shareButton)
+        var buttonWrapper = UIView(frame: CGRectZero)
+        buttonWrapper.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        recommendButton.frame = CGRectMake(0, 0, 100, 50)
+        recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
+        recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonWrapper.addSubview(recommendButton)
+        recommendButton.layoutLeftInParentView()
+        
+        var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        redoButton.frame = CGRectMake(0, 0, 100, 50)
+        redoButton.setTitle("다시하기", forState: UIControlState.Normal)
+        redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonWrapper.addSubview(redoButton)
+        self.view.addSubview(buttonWrapper)
+        redoButton.layoutRightInParentView()
         
         var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
         
-        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[table(>=300)]-(0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
+        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|[table(>=300)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
         
-//        var buttonHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=100)-[button(<= 100)]-(>=100)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": shareButton])
-//        
-//        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-(0)-[table(>=200)]-[button(50)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": shareButton])
-//        
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-(0)-[table(>=200)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!])
+        var buttonWrapperHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=50)-[button(>=200)]-(>=50)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": buttonWrapper])
+        
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)][table(>=100)][button(50)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper])
+    
         
         NSLayoutConstraint.activateConstraints(labelHConst)
         NSLayoutConstraint.activateConstraints(tableHConst)
-//        NSLayoutConstraint.activateConstraints(buttonHConst)
+        NSLayoutConstraint.activateConstraints(buttonWrapperHConst)
         NSLayoutConstraint.activateConstraints(vConst)
     }
     
-    func buttonTapped(sender: UIButton!) {
-        println("button tapped")
+    func recommend(sender: UIButton!) {
+        println("recommend")
+    }
+    
+    func redo(sender: UIButton!) {
+        println("redo")
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
