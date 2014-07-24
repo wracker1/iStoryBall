@@ -6,11 +6,14 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class ListViewController: SBViewController
+class ListViewController: SBViewController, UITableViewDataSource
 {
     var doc: TFHpple?
     var headerImageView: UIImageView?
     var descView: UIView?
+    var episodeTableView: UITableView?
+    
+    var episodeList = Array<TFHppleElement>()
     var contentSearchQuery = ".list_product li a"
     
     override func viewDidLoad() {
@@ -27,8 +30,11 @@ class ListViewController: SBViewController
     }
     
     func layoutSubviews() {
+        episodeList = doc!.itemsWithQuery(contentSearchQuery)
+        
         createHeaderView()
         createStoryDescView()
+        createEpisodeTableView()
     }
     
     func createHeaderView() {
@@ -86,5 +92,33 @@ class ListViewController: SBViewController
         
         descView!.sizeToFit()
         descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
+    }
+    
+    func createEpisodeTableView() {
+        var size = self.view.bounds.size
+        var topMargin: CGFloat = 10.0
+        var height = size.height - (headerImageView!.bounds.size.height + descView!.bounds.size.height + topMargin)
+        episodeTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
+        episodeTableView!.dataSource = self
+        self.view.addSubview(episodeTableView)
+        episodeTableView!.layoutBottomFromSibling(descView!, horizontalAlign: .Left, offset: CGPointMake(0, topMargin))
+    }
+    
+    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        return episodeList.count
+    }
+    
+    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        var cellId = EpisodeListCell.reuseIdentifier()
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? EpisodeListCell
+        
+        if cell == nil {
+            cell = EpisodeListCell()
+        }
+        
+        var data = episodeList[indexPath.row]
+        cell!.update(data)
+        
+        return cell
     }
 }

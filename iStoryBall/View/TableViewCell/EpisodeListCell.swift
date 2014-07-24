@@ -19,8 +19,10 @@ class EpisodeListCell: UITableViewCell {
     
     init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
-        titleLabel = UILabel.boldFontLabel("", fontSize: 12)
+        titleLabel = UILabel.boldFontLabel("", fontSize: 11)
         titleLabel.textAlignment = .Left
+        titleLabel.numberOfLines = 0
+        
         subTitleLabel = UILabel.systemFontLabel("", fontSize: 9)
         subTitleLabel.textAlignment = .Left
         subTitleLabel.textColor = UIColor.grayColor()
@@ -33,19 +35,26 @@ class EpisodeListCell: UITableViewCell {
     }
     
     func update(data: TFHppleElement) {
+        var size = self.bounds.size
         var imageNode = data.itemWithQuery(".thumb_view")
         var imageUrlString = imageNode.attributes["src"] as? NSString
         thumbnailView.setImageWithURL(NSURL(string:imageUrlString))
 
         var titleNode = data.itemWithQuery(".tit_product")
-        titleLabel.text = titleNode.text()
+        titleLabel.text = titleNode.text().trim()
+        titleLabel.frame = CGRectMake(0, 0, size.width - 60, 0)
         titleLabel.sizeToFit()
         
-        var subTitle = data.attributes["title"] as NSString
-        subTitleLabel.text = subTitle
-        subTitleLabel.sizeToFit()
+        var subTitle = data.attributes["title"] as? NSString
         
-        titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
-        subTitleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -6))
+        if let s = subTitle {
+            subTitleLabel.text = s
+            subTitleLabel.sizeToFit()
+            
+            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
+            subTitleLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 3))
+        } else {
+            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Center, offset: CGPointMake(5, 0))
+        }
     }
 }
