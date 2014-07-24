@@ -9,7 +9,6 @@
 class EpisodeViewController: SBViewController
 {
     var doc: TFHpple?
-//    var html: String?
     var contentWebview: UIWebView?
     
     override func viewDidLoad() {
@@ -18,7 +17,6 @@ class EpisodeViewController: SBViewController
         if let episodeId = id {
             NetClient.instance.get(episodeId) {
                 (html: String) in
-//                self.html = html
                 self.doc = html.htmlDocument()
                 self.layoutSubviews()
             }

@@ -297,6 +297,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var episodeViewController = EpisodeViewController(title: title.text().trim())
             episodeViewController.id = link
             self.navigationController.pushViewController(episodeViewController, animated: true)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
 }
