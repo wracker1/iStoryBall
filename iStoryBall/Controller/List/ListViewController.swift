@@ -11,6 +11,7 @@ class ListViewController: SBViewController
     var doc: TFHpple?
     var headerImageView: UIImageView?
     var descView: UIView?
+    var contentSearchQuery = ".list_product li a"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,21 +45,46 @@ class ListViewController: SBViewController
     
     func createStoryDescView() {
         var data = doc!.itemWithQuery(".intro_cont")
+        var horizontalMargin: CGFloat = 5.0
+        var maxWidth = self.view.bounds.size.width - (horizontalMargin * 2)
         descView = UIView()
-        var height: CGFloat = 0.0
         
         var title = data.itemWithQuery(".tit_intro")
         var titleLabel = UILabel.boldFontLabel(title.text().trim(), fontSize: 15)
         titleLabel.numberOfLines = 0
-        titleLabel.frame = CGRectMake(0, 0, self.view.bounds.size.width, 0)
+        titleLabel.textAlignment = .Left
+        titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
         titleLabel.sizeToFit()
-        height += titleLabel.bounds.size.height
+        descView!.addSubview(titleLabel)
+        titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
+        
+        var writer = data.itemWithQuery(".intro_writer")
+        var writerLabel = UILabel.systemFontLabel(writer.text().trim(), fontSize: 10)
+        writerLabel.textAlignment = .Left
+        descView!.addSubview(writerLabel)
+        writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
+        
+        var intro = data.itemWithQuery(".txt_intro")
+        var introLabel = UILabel.systemFontLabel(intro.text().trim(), fontSize: 10)
+        introLabel.numberOfLines = 0
+        introLabel.textAlignment = .Left
+        introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
+        introLabel.frame = CGRectMake(0, 0, maxWidth, 0)
+        introLabel.sizeToFit()
+        descView!.addSubview(introLabel)
+        introLabel.layoutBottomFromSibling(writerLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
+        
+        var subscriptionDay = data.itemWithQuery(".intro_day")
+        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay.text().trim(), fontSize: 10)
+        subscriptionDayLabel.textColor = UIColor.rgb(76, g: 134, b: 237)
+        subscriptionDayLabel.sizeToFit()
+        descView!.addSubview(subscriptionDayLabel)
+        subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
         self.view.addSubview(descView)
-        descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, height)
-        descView!.activateConstraintsBottomFromSibling(headerImageView!)
+        descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
         
-        descView!.addSubview(titleLabel)
-        titleLabel.activateConstraintsBottomInParentView(.Left, offset: CGPointMake(5, 10))
+        descView!.sizeToFit()
+        descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
     }
 }

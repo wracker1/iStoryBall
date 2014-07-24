@@ -273,11 +273,11 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        var cellId = HomeContentCell.reuseIdentifier()
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? HomeContentCell
+        var cellId = EpisodeListCell.reuseIdentifier()
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? EpisodeListCell
         
         if cell == nil {
-            cell = HomeContentCell()
+            cell = EpisodeListCell()
         }
         
         var data = presentContent[indexPath.row]

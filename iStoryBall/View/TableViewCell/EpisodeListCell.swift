@@ -1,5 +1,5 @@
 //
-//  HomeContentCell.swift
+//  EpisodeListCell.swift
 //  iStoryBall
 //
 //  Created by Jesse on 2014. 7. 23..
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class HomeContentCell: UITableViewCell {
+class EpisodeListCell: UITableViewCell {
     class func reuseIdentifier() -> String {
-        return "HomeContentCell"
+        return "EpisodeListCell"
     }
     
     var thumbnailView: UIImageView
@@ -25,7 +25,7 @@ class HomeContentCell: UITableViewCell {
         subTitleLabel.textAlignment = .Left
         subTitleLabel.textColor = UIColor.grayColor()
         
-        super.init(style: .Default, reuseIdentifier: HomeContentCell.reuseIdentifier())
+        super.init(style: .Default, reuseIdentifier: EpisodeListCell.reuseIdentifier())
         
         self.addSubview(thumbnailView)
         self.addSubview(titleLabel)

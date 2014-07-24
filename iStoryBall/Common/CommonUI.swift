@@ -59,6 +59,18 @@ extension UIView {
         self.frame = UIEdgeInsetsInsetRect(self.frame, UIEdgeInsetsMake(top, left, bottom, right))
     }
     
+    func sizeThatFits(size: CGSize) -> CGSize {
+        var s = size
+
+        for view in self.subviews {
+            var frame = view.frame
+            s.width = max(s.width, (frame.origin.x + frame.size.width))
+            s.height = max(s.height, (frame.origin.y + frame.size.height))
+        }
+        
+        return s
+    }
+    
 //    top
     func activateConstraintsTopInParentView() {
         self.activateConstraintsTopInParentView(.Center)

@@ -48,7 +48,7 @@
 		881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA3197F88160014B39C /* NoticeViewController.swift */; };
 		881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */; };
 		881A6CAD197F88510014B39C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CAC197F88510014B39C /* Article.swift */; };
-		881A6CB3197F890C0014B39C /* HomeContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB2197F890C0014B39C /* HomeContentCell.swift */; };
+		881A6CB3197F890C0014B39C /* EpisodeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB2197F890C0014B39C /* EpisodeListCell.swift */; };
 		881A6CB7197FBCE80014B39C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB6197FBCE80014B39C /* DetailViewController.swift */; };
 		881A6CBA197FBD560014B39C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CB9197FBD560014B39C /* ListViewController.swift */; };
 		883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
@@ -131,7 +131,7 @@
 		881A6CA3197F88160014B39C /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewController.swift; path = Menu/NoticeViewController.swift; sourceTree = "<group>"; };
 		881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewDetailController.swift; path = Menu/NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		881A6CAC197F88510014B39C /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		881A6CB2197F890C0014B39C /* HomeContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeContentCell.swift; path = View/TableViewCell/HomeContentCell.swift; sourceTree = "<group>"; };
+		881A6CB2197F890C0014B39C /* EpisodeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeListCell.swift; path = View/TableViewCell/EpisodeListCell.swift; sourceTree = "<group>"; };
 		881A6CB6197FBCE80014B39C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		881A6CB9197FBD560014B39C /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListViewController.swift; path = List/ListViewController.swift; sourceTree = "<group>"; };
 		88352495196D046700E89105 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 		881A6CB1197F88D70014B39C /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				881A6CB2197F890C0014B39C /* HomeContentCell.swift */,
+				881A6CB2197F890C0014B39C /* EpisodeListCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -589,7 +589,7 @@
 				883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */,
 				88089120196BF00000BE3F51 /* SBViewController.swift in Sources */,
-				881A6CB3197F890C0014B39C /* HomeContentCell.swift in Sources */,
+				881A6CB3197F890C0014B39C /* EpisodeListCell.swift in Sources */,
 				88089149196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
 				881A6CAD197F88510014B39C /* Article.swift in Sources */,
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
