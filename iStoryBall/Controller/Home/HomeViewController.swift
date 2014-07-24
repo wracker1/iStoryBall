@@ -8,7 +8,7 @@
 
 import QuartzCore
 
-class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource
+class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
 {
     var doc: TFHpple?
     var recommendStories: [TFHppleElement] = []
@@ -105,6 +105,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var height = bounds.size.height - (recommendStoryScrollView!.bounds.size.height + dayOfWeekScrollView!.bounds.size.height)
         contentTableView = UITableView(frame: CGRectMake(0, 0, bounds.width, height), style: .Plain)
         contentTableView!.dataSource = self
+        contentTableView!.delegate = self
         contentTableView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
         contentTableView!.layer.borderWidth = 1.0
         self.view.addSubview(contentTableView)
@@ -284,5 +285,18 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         cell!.update(data)
         
         return cell
+    }
+    
+//    UITableViewDelegate
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var data = presentContent[indexPath.row]
+        var href = data.attributes["href"] as? NSString
+        
+        if let link = href {
+            var title = data.itemWithQuery(".tit_product")
+            var episodeViewController = EpisodeViewController(title: title.text().trim())
+            episodeViewController.id = link
+            self.navigationController.pushViewController(episodeViewController, animated: true)
+        }
     }
 }

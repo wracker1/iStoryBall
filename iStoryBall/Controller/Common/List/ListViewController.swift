@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class ListViewController: SBViewController, UITableViewDataSource
+class ListViewController: SBViewController, UITableViewDataSource, UITableViewDelegate
 {
     var doc: TFHpple?
     var headerImageView: UIImageView?
@@ -100,6 +100,7 @@ class ListViewController: SBViewController, UITableViewDataSource
         var height = size.height - (headerImageView!.bounds.size.height + descView!.bounds.size.height + topMargin)
         episodeTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
         episodeTableView!.dataSource = self
+        episodeTableView!.delegate = self
         self.view.addSubview(episodeTableView)
         episodeTableView!.layoutBottomFromSibling(descView!, horizontalAlign: .Left, offset: CGPointMake(0, topMargin))
     }
@@ -120,5 +121,17 @@ class ListViewController: SBViewController, UITableViewDataSource
         cell!.update(data)
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var data = episodeList[indexPath.row]
+        var href = data.attributes["href"] as? NSString
+        
+        if let link = href {
+            var title = data.itemWithQuery(".tit_product")
+            var episodeViewController = EpisodeViewController(title: title.text().trim())
+            episodeViewController.id = link
+            self.navigationController.pushViewController(episodeViewController, animated: true)
+        }
     }
 }

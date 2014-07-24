@@ -8,5 +8,9 @@
 
 class EpisodeViewController: SBViewController
 {
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+    }
 }
