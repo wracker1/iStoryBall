@@ -167,9 +167,9 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         titleLabel.shadowColor = UIColor.blackColor()
         titleLabel.shadowOffset = CGSizeMake(1, 1)
         contentView.addSubview(titleLabel)
-        
-        pointLabel.activateConstraintsBottomInParentView(.Left, offset: CGPointMake(7, -15))
-        titleLabel.activateConstraintsRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
+
+        pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(7, -15))
+        titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Center, offset: CGPointMake(3, 0))
         
         pageView.contentView = contentView
     }
@@ -193,7 +193,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
             weekdayLabel.textColor = color
             view.addSubview(weekdayLabel)
-            weekdayLabel.activateConstraintsTopInParentView(.Center, offset: CGPointMake(0, 3))
+            weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
             
             formatter.dateFormat = "M.dd"
             var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
@@ -205,7 +205,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             dateLabel.layer.cornerRadius = 5.0
             
             view.addSubview(dateLabel)
-            dateLabel.activateConstraintsBottomFromSibling(weekdayLabel)
+            dateLabel.layoutBottomFromSibling(weekdayLabel)
             
             pageView.contentView = view
         }

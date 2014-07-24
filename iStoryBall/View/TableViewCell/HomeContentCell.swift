@@ -45,7 +45,7 @@ class HomeContentCell: UITableViewCell {
         subTitleLabel.text = subTitle
         subTitleLabel.sizeToFit()
         
-        titleLabel.activateConstraintsRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8), flexible: true)
-        subTitleLabel.activateConstraintsRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -8), flexible: true)
+        titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
+        subTitleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Bottom, offset: CGPointMake(5, -6))
     }
 }

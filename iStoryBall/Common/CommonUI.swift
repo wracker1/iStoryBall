@@ -40,11 +40,15 @@ extension UIColor {
 
 extension UIView {
     enum UIViewHorizontalAlign {
-        case Left, Center, Right
+        case None, Left, Center, Right
     }
     
     enum UIViewVerticalAlign {
-        case Top, Center, Bottom
+        case None, Top, Center, Bottom
+    }
+    
+    enum UIViewPosition {
+        case Top, Right, Bottom, Left, Center
     }
     
     func padding(value: UIEdgeInsets) {
@@ -309,11 +313,69 @@ extension UIView {
         NSLayoutConstraint.activateConstraints(hConst)
     }
     
+//    layout in parent
+    
+    func layoutTopInParentView() {
+        self.layoutTopInParentView(.Center)
+    }
+    
+    func layoutTopInParentView(horinzontalAlign: UIViewHorizontalAlign) {
+        self.layoutTopInParentView(horinzontalAlign, offset: CGPointZero)
+    }
+    
     func layoutTopInParentView(horinzontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
-        var frame: CGRect!
+        self.frame = frameInParentView(horinzontalAlign, verticalAlign: .Top, offset: offset)
+    }
+    
+    func layoutBottomInParentView() {
+        self.layoutBottomInParentView(.Center)
+    }
+    
+    func layoutBottomInParentView(horinzontalAlign: UIViewHorizontalAlign) {
+        self.layoutBottomInParentView(horinzontalAlign, offset: CGPointZero)
+    }
+    
+    func layoutBottomInParentView(horinzontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.frame = frameInParentView(horinzontalAlign, verticalAlign: .Bottom, offset: offset)
+    }
+    
+    func layoutLeftInParentView() {
+        self.layoutLeftInParentView(.Center)
+    }
+    
+    func layoutLeftInParentView(verticalAlign: UIViewVerticalAlign) {
+        self.layoutLeftInParentView(verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutLeftInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.frame = frameInParentView(.Left, verticalAlign: verticalAlign, offset: offset)
+    }
+    
+    func layoutRightInParentView() {
+        self.layoutLeftInParentView(.Center)
+    }
+    
+    func layoutRightInParentView(verticalAlign: UIViewVerticalAlign) {
+        self.layoutLeftInParentView(verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutRightInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.frame = frameInParentView(.Right, verticalAlign: verticalAlign, offset: offset)
+    }
+    
+    func frameInParentView(horinzontalAlign: UIViewHorizontalAlign, verticalAlign: UIViewVerticalAlign, offset: CGPoint) -> CGRect {
         var parentSize = self.superview.bounds.size
         var size = self.bounds.size
         var origin = CGPointZero
+        
+        switch verticalAlign {
+        case .Center:
+            origin.y = (parentSize.height - size.height) / 2.0
+        case .Bottom:
+            origin.y = parentSize.height - size.height
+        default:
+            origin.y = 0.0
+        }
         
         switch horinzontalAlign {
         case .Center:
@@ -321,12 +383,126 @@ extension UIView {
         case .Right:
             origin.x = parentSize.width - size.width
         default:
-            origin = CGPointZero
+            origin.x = 0.0
         }
         
         origin.x += offset.x
         origin.y += offset.y
         
-        self.frame = CGRect(origin: origin, size: size)
+        return CGRect(origin: origin, size: size)
+    }
+    
+//    layout from sibling
+    
+    func layoutTopFromSibling(sibling: UIView) {
+        self.layoutTopFromSibling(sibling, horizontalAlign: .Center)
+    }
+    
+    func layoutTopFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign) {
+        self.layoutTopFromSibling(sibling, horizontalAlign: horizontalAlign, offset: CGPointZero)
+    }
+    
+    func layoutTopFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.frame = frameFromSibling(sibling, position: .Top, horizontalAlign: horizontalAlign, verticalAlign: .None, offset: offset)
+    }
+    
+    func layoutBottomFromSibling(sibling: UIView) {
+        self.layoutBottomFromSibling(sibling, horizontalAlign: .Center)
+    }
+    
+    func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign) {
+        self.layoutBottomFromSibling(sibling, horizontalAlign: horizontalAlign, offset: CGPointZero)
+    }
+    
+    func layoutBottomFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        self.frame = frameFromSibling(sibling, position: .Bottom, horizontalAlign: horizontalAlign, verticalAlign: .None, offset: offset)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView) {
+        self.layoutRightFromSibling(sibling, verticalAlign: .Center)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign) {
+        self.layoutRightFromSibling(sibling, verticalAlign: verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutRightFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.frame = frameFromSibling(sibling, position: .Right, horizontalAlign: .None, verticalAlign: verticalAlign, offset: offset)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView) {
+        self.layoutLeftFromSibling(sibling, verticalAlign: .Center)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign) {
+        self.layoutLeftFromSibling(sibling, verticalAlign: verticalAlign, offset: CGPointZero)
+    }
+    
+    func layoutLeftFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
+        self.frame = frameFromSibling(sibling, position: .Left, horizontalAlign: .None, verticalAlign: verticalAlign, offset: offset)
+    }
+    
+    func frameFromSibling(sibling: UIView, position: UIViewPosition, horizontalAlign: UIViewHorizontalAlign, verticalAlign: UIViewVerticalAlign, offset: CGPoint) -> CGRect {
+        var siblingFrame = sibling.frame
+        var size = self.bounds.size
+        var origin = CGPointZero
+        
+        switch position {
+        case .Top:
+            origin.y = siblingFrame.origin.y - size.height
+            origin.x = horizontalOriginXFromSibling(sibling, horizontalAlign: horizontalAlign)
+        case .Bottom:
+            origin.y = siblingFrame.origin.y + siblingFrame.size.height
+            origin.x = horizontalOriginXFromSibling(sibling, horizontalAlign: horizontalAlign)
+        case .Right:
+            origin.x = siblingFrame.origin.x + siblingFrame.size.width
+            origin.y = verticalOriginYFromSibling(sibling, verticalAlign: verticalAlign)
+        default:
+            origin.x = siblingFrame.origin.x - size.width
+            origin.y = verticalOriginYFromSibling(sibling, verticalAlign: verticalAlign)
+        }
+        
+        origin.x += offset.x
+        origin.y += offset.y
+        
+        return CGRect(origin: origin, size: size)
+    }
+    
+    func horizontalOriginXFromSibling(sibling: UIView, horizontalAlign: UIViewHorizontalAlign) -> CGFloat {
+        var x: CGFloat = 0.0
+        var siblingFrame = sibling.frame
+        var size = self.bounds.size
+        
+        switch horizontalAlign {
+        case .Left:
+            x = siblingFrame.origin.x
+        case .Center:
+            x = (siblingFrame.size.width - size.width) / 2.0 + siblingFrame.origin.x
+        case .Right:
+            x = siblingFrame.origin.x + siblingFrame.size.width - size.width
+        default:
+            x = 0.0
+        }
+        
+        return x
+    }
+    
+    func verticalOriginYFromSibling(sibling: UIView, verticalAlign: UIViewVerticalAlign) -> CGFloat {
+        var y: CGFloat = 0.0
+        var siblingFrame = sibling.frame
+        var size = self.bounds.size
+        
+        switch verticalAlign {
+        case .Top:
+            y = siblingFrame.origin.y
+        case .Center:
+            y = (siblingFrame.size.height - size.height) / 2.0 + siblingFrame.origin.y
+        case .Bottom:
+            y = siblingFrame.origin.y + siblingFrame.size.height - size.height
+        default:
+            y = 0.0
+        }
+        
+        return y
     }
 }
