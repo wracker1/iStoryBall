@@ -9,7 +9,7 @@
 class EpisodeViewController: SBViewController
 {
     var doc: TFHpple?
-    var contentWebview: UIWebView?
+    var contentWebview: SBWebview?
     
     override func viewDidLoad() {
         super.viewDidLoad()
