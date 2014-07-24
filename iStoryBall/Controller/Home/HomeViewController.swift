@@ -157,11 +157,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var imageUrl = thumbImageNode.imageUrlFromHppleElement()
         contentView.setImageWithURL(NSURL(string: imageUrl))
         
-        var titleNode = data.itemWithQuery(".tit_banner")
-        var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
-        var title = titleNode.children[2] as TFHppleElement
-        
-        var pointLabel = UILabel.boldFontLabel(point.text().trim(), fontSize: 8)
+        var title = recommendStoryTitleFromData(data)
+        var pointLabel = UILabel.boldFontLabel(title.title, fontSize: 8)
         pointLabel.textColor = UIColor.whiteColor()
         pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
         pointLabel.backgroundColor = UIColor.redColor()
@@ -169,7 +166,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         pointLabel.layer.cornerRadius = 5.0
         contentView.addSubview(pointLabel)
         
-        var titleLabel = UILabel.systemFontLabel(title.content.trim(), fontSize: 10)
+        var titleLabel = UILabel.systemFontLabel(title.subTitle, fontSize: 10)
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.shadowColor = UIColor.blackColor()
         titleLabel.shadowOffset = CGSizeMake(1, 1)
@@ -179,6 +176,13 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
         
         pageView.contentView = contentView
+    }
+    
+    func recommendStoryTitleFromData(data: TFHppleElement) -> (title: String, subTitle: String) {
+        var titleNode = data.itemWithQuery(".tit_banner")
+        var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
+        var title = titleNode.children[2] as TFHppleElement
+        return (point.text().trim(), title.content.trim())
     }
     
     func updatedayOfWeekScrollViewPageView(pageView: DHPageView, atPage page: Int) {
@@ -243,7 +247,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     }
     
 //    DHPageScrollViewDelegate
-    func scrollViewDidChangePage(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void {
+    func scrollView(scrollView: DHPageScrollView?, didChangePage page: Int) -> Void {
         switch scrollView {
         case let x where x! === recommendStoryScrollView:
             recommendStoryPageControl!.currentPage = page
@@ -251,6 +255,19 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             loadContentAtIndex(page)
         default:
             assert(false)
+        }
+    }
+    
+    func scrollView(scrollView: DHPageScrollView!, didSelectPageViewAtPage page: Int) {
+        if scrollView === recommendStoryScrollView {
+            var data = recommendStories[page]
+            var id = data.attributes["href"] as NSString
+            var title = recommendStoryTitleFromData(data)
+            
+            var listViewController = ListViewController(title: title.title)
+            listViewController.id = id as String
+            
+            self.navigationController.pushViewController(listViewController, animated: true)
         }
     }
     

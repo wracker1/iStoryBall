@@ -10,6 +10,8 @@ import UIKit
 
 class SBViewController : UIViewController
 {
+    var id: String?
+    
     convenience init(title: String)
     {
         self.init(nibName: nil, bundle: nil)

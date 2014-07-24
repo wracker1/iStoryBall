@@ -17,12 +17,15 @@ import UIKit
 
 @objc protocol DHPageScrollViewDelegate: UIScrollViewDelegate
 {
-    optional func scrollViewDidChangePage(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
+    optional func scrollView(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
+    
+    optional func scrollView(scrollView: DHPageScrollView!, didSelectPageViewAtPage page: Int) -> Void
 }
 
 class DHPageView: UIScrollView
 {
     var page: Int?
+    var touchEndBlock: ((page: Int) -> Void)?
     var _contentView: UIView?
     var contentView: UIView? {
     set {
@@ -67,6 +70,9 @@ class DHPageView: UIScrollView
     }
     
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+        if let block = touchEndBlock {
+            block(page: page!)
+        }
     }
 }
 
@@ -155,7 +161,7 @@ class DHPageScrollView: UIScrollView
         checkContentLeft(currentPage - 1)
         checkContentRight(currentPage + 1)
         
-        _delegate?.scrollViewDidChangePage?(self, didChangePage: page)
+        _delegate?.scrollView?(self, didChangePage: page)
     }
     
     func checkContentLeft(page: Int) {
@@ -196,6 +202,13 @@ class DHPageScrollView: UIScrollView
                 
                 if let item = pageView {
                     item.page = page
+                    item.touchEndBlock = {
+                        (page: Int) in
+                        
+                        if let d = self._delegate {
+                            d.scrollView?(self, didSelectPageViewAtPage: page)
+                        }
+                    }
                     
                     if !contains(pageViews, item) {
                         pageViews += item
