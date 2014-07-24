@@ -13,6 +13,8 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     var form: TFHppleElement?
     var tableView: UITableView?
     var label:UILabel?
+    let CELL_HEIGHT:Float = 45.0
+    var selected = -1
     
     override func viewWillAppear(animated: Bool)  {
         requestData()
@@ -20,7 +22,6 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     }
 
     override func viewDidAppear(animated: Bool) {
-        self.title = "맞춤한 스토리"
         super.viewDidAppear(animated)
     }
 
@@ -60,6 +61,10 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         tableView!.dataSource = self
         tableView!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(tableView)
+        tableView!.layer.cornerRadius = 10.0
+        tableView!.layer.borderColor = UIColor.grayColor().CGColor
+        tableView!.layer.borderWidth = 1
+        
         
         // 중복으로 붙는다...
         
@@ -95,11 +100,13 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         
         var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
         
-        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|[table(>=300)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
+        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[table(300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
         
         var buttonWrapperHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=50)-[button(>=200)]-(>=50)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": buttonWrapper])
         
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)][table(>=100)][button(50)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper])
+        var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
+        println(tableHeight)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(\(tableHeight.cgValue()))]-[button(50)]-(>=0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper])
     
         
         NSLayoutConstraint.activateConstraints(labelHConst)
@@ -110,6 +117,10 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     
     func recommend(sender: UIButton!) {
         println("recommend")
+        var value = self.choiceValues[self.selected]
+        var choiceViewDetailController = ChoiceViewDetailController()
+        choiceViewDetailController.url = value
+        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
     }
     
     func redo(sender: UIButton!) {
@@ -136,17 +147,22 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         var cell: UITableViewCell = UITableViewCell(style: .Default, reuseIdentifier: identifier)
         var row = indexPath.row
         cell.textLabel.text = self.choiceTitles[row]
+        cell.textLabel.font = UIFont.systemFontOfSize(12)
         
         return cell
     }
     
-//    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-//        //선택 된것 확인
-//        var row = indexPath.row
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return CELL_HEIGHT.cgValue()
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        //선택 된것 확인
+        self.selected = indexPath.row
 //        var value = choiceValues[row]
 //        var choiceViewDetailController = ChoiceViewDetailController()
 //        choiceViewDetailController.url = value
 //        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
-//    }
+    }
     
 }
