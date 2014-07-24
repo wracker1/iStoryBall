@@ -21,6 +21,7 @@ class SBViewController : UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.whiteColor()
         self.edgesForExtendedLayout = UIRectEdge.None
     }
     
