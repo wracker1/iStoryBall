@@ -65,6 +65,9 @@ class DHPageView: UIScrollView
             _contentView = nil
         }
     }
+    
+    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    }
 }
 
 class DHPageScrollView: UIScrollView
