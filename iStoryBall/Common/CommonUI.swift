@@ -55,8 +55,6 @@ extension UIView {
         self.frame = UIEdgeInsetsInsetRect(self.frame, UIEdgeInsetsMake(top, left, bottom, right))
     }
     
-//    parent basis layout
-    
 //    top
     func activateConstraintsTopInParentView() {
         self.activateConstraintsTopInParentView(.Center)
@@ -140,8 +138,6 @@ extension UIView {
         
         addHorizontalConstraintsWithSibling(nil, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
     }
-    
-//    sibling basis layout
     
 //    top
     func activateConstraintsTopFromSibling(sibling: UIView) {
@@ -247,7 +243,7 @@ extension UIView {
         addHorizontalConstraintsWithSibling(sibling, verticalAlign: verticalAlign, offset: offset, horizontalConstraint: hConst)
     }
     
-//    align & util
+//    constraints align util
     
     func addVerticalConstraintsWithSibling(sibling: UIView?, horizontalAlign: UIViewHorizontalAlign, offset: CGPoint, verticalConstraint: [AnyObject]) {
         NSLayoutConstraint.activateConstraints(verticalConstraint)
@@ -311,5 +307,26 @@ extension UIView {
         
         var hConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(\(leftMargin))-[view(\(self.bounds.size.width))]-(\(rightMargin))-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["view": self])
         NSLayoutConstraint.activateConstraints(hConst)
+    }
+    
+    func layoutTopInParentView(horinzontalAlign: UIViewHorizontalAlign, offset: CGPoint) {
+        var frame: CGRect!
+        var parentSize = self.superview.bounds.size
+        var size = self.bounds.size
+        var origin = CGPointZero
+        
+        switch horinzontalAlign {
+        case .Center:
+            origin.x = (parentSize.width - size.width) / 2.0
+        case .Right:
+            origin.x = parentSize.width - size.width
+        default:
+            origin = CGPointZero
+        }
+        
+        origin.x += offset.x
+        origin.y += offset.y
+        
+        self.frame = CGRect(origin: origin, size: size)
     }
 }

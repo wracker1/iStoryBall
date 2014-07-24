@@ -83,7 +83,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
         recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper.addSubview(recommendButton)
-        recommendButton.layoutLeftInParentView()
+        recommendButton.activateConstraintsLeftInParentView()
         
         var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         redoButton.frame = CGRectMake(0, 0, 100, 50)
@@ -91,7 +91,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper.addSubview(redoButton)
         self.view.addSubview(buttonWrapper)
-        redoButton.layoutRightInParentView()
+        redoButton.activateConstraintsRightInParentView()
         
         var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
         
