@@ -20,6 +20,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     }
 
     override func viewDidAppear(animated: Bool) {
+        self.title = "맞춤한 스토리"
         super.viewDidAppear(animated)
     }
 
@@ -73,26 +74,31 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         
         // 버튼
         
-        var shareButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        shareButton.frame = CGRectMake(0, 0, 0, 0)
-        shareButton.setTitle("공유하기", forState: UIControlState.Normal)
-        self.view.addSubview(shareButton)
+//        var shareButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+//        shareButton.frame = CGRectMake(0, 0, 0, 0)
+//        shareButton.setTitle("공유하기", forState: UIControlState.Normal)
+//        shareButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        shareButton.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+//        self.view.addSubview(shareButton)
         
         var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
         
         var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[table(>=300)]-(0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
         
-        var buttonHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=100)-[button(<=100)]-(>=100)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": shareButton])
+//        var buttonHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=100)-[button(<= 100)]-(>=100)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": shareButton])
+//        
+//        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-(0)-[table(>=200)]-[button(50)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": shareButton])
+//        
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-(0)-[table(>=200)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!])
         
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-(20)-[button(50)]-[table(>=300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": shareButton])
-        
-        
-        self.view.addConstraints(labelHConst)
-        self.view.addConstraints(tableHConst)
-        self.view.addConstraints(buttonHConst)
-        self.view.addConstraints(vConst)
-        
-        
+        NSLayoutConstraint.activateConstraints(labelHConst)
+        NSLayoutConstraint.activateConstraints(tableHConst)
+//        NSLayoutConstraint.activateConstraints(buttonHConst)
+        NSLayoutConstraint.activateConstraints(vConst)
+    }
+    
+    func buttonTapped(sender: UIButton!) {
+        println("button tapped")
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
@@ -119,14 +125,13 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        //선택 된것 확인
-        var row = indexPath.row
-        var value = choiceValues[row]
-        println(value)
-        var choiceViewDetailController = ChoiceViewDetailController()
-        choiceViewDetailController.url = value
-        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
-    }
+//    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+//        //선택 된것 확인
+//        var row = indexPath.row
+//        var value = choiceValues[row]
+//        var choiceViewDetailController = ChoiceViewDetailController()
+//        choiceViewDetailController.url = value
+//        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
+//    }
     
 }
