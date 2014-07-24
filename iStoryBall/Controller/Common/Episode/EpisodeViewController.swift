@@ -34,7 +34,7 @@ class EpisodeViewController: SBViewController
         var html = "<!DOCTYPE html>\(head)<body data-ctpageid=\"storyballView\"><div class=\"cont_view bnr_on fit\" id=\"daumWrap\"><article id=\"daumContent\"><div id=\"cMain\"><article id=\"mArticle\" role=\"main\">\(body)</article></div></article></div></body>"
         var size = self.view.bounds.size
         
-        contentWebview = UIWebView(frame: CGRect(origin: CGPointZero, size: size))
+        contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
         self.view.addSubview(contentWebview)
         contentWebview!.layoutTopInParentView()
         contentWebview!.loadHTMLString(html, baseURL: NetClient.instance.manager?.baseURL)
