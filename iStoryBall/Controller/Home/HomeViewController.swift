@@ -33,26 +33,22 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             NetClient.instance.get("/", success: {
                 (html: String) in
                 self.doc = html.htmlDocument()
-                self.recommendStories = self.doc!.itemsWithQuery(".link_banner")
-                self.createTopFeaturingSlide()
-                
-                self.createDayOfWeekScrollView()
-                
-                var todayStories = self.doc!.itemsWithQuery(self.contentSearchQuery)
-                var key = self.contentKeyAtIndex(self.dayOfWeeksCount)
-                self.contentsData[key] = todayStories
-                
-                self.createContentTableView()
+                self.layoutSubviews()
                 })
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    func layoutSubviews() {
+        recommendStories = doc!.itemsWithQuery(".link_banner")
+        createTopFeaturingSlide()
+        
+        createDayOfWeekScrollView()
+        
+        var todayStories = doc!.itemsWithQuery(contentSearchQuery)
+        var key = contentKeyAtIndex(dayOfWeeksCount)
+        contentsData[key] = todayStories
+        
+        createContentTableView()
     }
     
     func createTopFeaturingSlide() {
@@ -60,7 +56,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, bounds.width, 90), dataSource: self)
         recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
-        recommendStoryScrollView!.layoutTopInParentView()
+        recommendStoryScrollView!.activateConstraintsTopInParentView()
         
         createPageControl()
         recommendStoryScrollView!.reloadData(nil)
@@ -75,7 +71,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryPageControl!.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
         self.view.addSubview(recommendStoryPageControl)
         
-        recommendStoryPageControl!.layoutBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
+        recommendStoryPageControl!.activateConstraintsBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
     }
     
     func createDayOfWeekScrollView() {
@@ -96,7 +92,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         self.view.addSubview(dayOfWeekScrollView)
         
         var pageCount = dayOfWeeksCount
-        dayOfWeekScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
+        dayOfWeekScrollView!.activateConstraintsBottomFromSibling(recommendStoryScrollView!)
         dayOfWeekScrollView!.reloadData {
             scrollView.scrollToPage(pageCount, animated: false)
             self.allowContentLoad = true
@@ -112,7 +108,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         contentTableView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
         contentTableView!.layer.borderWidth = 1.0
         self.view.addSubview(contentTableView)
-        contentTableView!.layoutBottomInParentView()
+        contentTableView!.activateConstraintsBottomInParentView()
     }
     
     func pageControlDidTouched() {
@@ -172,8 +168,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         titleLabel.shadowOffset = CGSizeMake(1, 1)
         contentView.addSubview(titleLabel)
         
-        pointLabel.layoutBottomInParentView(.Left, offset: CGPointMake(7, -15))
-        titleLabel.layoutRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
+        pointLabel.activateConstraintsBottomInParentView(.Left, offset: CGPointMake(7, -15))
+        titleLabel.activateConstraintsRightFromSibling(pointLabel, verticalAlign: .Bottom, offset: CGPointMake(3, -15))
         
         pageView.contentView = contentView
     }
@@ -197,7 +193,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
             weekdayLabel.textColor = color
             view.addSubview(weekdayLabel)
-            weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
+            weekdayLabel.activateConstraintsTopInParentView(.Center, offset: CGPointMake(0, 3))
             
             formatter.dateFormat = "M.dd"
             var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
@@ -209,7 +205,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             dateLabel.layer.cornerRadius = 5.0
             
             view.addSubview(dateLabel)
-            dateLabel.layoutBottomFromSibling(weekdayLabel)
+            dateLabel.activateConstraintsBottomFromSibling(weekdayLabel)
             
             pageView.contentView = view
         }

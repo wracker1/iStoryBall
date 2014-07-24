@@ -93,6 +93,10 @@ extension String {
 }
 
 extension TFHpple {
+    func itemWithQuery(query: String) -> TFHppleElement {
+        return itemsWithQuery(query)[0]
+    }
+    
     func itemsWithQuery(query: String) -> [TFHppleElement] {
         return DHHTMLStringParser.instance.itemsWithDocument(self, query: query)
     }
