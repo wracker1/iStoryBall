@@ -58,15 +58,13 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
-        
-        
         tableView!.reloadData()
         
         var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
         println(tableHeight)
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(\(tableHeight.cgValue()))]-[button(50)]-(>=0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper!])
+        tableView!.frame = CGRectMake(20, 50, self.view.bounds.size.width - 40, tableHeight.cgValue())
+        buttonWrapper!.frame = CGRectMake(20, 50 + tableHeight.cgValue(), self.view.bounds.size.width - 40, 50)
         
-        NSLayoutConstraint.activateConstraints(vConst)
         label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
         //self.initView()
     }
@@ -75,22 +73,19 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
         println(tableHeight)
         
-        tableView = UITableView(frame: CGRectMake(0, 50, self.view.bounds.size.width, tableHeight.cgValue()), style: .Plain)
+        tableView = UITableView(frame: CGRectMake(20, 50, self.view.bounds.size.width - 40, tableHeight.cgValue()), style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
-        tableView!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(tableView)
         tableView!.layer.cornerRadius = 10.0
         tableView!.layer.borderColor = UIColor.grayColor().CGColor
         tableView!.layer.borderWidth = 1
         
-        label = UILabel(frame:CGRectMake(0, 0, self.view.bounds.size.width, 50))
+        label = UILabel(frame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 50))
         label!.text = "질문"
-        label!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(label)
         
-        buttonWrapper = UIView(frame: CGRectMake(0, 50 + tableHeight.cgValue(), self.view.bounds.size.width, 50))
-        buttonWrapper!.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonWrapper = UIView(frame: CGRectMake(20, 50 + tableHeight.cgValue(), self.view.bounds.size.width - 40, 50))
         
         var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         recommendButton.frame = CGRectMake(0, 0, 100, 50)
@@ -154,8 +149,18 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         //선택 된것 확인
         self.selected = indexPath.row
-//        var value = choiceValues[row]
-//        var choiceViewDetailController = ChoiceViewDetailController()
+    
+        var count = choiceTitles.count
+        print("갯수")
+        println(count)
+        if count >= self.selected {
+            var value = choiceTitles[self.selected]
+            println("값은")
+            println(value)
+        }
+        
+        
+        //        var choiceViewDetailController = ChoiceViewDetailController()
 //        choiceViewDetailController.url = value
 //        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
     }
