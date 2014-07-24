@@ -15,31 +15,33 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     var label:UILabel?
     let CELL_HEIGHT:Float = 45.0
     var selected = -1
+    var question = "질문"
+    var buttonWrapper: UIView?
     
     override func viewWillAppear(animated: Bool)  {
-        requestData()
         super.viewWillAppear(animated)
+        requestData()
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initView()
     }
+    
 
     func requestData() {
         NetClient.instance.get("/choice", success: {
             (html: String) in
             
             self.doc = html.htmlDocument()
-
             self.form = self.doc!.itemsWithQuery(".item_form")[0]
-            self.initView()
+            self.setData()
             })
     }
     
-    func initView() {
-        self.choiceTitles = [String]()
-        self.choiceValues = [String]()
-        
+    func setData() {
+        choiceTitles = []
+        choiceValues = []
         if let formItem = form {
             var titles = formItem.itemsWithQuery(".txt_form")
             var values = formItem.itemsWithQuery("input")
@@ -49,14 +51,31 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
                 for i in 0 ..< count {
                     var title:TFHppleElement = titles[i] as TFHppleElement
                     var value:TFHppleElement = values[i] as TFHppleElement
-
+                    
                     self.choiceTitles.append(title.text() as String)
                     self.choiceValues.append(value.attributes["value"] as NSString)
                 }
             }
         }
         
-        tableView = UITableView(frame: self.view.bounds, style: .Plain)
+        
+        
+        tableView!.reloadData()
+        
+        var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
+        println(tableHeight)
+        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(\(tableHeight.cgValue()))]-[button(50)]-(>=0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper!])
+        
+        NSLayoutConstraint.activateConstraints(vConst)
+        label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
+        //self.initView()
+    }
+    
+    func initView() {
+        var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
+        println(tableHeight)
+        
+        tableView = UITableView(frame: CGRectMake(0, 50, self.view.bounds.size.width, tableHeight.cgValue()), style: .Plain)
         tableView!.delegate = self
         tableView!.dataSource = self
         tableView!.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -65,54 +84,30 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         tableView!.layer.borderColor = UIColor.grayColor().CGColor
         tableView!.layer.borderWidth = 1
         
-        
-        // 중복으로 붙는다...
-        
-        if var title = label {
-            title.removeFromSuperview()
-        }
-        
-        label = UILabel()
-        label!.frame = CGRectZero
-        label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
+        label = UILabel(frame:CGRectMake(0, 0, self.view.bounds.size.width, 50))
+        label!.text = "질문"
         label!.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(label)
         
-        // 버튼
-        
-        var buttonWrapper = UIView(frame: CGRectZero)
-        buttonWrapper.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonWrapper = UIView(frame: CGRectMake(0, 50 + tableHeight.cgValue(), self.view.bounds.size.width, 50))
+        buttonWrapper!.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         recommendButton.frame = CGRectMake(0, 0, 100, 50)
         recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
         recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
-        buttonWrapper.addSubview(recommendButton)
+        buttonWrapper!.addSubview(recommendButton)
         recommendButton.activateConstraintsLeftInParentView()
         
         var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         redoButton.frame = CGRectMake(0, 0, 100, 50)
         redoButton.setTitle("다시하기", forState: UIControlState.Normal)
         redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
-        buttonWrapper.addSubview(redoButton)
-        self.view.addSubview(buttonWrapper)
+        buttonWrapper!.addSubview(redoButton)
+        self.view.addSubview(buttonWrapper!)
         redoButton.activateConstraintsRightInParentView()
         
-        var labelHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label(>=100)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label":label!])
         
-        var tableHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[table(300)]-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView!])
-        
-        var buttonWrapperHConst = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(>=50)-[button(>=200)]-(>=50)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": buttonWrapper])
-        
-        var tableHeight:Float = Float(self.choiceTitles.count) * CELL_HEIGHT
-        println(tableHeight)
-        var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[table(\(tableHeight.cgValue()))]-[button(50)]-(>=0)-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["label": label!, "table": tableView!, "button": buttonWrapper])
-    
-        
-        NSLayoutConstraint.activateConstraints(labelHConst)
-        NSLayoutConstraint.activateConstraints(tableHConst)
-        NSLayoutConstraint.activateConstraints(buttonWrapperHConst)
-        NSLayoutConstraint.activateConstraints(vConst)
     }
     
     func recommend(sender: UIButton!) {
