@@ -8,6 +8,16 @@
 
 import Foundation
 
+extension UITableView {
+    func insertRowToBottom(indexPaths: [NSIndexPath]) {
+        UIView.setAnimationsEnabled(false)
+        self.beginUpdates()
+        self.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
+        self.endUpdates()
+        UIView.setAnimationsEnabled(true)
+    }
+}
+
 extension UILabel {
     class func systemFontLabel(text: String, fontSize: CGFloat) -> UILabel {
         var label = UILabel()
@@ -373,6 +383,14 @@ extension UIView {
     
     func layoutRightInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
         self.frame = frameInParentView(.Right, verticalAlign: verticalAlign, offset: offset)
+    }
+    
+    func layoutCenterInParentView() {
+        self.layoutCenterInParentView(CGPointZero)
+    }
+    
+    func layoutCenterInParentView(offset: CGPoint) {
+        self.frame = frameInParentView(.Center, verticalAlign: .Center, offset: offset)
     }
     
     func frameInParentView(horinzontalAlign: UIViewHorizontalAlign, verticalAlign: UIViewVerticalAlign, offset: CGPoint) -> CGRect {

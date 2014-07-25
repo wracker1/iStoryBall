@@ -13,6 +13,8 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     
     var storyTypeScroller: DHPageScrollView?
     var storyTableView: UITableView?
+    var storyTableViewManager: DHScrollViewManager?
+    
     var presentStoryList: [TFHppleElement]?
     var contentSearchQuery = ".list_product li a"
     
@@ -62,8 +64,43 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         storyTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
         storyTableView!.dataSource = self
         storyTableView!.delegate = self
+        storyTableViewManager = DHScrollViewManager(scrollView: storyTableView!, viewController: self)
+        storyTableViewManager!.addTarget(self, bottomLoaderAction: Selector("loadMorePage"))
         self.view.addSubview(storyTableView)
         storyTableView!.layoutBottomInParentView()
+    }
+    
+    func loadMorePage() {
+        storyTableViewManager!.startBottomLoader()
+        var page = storyTypeScroller!.page
+        var data = storyType[page]
+        
+        loadData(data.id, page: data.page + 1, filter: nil) {
+            (items: [TFHppleElement]) in
+            
+            self.didFinishLoadDataAtPage(items, page: page)
+        }
+    }
+    
+    func didFinishLoadDataAtPage(items: [TFHppleElement], page: Int) {
+        var data = storyType[page]
+        var stories = self.storyDataList[data.id] as Array
+        var indexPaths = Array<NSIndexPath>()
+        var rowNum = stories.count
+        
+        for item in items {
+            stories += item
+            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+        }
+        
+        storyDataList[data.id] = stories
+        presentStoryList = stories
+        
+        data.page += 1
+        storyType[page] = data
+        
+        storyTableView!.insertRowToBottom(indexPaths)
+        storyTableViewManager!.endBottomLoader()
     }
     
     func updateStoryScrollerPageView(pageView: DHPageView, page: Int) {
@@ -101,6 +138,8 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         var data = storyType[page]
         var key = data.id
         var storyList = storyDataList[key]
+        
+        storyTableView!.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         
         if let stories = storyList {
             presentStoryList = stories
@@ -168,11 +207,5 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         
         self.navigationController.pushViewController(listViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
-        if scrollView === storyTableView {
-            println("\(scrollView.contentSize): \(scrollView.contentOffset)")
-        }
     }
 }

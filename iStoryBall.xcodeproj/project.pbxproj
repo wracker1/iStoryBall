@@ -80,6 +80,7 @@
 		887456541981116500B7B8A8 /* SBWebview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456531981116500B7B8A8 /* SBWebview.swift */; };
 		887456561981F91A00B7B8A8 /* StoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456551981F91A00B7B8A8 /* StoryListCell.swift */; };
 		887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456571981F95200B7B8A8 /* SBTableViewCell.swift */; };
+		8874565B19823B5400B7B8A8 /* DHScrollViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8874565A19823B5400B7B8A8 /* DHScrollViewManager.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
@@ -166,6 +167,7 @@
 		887456531981116500B7B8A8 /* SBWebview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBWebview.swift; path = View/SBWebview/SBWebview.swift; sourceTree = "<group>"; };
 		887456551981F91A00B7B8A8 /* StoryListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryListCell.swift; path = View/TableViewCell/StoryListCell.swift; sourceTree = "<group>"; };
 		887456571981F95200B7B8A8 /* SBTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBTableViewCell.swift; sourceTree = "<group>"; };
+		8874565A19823B5400B7B8A8 /* DHScrollViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DHScrollViewManager.swift; path = DHScrollViewManager/DHScrollViewManager.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 		884FEC61196E89B800AF19CF /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8874565919823B2800B7B8A8 /* DHScrollViewManager */,
 				886132B4196FEF000094E99F /* DHPageScrollView */,
 				884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */,
 			);
@@ -433,6 +436,14 @@
 				887456531981116500B7B8A8 /* SBWebview.swift */,
 			);
 			name = SBWebview;
+			sourceTree = "<group>";
+		};
+		8874565919823B2800B7B8A8 /* DHScrollViewManager */ = {
+			isa = PBXGroup;
+			children = (
+				8874565A19823B5400B7B8A8 /* DHScrollViewManager.swift */,
+			);
+			name = DHScrollViewManager;
 			sourceTree = "<group>";
 		};
 		889A9A21196BEB6600358119 = {
@@ -631,6 +642,7 @@
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
 				887456561981F91A00B7B8A8 /* StoryListCell.swift in Sources */,
 				881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */,
+				8874565B19823B5400B7B8A8 /* DHScrollViewManager.swift in Sources */,
 				881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,
 				88089159196BF3DD00BE3F51 /* NetClient.swift in Sources */,
