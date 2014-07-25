@@ -85,7 +85,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         var row = indexPath.row
         var menu = self.menus![row]
         var name = menu.text()
-        var link = menu.attributes["href"] as? NSString
+        var link = menu.attributes["href"] as NSString
         
         if !menu.firstChild.isTextNode() {
             var textnode = menu.firstChildWithClassName("txt_menu")
@@ -97,8 +97,12 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var row = indexPath.row
+        var menu = self.menus![row]
+        var link = menu.attributes["href"] as NSString
         
-        switch indexPath.row {
+        
+        switch row {
         case 1: // 구매 스토리
             println(indexPath.row)
         case 2: // 공감 스토리
@@ -107,15 +111,23 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
             var choiceViewController = ChoiceViewController()
             self.navigationController.pushViewController(choiceViewController, animated: true)
             println(indexPath.row)
-        case 4: // 설레는 이벤트
+        case 4: // 설레는 이벤트 - ListViewController
             println(indexPath.row)
+            
+            var listViewController = ListViewController(title: "설레는 이벤트")
+            listViewController.id = link as String
+            self.navigationController.pushViewController(listViewController, animated: true)
         case 5: // 스토리볼 페이스북
             println(indexPath.row)
             var urlString:String? = "http://www.facebook.com/daumstoryball"
             var url = NSURL(string: urlString)
             UIApplication.sharedApplication().openURL(url)
-        case 6: // 스토리볼 사용 설명서
+        case 6: // 스토리볼 사용 설명서 - ListViewController
             println(indexPath.row)
+            
+            var listViewController = ListViewController(title: "스토리볼 사용 설명서")
+            listViewController.id = link as String
+            self.navigationController.pushViewController(listViewController, animated: true)
         case 7: // 스토리볼 공지
             println(indexPath.row)
             var noticeViewController = NoticeViewController()

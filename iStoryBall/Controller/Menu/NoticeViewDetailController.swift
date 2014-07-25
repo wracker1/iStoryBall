@@ -20,7 +20,6 @@ class NoticeDetailViewController : SBViewController {
     }
     
     func getNoticeContentData() {
-        println("url: " + url)
         NetClient.instance.get(url, success: {
             (html: String) in
             
@@ -68,8 +67,6 @@ class NoticeDetailViewController : SBViewController {
         self.view.addConstraints(webViewHConst)
         var vConst = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label(50)]-[webview(>=300)]-|", options:NSLayoutFormatOptions(0), metrics: nil, views: ["label": titleLabel, "webview": webView])
         self.view.addConstraints(vConst)
-        println("title: " + title);
-        println("content: " + content)
     }
     
 }
