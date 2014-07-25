@@ -364,11 +364,11 @@ extension UIView {
     }
     
     func layoutRightInParentView() {
-        self.layoutLeftInParentView(.Center)
+        self.layoutRightInParentView(.Center)
     }
     
     func layoutRightInParentView(verticalAlign: UIViewVerticalAlign) {
-        self.layoutLeftInParentView(verticalAlign, offset: CGPointZero)
+        self.layoutRightInParentView(verticalAlign, offset: CGPointZero)
     }
     
     func layoutRightInParentView(verticalAlign: UIViewVerticalAlign, offset: CGPoint) {
