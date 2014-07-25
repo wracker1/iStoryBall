@@ -93,8 +93,13 @@ extension String {
 }
 
 extension TFHpple {
-    func itemWithQuery(query: String) -> TFHppleElement {
-        return itemsWithQuery(query)[0]
+    func itemWithQuery(query: String) -> TFHppleElement? {
+        var items = itemsWithQuery(query)
+        if items.count > 0 {
+            return items[0]
+        } else {
+            return nil
+        }
     }
     
     func itemsWithQuery(query: String) -> [TFHppleElement] {
@@ -103,9 +108,15 @@ extension TFHpple {
 }
 
 extension TFHppleElement {
-    func itemWithQuery(query: String) -> TFHppleElement {
+    func itemWithQuery(query: String) -> TFHppleElement? {
         var q = DHHTMLStringParser.instance.convertFromSizzleQueryToXPathQuery(query)
-        return self.searchWithXPathQuery(q)[0] as TFHppleElement
+        var items = self.searchWithXPathQuery(q)
+        
+        if items.count > 0 {
+            return items[0] as? TFHppleElement
+        } else {
+            return nil
+        }
     }
     
     func itemsWithQuery(query: String) -> [AnyObject] {

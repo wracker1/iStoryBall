@@ -151,7 +151,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         contentView.contentMode = UIViewContentMode.ScaleAspectFill
         
         var thumbImageNode = data.itemWithQuery(".thumb_img")
-        var imageUrl = thumbImageNode.imageUrlFromHppleElement()
+        var imageUrl = thumbImageNode!.imageUrlFromHppleElement()
         contentView.setImageWithURL(NSURL(string: imageUrl))
         
         var title = recommendStoryTitleFromData(data)
@@ -177,8 +177,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     func recommendStoryTitleFromData(data: TFHppleElement) -> (title: String, subTitle: String) {
         var titleNode = data.itemWithQuery(".tit_banner")
-        var point = titleNode.itemsWithQuery(".info_txt")[0] as TFHppleElement
-        var title = titleNode.children[2] as TFHppleElement
+        var point = titleNode!.itemsWithQuery(".info_txt")[0] as TFHppleElement
+        var title = titleNode!.children[2] as TFHppleElement
         return (point.text().trim(), title.content.trim())
     }
     
@@ -294,7 +294,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         if let link = href {
             var title = data.itemWithQuery(".tit_product")
-            var episodeViewController = EpisodeViewController(title: title.text().trim())
+            var episodeViewController = EpisodeViewController(title: title!.text().trim())
             episodeViewController.id = link
             self.navigationController.pushViewController(episodeViewController, animated: true)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)

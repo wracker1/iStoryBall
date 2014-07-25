@@ -8,11 +8,7 @@
 
 import UIKit
 
-class EpisodeListCell: UITableViewCell {
-    class func reuseIdentifier() -> String {
-        return "EpisodeListCell"
-    }
-    
+class EpisodeListCell: SBTableViewCell {
     var thumbnailView: UIImageView
     var titleLabel: UILabel
     var subTitleLabel: UILabel
@@ -21,7 +17,6 @@ class EpisodeListCell: UITableViewCell {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         titleLabel = UILabel.boldFontLabel("", fontSize: 11)
         titleLabel.textAlignment = .Left
-        titleLabel.numberOfLines = 0
         
         subTitleLabel = UILabel.systemFontLabel("", fontSize: 9)
         subTitleLabel.textAlignment = .Left
@@ -34,21 +29,23 @@ class EpisodeListCell: UITableViewCell {
         self.addSubview(subTitleLabel)
     }
     
-    func update(data: TFHppleElement) {
+    override func update(data: TFHppleElement) {
+        super.update(data)
+        
         var size = self.bounds.size
-        var imageNode = data.itemWithQuery(".thumb_view")
-        var imageUrlString = imageNode.attributes["src"] as? NSString
-        thumbnailView.setImageWithURL(NSURL(string:imageUrlString))
-
-        var titleNode = data.itemWithQuery(".tit_product")
-        titleLabel.text = titleNode.text().trim()
-        titleLabel.frame = CGRectMake(0, 0, size.width - 60, 0)
-        titleLabel.sizeToFit()
         
-        var subTitle = data.attributes["title"] as? NSString
+        if let imageUrl = thumbnailUrl() {
+            thumbnailView.setImageWithURL(NSURL(string:imageUrl))
+        }
         
-        if let s = subTitle {
-            subTitleLabel.text = s
+        if let title = titleString() {
+            titleLabel.text = title
+            titleLabel.frame = CGRectMake(0, 0, size.width - 60, 0)
+            titleLabel.sizeToFit()
+        }
+        
+        if let subTitle = subTitleString() {
+            subTitleLabel.text = subTitle
             subTitleLabel.sizeToFit()
             
             titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))

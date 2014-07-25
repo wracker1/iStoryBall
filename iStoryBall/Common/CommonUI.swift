@@ -28,7 +28,7 @@ extension UILabel {
     }
 }
 
-extension UIColor {
+extension UIColor {    
     class func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
         return self.rgba(r, g: g, b: b, a: 1.0)
     }

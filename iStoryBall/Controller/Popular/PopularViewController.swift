@@ -58,6 +58,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         
         storyTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
         storyTableView!.dataSource = self
+        storyTableView!.delegate = self
         self.view.addSubview(storyTableView)
         storyTableView!.layoutBottomInParentView()
     }
@@ -117,7 +118,29 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+        var cellId = StoryListCell.reuseIdentifier()
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? StoryListCell
         
-        return nil
+        if cell == nil {
+            cell = StoryListCell()
+        }
+        
+        var data = presentStoryList![indexPath.row]
+        cell!.indexPath = indexPath
+        cell!.update(data)
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var data = presentStoryList![indexPath.row]
+        var id = data.attributes["href"] as NSString
+        var title = data.itemWithQuery(".tit_product")
+        
+        var listViewController = ListViewController(title: title!.text().trim())
+        listViewController.id = id as String
+        
+        self.navigationController.pushViewController(listViewController, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

@@ -38,7 +38,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
     
     func createHeaderView() {
         var thumbImageNode = doc!.itemWithQuery(".intro_img .thumb_img")
-        var url = thumbImageNode.imageUrlFromHppleElement()
+        var url = thumbImageNode?.imageUrlFromHppleElement()
         headerImageView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width, 120))
         self.view.addSubview(headerImageView)
         
@@ -54,8 +54,8 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         var maxWidth = self.view.bounds.size.width - (horizontalMargin * 2)
         descView = UIView()
         
-        var title = data.itemWithQuery(".tit_intro")
-        var titleLabel = UILabel.boldFontLabel(title.text().trim(), fontSize: 15)
+        var title = data!.itemWithQuery(".tit_intro")
+        var titleLabel = UILabel.boldFontLabel(title!.text().trim(), fontSize: 15)
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Left
         titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
@@ -63,14 +63,14 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.addSubview(titleLabel)
         titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
         
-        var writer = data.itemWithQuery(".intro_writer")
-        var writerLabel = UILabel.systemFontLabel(writer.text().trim(), fontSize: 10)
+        var writer = data!.itemWithQuery(".intro_writer")
+        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: 10)
         writerLabel.textAlignment = .Left
         descView!.addSubview(writerLabel)
         writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
-        var intro = data.itemWithQuery(".txt_intro")
-        var introLabel = UILabel.systemFontLabel(intro.text().trim(), fontSize: 10)
+        var intro = data!.itemWithQuery(".txt_intro")
+        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: 10)
         introLabel.numberOfLines = 0
         introLabel.textAlignment = .Left
         introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
@@ -79,8 +79,8 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.addSubview(introLabel)
         introLabel.layoutBottomFromSibling(writerLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
-        var subscriptionDay = data.itemWithQuery(".intro_day")
-        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay.text().trim(), fontSize: 10)
+        var subscriptionDay = data!.itemWithQuery(".intro_day")
+        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay!.text().trim(), fontSize: 10)
         subscriptionDayLabel.textColor = UIColor.rgb(76, g: 134, b: 237)
         subscriptionDayLabel.sizeToFit()
         descView!.addSubview(subscriptionDayLabel)
@@ -128,7 +128,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         
         if let link = href {
             var title = data.itemWithQuery(".tit_product")
-            var episodeViewController = EpisodeViewController(title: title.text().trim())
+            var episodeViewController = EpisodeViewController(title: title!.text().trim())
             episodeViewController.id = link
             self.navigationController.pushViewController(episodeViewController, animated: true)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
