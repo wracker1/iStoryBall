@@ -19,6 +19,10 @@ class SBViewController : UIViewController
         self.title = title
     }
     
+    deinit {
+        println("### deinit ### \(self)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
