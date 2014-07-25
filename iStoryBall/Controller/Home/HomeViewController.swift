@@ -84,7 +84,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         }
         
         dayOfWeeks = dayOfWeeks.reverse()
-        var width = self.view.bounds.size.width / 3 * 2
+        var width = self.view.bounds.size.width / 2.0
         var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, width, 43), dataSource: self)
         dayOfWeekScrollView = scrollView
         dayOfWeekScrollView!.delegate = self

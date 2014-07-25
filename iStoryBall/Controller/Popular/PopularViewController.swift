@@ -44,7 +44,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     }
     
     func createStoryTypeScroller() {
-        var width = self.view.bounds.size.width / 3 * 2
+        var width = self.view.bounds.size.width / 2.0
         storyTypeScroller = DHPageScrollView(frame: CGRectMake(0, 0, width, 43), dataSource: self)
         self.view.addSubview(storyTypeScroller)
         storyTypeScroller!.layoutTopInParentView()
