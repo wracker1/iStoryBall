@@ -13,10 +13,12 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     var tableView: UITableView?
     var label:UILabel?
     let CELL_HEIGHT:Float = 45.0
-    var selected = -1
+    let CELL_FONT_SIZE:CGFloat = 12
+    
+    var lastIndexPath: NSIndexPath?
     var question = "질문"
     var buttonWrapper: UIView?
-    
+
     override func viewWillAppear(animated: Bool)  {
         super.viewWillAppear(animated)
         requestData()
@@ -66,6 +68,10 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         
         label!.text = doc?.itemsWithQuery(".tit_form")[0].text()
         //self.initView()
+        // 무조건 첫번째를 선택하도록
+        var indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        tableView!.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Top)
+        tableView(tableView!, didSelectRowAtIndexPath: indexPath)
     }
     
     func initView() {
@@ -84,20 +90,27 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         label!.text = "질문"
         self.view.addSubview(label)
         
-        buttonWrapper = UIView(frame: CGRectMake(20, 50 + tableHeight.cgValue(), self.view.bounds.size.width - 40, 50))
+        buttonWrapper = UIView(frame: CGRectMake(20, 70 + tableHeight.cgValue(), self.view.bounds.size.width - 40, 50))
         
         var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        recommendButton.frame = CGRectMake(0, 0, 100, 50)
+        recommendButton.frame = CGRectMake(0, 0, 100, 30)
         recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
         recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper!.addSubview(recommendButton)
         recommendButton.activateConstraintsLeftInParentView()
+        recommendButton.layer.cornerRadius = 5.0
+        recommendButton.layer.borderColor = UIColor.grayColor().CGColor
+        recommendButton.layer.borderWidth = 1
         
         var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        redoButton.frame = CGRectMake(0, 0, 100, 50)
+        redoButton.frame = CGRectMake(0, 0, 100, 30)
         redoButton.setTitle("다시하기", forState: UIControlState.Normal)
         redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper!.addSubview(redoButton)
+        redoButton.layer.cornerRadius = 5.0
+        redoButton.layer.borderColor = UIColor.grayColor().CGColor
+        redoButton.layer.borderWidth = 1
+        
         self.view.addSubview(buttonWrapper!)
         redoButton.activateConstraintsRightInParentView()
         
@@ -105,26 +118,20 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     }
     
     func recommend(sender: UIButton!) {
-        println("recommend")
-        var value = self.choiceValues[self.selected]
+        var row = lastIndexPath!.row
+        var value = self.choiceValues[row]
         var choiceViewDetailController = ChoiceViewDetailController()
         choiceViewDetailController.url = value
         self.navigationController.pushViewController(choiceViewDetailController, animated: true)
     }
     
     func redo(sender: UIButton!) {
-        println("redo")
+        requestData()
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return self.choiceTitles.count
     }
-
-//    구림 viewForHeaderInSection 으로 커스터마이징 가능
-//    func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
-//        return doc?.itemsWithQuery(".tit_form")[0].text()
-//    }
-    
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         return 1
@@ -136,7 +143,21 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         var cell: UITableViewCell = UITableViewCell(style: .Default, reuseIdentifier: identifier)
         var row = indexPath.row
         cell.textLabel.text = self.choiceTitles[row]
-        cell.textLabel.font = UIFont.systemFontOfSize(12)
+        
+        var isSelected = false
+        if let last = lastIndexPath {
+            if row == last.row {
+                isSelected = true
+            }
+        }
+        
+        if isSelected {
+            cell.textLabel.font = UIFont.boldSystemFontOfSize(CELL_FONT_SIZE)
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.textLabel.font = UIFont.systemFontOfSize(CELL_FONT_SIZE)
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
         
         return cell
     }
@@ -147,21 +168,22 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         //선택 된것 확인
-        self.selected = indexPath.row
-    
-        var count = choiceTitles.count
-        print("갯수")
-        println(count)
-        if count >= self.selected {
-            var value = choiceTitles[self.selected]
-            println("값은")
-            println(value)
+        var row = indexPath.row
+        var newCell = tableView!.cellForRowAtIndexPath(indexPath)
+        newCell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        newCell.textLabel.font = UIFont.boldSystemFontOfSize(CELL_FONT_SIZE)
+        
+        if let last = lastIndexPath {
+            var lastRow = last.row
+            if lastRow != row {
+                var lastCell = tableView!.cellForRowAtIndexPath(last)
+                lastCell.accessoryType = UITableViewCellAccessoryType.None
+                lastCell.textLabel.font = UIFont.systemFontOfSize(CELL_FONT_SIZE)
+                lastIndexPath = indexPath
+            }
+        } else {
+            lastIndexPath = indexPath
         }
-        
-        
-        //        var choiceViewDetailController = ChoiceViewDetailController()
-//        choiceViewDetailController.url = value
-//        self.navigationController.pushViewController(choiceViewDetailController, animated: true)
     }
     
 }
