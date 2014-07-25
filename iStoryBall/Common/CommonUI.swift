@@ -38,13 +38,27 @@ extension UILabel {
     }
 }
 
-extension UIColor {    
+extension UIColor {
+    class func pointColor(alpha: CGFloat) -> UIColor {
+        return self.rgba(76.0, g: 134.0, b: 237.0, a: alpha)
+    }
+    
     class func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
         return self.rgba(r, g: g, b: b, a: 1.0)
     }
     
     class func rgba(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+    }
+}
+
+extension UIButton {
+    func verticalAlignContent(imageSize: CGSize) {
+        self.titleLabel.sizeToFit()
+        var titleSize = self.titleLabel.bounds.size
+        var spacing: CGFloat = 3.0
+        self.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0, 0, -titleSize.width)
+        self.titleEdgeInsets = UIEdgeInsetsMake(0, -(imageSize.width), -(imageSize.height + spacing), 0)
     }
 }
 
