@@ -8,20 +8,21 @@
 
 class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
 {
-    var storyType = Array<(name: String, desc: String, id: String)>()
+    var storyType = Array<(id: String, name: String, desc: String, page: Int)>()
+    var storyDataList = Dictionary<String, [TFHppleElement]>()
+    
     var storyTypeScroller: DHPageScrollView?
     var storyTableView: UITableView?
-    var storyDataList = Dictionary<String, [TFHppleElement]>()
     var presentStoryList: [TFHppleElement]?
     var contentSearchQuery = ".list_product li a"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyType += ("공감순", "공감 1등은 뉴규", "hit")
-        storyType += ("공유순", "나만 보기 아까워", "share")
-        storyType += ("구독순", "두고두고 볼꺼야", "subscribe")
-        storyType += ("판매순", "돈내도 안아까워", "sale")
+        storyType += ("hit","공감순", "공감 1등은 뉴규", 1)
+        storyType += ("share", "공유순", "나만 보기 아까워", 1)
+        storyType += ("subscribe", "구독순", "두고두고 볼꺼야", 1)
+        storyType += ("sale", "판매순", "돈내도 안아까워", 1)
         
         id = "/story/pop"
         var url = id! + "/" + storyType[0].id
@@ -95,21 +96,44 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     }
     
     func scrollView(scrollView: DHPageScrollView!, didChangePage page: Int) {
-        var key = storyType[page].id
-        var items = storyDataList[key]
+        var data = storyType[page]
+        var key = data.id
+        var storyList = storyDataList[key]
         
-        if let stories = items {
+        if let stories = storyList {
             presentStoryList = stories
             storyTableView!.reloadData()
         } else {
-            var url = id! + "/" + key
-            NetClient.instance.get(url) {
-                (html: String) in
-                var newItems = html.htmlDocument().itemsWithQuery(self.contentSearchQuery)
-                self.storyDataList[key] = newItems
-                self.presentStoryList = newItems
+            loadData(key, page: data.page, filter: nil) {
+                (items: [TFHppleElement]) in
+                
+                self.storyDataList[key] = items
+                self.presentStoryList = items
                 self.storyTableView!.reloadData()
             }
+        }
+    }
+    
+    func loadData(key: String, page: Int?, filter: String?, result: ((items: [TFHppleElement]) -> Void)) {
+        var url = id! + "/" + key
+        
+        if let p = page {
+            url += "?page=\(p)"
+        }
+        
+        if let f = filter {
+            if contains(url, "?") {
+                url += "&close=\(f)"
+            } else {
+                url += "?close=\(f)"
+            }
+        }
+        
+        NetClient.instance.get(url) {
+            (html: String) in
+            var newItems = html.htmlDocument().itemsWithQuery(self.contentSearchQuery)
+            
+            result(items: newItems)
         }
     }
     
@@ -142,5 +166,11 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         
         self.navigationController.pushViewController(listViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
+        if scrollView === storyTableView {
+            println("\(scrollView.contentSize): \(scrollView.contentOffset)")
+        }
     }
 }
