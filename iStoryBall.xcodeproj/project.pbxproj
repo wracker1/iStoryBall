@@ -78,6 +78,8 @@
 		884FEC6B196E8AC400AF19CF /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */; };
 		886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886132B5196FEF000094E99F /* DHPageScrollView.swift */; };
 		887456541981116500B7B8A8 /* SBWebview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456531981116500B7B8A8 /* SBWebview.swift */; };
+		887456561981F91A00B7B8A8 /* StoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456551981F91A00B7B8A8 /* StoryListCell.swift */; };
+		887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887456571981F95200B7B8A8 /* SBTableViewCell.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
@@ -162,6 +164,8 @@
 		884FEC6A196E8A1C00AF19CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Base; path = usr/lib/Base.lproj/libxml2.2.dylib; sourceTree = SDKROOT; };
 		886132B5196FEF000094E99F /* DHPageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHPageScrollView.swift; sourceTree = "<group>"; };
 		887456531981116500B7B8A8 /* SBWebview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBWebview.swift; path = View/SBWebview/SBWebview.swift; sourceTree = "<group>"; };
+		887456551981F91A00B7B8A8 /* StoryListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryListCell.swift; path = View/TableViewCell/StoryListCell.swift; sourceTree = "<group>"; };
+		887456571981F95200B7B8A8 /* SBTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBTableViewCell.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				88089125196BF0E900BE3F51 /* SBNavigationController.swift */,
 				88E70B201973AF3000B38A0F /* CommonUtil.swift */,
 				88C070BB1977B0A3003C1FA5 /* CommonUI.swift */,
+				887456571981F95200B7B8A8 /* SBTableViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				881A6CB2197F890C0014B39C /* EpisodeListCell.swift */,
+				887456551981F91A00B7B8A8 /* StoryListCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -621,7 +627,9 @@
 				881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */,
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
+				887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */,
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
+				887456561981F91A00B7B8A8 /* StoryListCell.swift in Sources */,
 				881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */,
 				881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,
