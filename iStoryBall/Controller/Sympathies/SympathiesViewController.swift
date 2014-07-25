@@ -13,6 +13,10 @@ class SympathiesViewController : SBViewController, UITableViewDataSource, UITabl
     var tableView: UITableView?
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        changeTitleView("천개의 공감")
+        
         initView()
     }
     
@@ -22,10 +26,6 @@ class SympathiesViewController : SBViewController, UITableViewDataSource, UITabl
         tableView!.dataSource = self
         self.view.addSubview(tableView)
     }
-    
-//    func requestSympathiesData() -> {
-//    
-//    }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return 20

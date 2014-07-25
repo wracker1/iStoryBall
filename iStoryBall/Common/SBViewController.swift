@@ -33,4 +33,11 @@ class SBViewController : UIViewController
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.Portrait.toRaw())
     }
+    
+    func changeTitleView(title: String) {
+        var titleLabel = UILabel.boldFontLabel(title, fontSize: 19)
+        titleLabel.shadowColor = UIColor.grayColor()
+        titleLabel.shadowOffset = CGSizeMake(0.5, 0.5)
+        self.navigationItem.titleView = titleLabel
+    }
 }

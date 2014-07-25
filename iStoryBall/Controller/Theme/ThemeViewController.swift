@@ -8,5 +8,9 @@
 
 class ThemeViewController : SBViewController
 {
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        changeTitleView("테마")
+    }
 }

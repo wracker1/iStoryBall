@@ -28,6 +28,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        changeTitleView("스토리볼")
+        
         if recommendStories.count == 0 {
             NetClient.instance.get("/", success: {
                 (html: String) in
