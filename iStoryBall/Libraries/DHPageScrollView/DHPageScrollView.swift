@@ -41,8 +41,8 @@ class DHPageView: UIScrollView
     }
     }
     
-    init() {
-        super.init(frame: CGRectZero)
+    init(frame: CGRect) {
+        super.init(frame: frame)
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
         self.directionalLockEnabled = true

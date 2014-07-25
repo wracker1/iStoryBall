@@ -8,7 +8,6 @@
 
 class ListViewController: SBViewController, UITableViewDataSource, UITableViewDelegate
 {
-    var doc: TFHpple?
     var headerImageView: UIImageView?
     var descView: UIView?
     var episodeTableView: UITableView?

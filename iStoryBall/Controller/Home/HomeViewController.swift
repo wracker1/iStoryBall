@@ -10,7 +10,6 @@ import QuartzCore
 
 class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
 {
-    var doc: TFHpple?
     var recommendStories: [TFHppleElement] = []
     var recommendStoryScrollView: DHPageScrollView?
     var recommendStoryPageControl: UIPageControl?
@@ -85,7 +84,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         }
         
         dayOfWeeks = dayOfWeeks.reverse()
-        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, 180, 43), dataSource: self)
+        var width = self.view.bounds.size.width / 3 * 2
+        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, width, 43), dataSource: self)
         dayOfWeekScrollView = scrollView
         dayOfWeekScrollView!.delegate = self
         dayOfWeekScrollView!.clipsToBounds = false
@@ -231,7 +231,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         pageView = scrollView.dequeueReusablePageView()
         
         if pageView == nil {
-            pageView = DHPageView()
+            pageView = DHPageView(frame: scrollView.bounds)
         }
         
         if scrollView === recommendStoryScrollView {

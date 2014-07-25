@@ -11,6 +11,7 @@ import UIKit
 class SBViewController : UIViewController
 {
     var id: String?
+    var doc: TFHpple?
     
     convenience init(title: String)
     {
