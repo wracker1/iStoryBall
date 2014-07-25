@@ -82,7 +82,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         tableView!.delegate = self
         tableView!.dataSource = self
         self.view.addSubview(tableView)
-        tableView!.layer.cornerRadius = 10.0
+        tableView!.layer.cornerRadius = 5.0
         tableView!.layer.borderColor = UIColor.grayColor().CGColor
         tableView!.layer.borderWidth = 1
         
@@ -98,16 +98,16 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
         recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper!.addSubview(recommendButton)
         recommendButton.activateConstraintsLeftInParentView()
-        recommendButton.layer.cornerRadius = 5.0
+        recommendButton.layer.cornerRadius = 15.0
         recommendButton.layer.borderColor = UIColor.grayColor().CGColor
         recommendButton.layer.borderWidth = 1
-        
+
         var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         redoButton.frame = CGRectMake(0, 0, 100, 30)
         redoButton.setTitle("다시하기", forState: UIControlState.Normal)
         redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper!.addSubview(redoButton)
-        redoButton.layer.cornerRadius = 5.0
+        redoButton.layer.cornerRadius = 15.0
         redoButton.layer.borderColor = UIColor.grayColor().CGColor
         redoButton.layer.borderWidth = 1
         
