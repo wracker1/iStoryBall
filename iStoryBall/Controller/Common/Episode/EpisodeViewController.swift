@@ -28,8 +28,9 @@ class EpisodeViewController: SBViewController
     
     func createContentWebview() {
         var articleBody = doc!.itemWithQuery("#viewBody")
-        var head = doc!.itemWithQuery("head")?.raw.trim()
-        var body = articleBody?.raw.trim()
+        var head = doc!.itemWithQuery("head")!.raw.trim()
+        var body = articleBody!.raw.trim()
+        
         var html = "<!DOCTYPE html>\(head)<body data-ctpageid=\"storyballView\"><div class=\"cont_view bnr_on fit\" id=\"daumWrap\"><article id=\"daumContent\"><div id=\"cMain\"><article id=\"mArticle\" role=\"main\">\(body)</article></div></article></div></body>"
         var size = self.view.bounds.size
         
