@@ -121,8 +121,10 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     func recommend(sender: UIButton!) {
         var row = lastIndexPath!.row
         var value = self.choiceValues[row]
+        var title = self.choiceTitles[row]
         var choiceViewDetailController = ChoiceViewDetailController()
         choiceViewDetailController.url = value
+        choiceViewDetailController.headline = title
         self.navigationController.pushViewController(choiceViewDetailController, animated: true)
     }
     

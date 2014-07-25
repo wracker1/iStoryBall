@@ -14,7 +14,7 @@ class ChoiceViewDetailController: SBViewController{
     var storytitle:String = "제목"
     var headLabel:UILabel = UILabel() as UILabel
     var titleLabel:UILabel = UILabel() as UILabel
-    var imageWrapperView:UIView = UIView() as UIView
+    var imageWrapperView:UIControl = UIControl() as UIControl
     var imageView:UIImageView = UIImageView() as UIImageView
     
     override func viewWillAppear(animated: Bool) {
@@ -39,30 +39,26 @@ class ChoiceViewDetailController: SBViewController{
     }
     
     func setData() {
+        println("set data")
         var recommend:TFHppleElement = self.doc?.itemsWithQuery(".link_recomm")[0] as TFHppleElement
         var imageElement:TFHppleElement = recommend.itemsWithQuery(".thumb_img")[0] as TFHppleElement
         
         var imageUrl = imageElement.imageUrlFromHppleElement()
         var title = recommend.attributes["title"] as NSString
-        
-        
-        
-        var label = UILabel()
-        label.frame = CGRectMake(0, 0, 320, 70)
-        label.text = title
-        label.setTranslatesAutoresizingMaskIntoConstraints(false)
-        //self.view.addSubview(label)
-        
         var image = UIImage(data: NSData(contentsOfURL: NSURL(string:imageUrl)))
-        var imageView = UIImageView(image: image)
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.image = image
+        imageView.contentMode = UIViewContentMode.ScaleToFill
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        //self.view.addSubview(imageView)
+        
+        headLabel.text = "\"" + headline + "\""
+        titleLabel.text = title
+        titleLabel.sizeToFit()
+        titleLabel.layoutBottomInParentView()
     }
     
     func initView() {
         headLabel = UILabel.boldFontLabel("\"" + headline + "\"", fontSize: 18)
-        headLabel.textColor = UIColor.blueColor()
+        headLabel.textColor = UIColor.rgb(0, g: 136, b: 240)
         self.view.addSubview(headLabel)
         headLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 10))
         
@@ -71,8 +67,8 @@ class ChoiceViewDetailController: SBViewController{
         self.view.addSubview(descriptionLabel)
         descriptionLabel.layoutBottomFromSibling(headLabel)
         
-        imageWrapperView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 10, 200)
-        imageWrapperView.layer.borderColor = UIColor.blackColor().CGColor
+        imageWrapperView.frame = CGRectMake(20, 0, self.view.bounds.size.width - 40, 200)
+        imageWrapperView.layer.borderColor = UIColor.grayColor().CGColor
         imageWrapperView.layer.borderWidth = 0.5
         imageWrapperView.layer.cornerRadius = 5.0
         self.view.addSubview(imageWrapperView)
@@ -80,6 +76,7 @@ class ChoiceViewDetailController: SBViewController{
         
         imageView.frame = CGRectMake(8, 8, imageWrapperView.bounds.width - 16, imageWrapperView.bounds.height - 50)
         imageWrapperView.addSubview(imageView)
+        imageWrapperView.addTarget(self, action: "goStroy:", forControlEvents: UIControlEvents.TouchUpInside)
         
         titleLabel = UILabel.boldFontLabel(storytitle, fontSize: 18)
         titleLabel.textColor = UIColor.blackColor()
@@ -87,11 +84,10 @@ class ChoiceViewDetailController: SBViewController{
         titleLabel.layoutBottomInParentView()
         
         var buttonWrapper = UIView()
-        buttonWrapper.frame = CGRectMake(0, 0, self.view.bounds.width, 50)
+        buttonWrapper.frame = CGRectMake(0, 0, imageWrapperView.bounds.width, 50)
         self.view.addSubview(buttonWrapper)
         buttonWrapper.layoutBottomFromSibling(imageWrapperView)
-        buttonWrapper.layer.backgroundColor = UIColor.purpleColor().CGColor
-        
+
         var shareButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         shareButton.frame = CGRectMake(0, 0, 100, 30)
         shareButton.setTitle("공유하기", forState:UIControlState.Normal)
@@ -99,30 +95,31 @@ class ChoiceViewDetailController: SBViewController{
         buttonWrapper.addSubview(shareButton)
         shareButton.layer.cornerRadius = 15.0
         shareButton.layer.borderColor = UIColor.grayColor().CGColor
-        shareButton.layer.borderWidth = 1
+        shareButton.layer.borderWidth = 0.5
         shareButton.layoutLeftInParentView()
         
 
         var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         redoButton.frame = CGRectMake(0, 0, 100, 30)
         redoButton.setTitle("다시하기", forState:UIControlState.Normal)
-        redoButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+        redoButton.addTarget(self, action: "redo:", forControlEvents: UIControlEvents.TouchUpInside)
         buttonWrapper.addSubview(redoButton)
         redoButton.layer.cornerRadius = 15.0
         redoButton.layer.borderColor = UIColor.grayColor().CGColor
-        redoButton.layer.borderWidth = 1
+        redoButton.layer.borderWidth = 0.5
         redoButton.layoutRightInParentView()
-        
-//        var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-//        recommendButton.frame = CGRectMake(0, 0, 100, 30)
-//        recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
-//        recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
-//        buttonWrapper!.addSubview(recommendButton)
-//        recommendButton.activateConstraintsLeftInParentView()
-//        recommendButton.layer.cornerRadius = 15.0
-//        recommendButton.layer.borderColor = UIColor.grayColor().CGColor
-//        recommendButton.layer.borderWidth = 1
-
+    }
+    
+    func share(sender: UIButton!) {
+        println("share")
+    }
+    
+    func redo(sender: UIButton!) {
+        println("redo")
+    }
+    
+    func goStroy(sender: UIControl!) {
+        println("go stroy")
     }
     
 }
