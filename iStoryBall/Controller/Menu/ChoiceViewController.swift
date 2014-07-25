@@ -41,6 +41,7 @@ class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDa
     }
     
     func setData() {
+        lastIndexPath = nil
         choiceTitles = []
         choiceValues = []
         if let formItem = form {

@@ -87,16 +87,41 @@ class ChoiceViewDetailController: SBViewController{
         titleLabel.layoutBottomInParentView()
         
         var buttonWrapper = UIView()
+        buttonWrapper.frame = CGRectMake(0, 0, self.view.bounds.width, 50)
+        self.view.addSubview(buttonWrapper)
+        buttonWrapper.layoutBottomFromSibling(imageWrapperView)
+        buttonWrapper.layer.backgroundColor = UIColor.purpleColor().CGColor
         
-        var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        recommendButton.frame = CGRectMake(0, 0, 100, 30)
-        recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
-        recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
-        //buttonWrapper!.addSubview(recommendButton)
-        recommendButton.activateConstraintsLeftInParentView()
-        recommendButton.layer.cornerRadius = 15.0
-        recommendButton.layer.borderColor = UIColor.grayColor().CGColor
-        recommendButton.layer.borderWidth = 1
+        var shareButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        shareButton.frame = CGRectMake(0, 0, 100, 30)
+        shareButton.setTitle("공유하기", forState:UIControlState.Normal)
+        shareButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonWrapper.addSubview(shareButton)
+        shareButton.layer.cornerRadius = 15.0
+        shareButton.layer.borderColor = UIColor.grayColor().CGColor
+        shareButton.layer.borderWidth = 1
+        shareButton.layoutLeftInParentView()
+        
+
+        var redoButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        redoButton.frame = CGRectMake(0, 0, 100, 30)
+        redoButton.setTitle("다시하기", forState:UIControlState.Normal)
+        redoButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonWrapper.addSubview(redoButton)
+        redoButton.layer.cornerRadius = 15.0
+        redoButton.layer.borderColor = UIColor.grayColor().CGColor
+        redoButton.layer.borderWidth = 1
+        redoButton.layoutRightInParentView()
+        
+//        var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+//        recommendButton.frame = CGRectMake(0, 0, 100, 30)
+//        recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
+//        recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
+//        buttonWrapper!.addSubview(recommendButton)
+//        recommendButton.activateConstraintsLeftInParentView()
+//        recommendButton.layer.cornerRadius = 15.0
+//        recommendButton.layer.borderColor = UIColor.grayColor().CGColor
+//        recommendButton.layer.borderWidth = 1
 
     }
     
