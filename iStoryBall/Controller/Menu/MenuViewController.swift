@@ -8,7 +8,6 @@
 
 class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDataSource
 {
-    var doc: TFHpple?
     var menus: [TFHppleElement]?
     var refinedMenu: [TFHppleElement]?
     let exceptiveMenuUrl = ["/story/pop", "/episode/hit", "/story/list"]
@@ -83,7 +82,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         var row = indexPath.row
         var menu = self.menus![row]
         var name = menu.text()
-        var link = menu.attributes["href"]
+        var link = menu.attributes["href"] as? NSString
         
         if !menu.firstChild.isTextNode() {
             var textnode = menu.firstChildWithClassName("txt_menu")

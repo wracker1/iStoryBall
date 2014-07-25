@@ -9,7 +9,6 @@
 import Foundation
 
 class ChoiceViewDetailController: SBViewController{
-    var doc: TFHpple?
     var url: String?
     
     

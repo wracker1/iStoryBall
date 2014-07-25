@@ -7,7 +7,6 @@
 //
 
 class ChoiceViewController: SBViewController, UITableViewDelegate, UITableViewDataSource {
-    var doc: TFHpple?
     var choiceTitles = [String]()
     var choiceValues = [String]()
     var form: TFHppleElement?
