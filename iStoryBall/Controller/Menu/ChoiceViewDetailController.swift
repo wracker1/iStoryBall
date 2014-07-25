@@ -61,7 +61,7 @@ class ChoiceViewDetailController: SBViewController{
     }
     
     func initView() {
-        headLabel = UILabel.systemFontLabel("\"" + headline + "\"", fontSize: 18)
+        headLabel = UILabel.boldFontLabel("\"" + headline + "\"", fontSize: 18)
         headLabel.textColor = UIColor.blueColor()
         self.view.addSubview(headLabel)
         headLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 10))
@@ -71,13 +71,33 @@ class ChoiceViewDetailController: SBViewController{
         self.view.addSubview(descriptionLabel)
         descriptionLabel.layoutBottomFromSibling(headLabel)
         
-        imageWrapperView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 20, 200)
+        imageWrapperView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 10, 200)
         imageWrapperView.layer.borderColor = UIColor.blackColor().CGColor
-        imageWrapperView.layer.borderWidth = 1
+        imageWrapperView.layer.borderWidth = 0.5
         imageWrapperView.layer.cornerRadius = 5.0
         self.view.addSubview(imageWrapperView)
         imageWrapperView.layoutBottomFromSibling(descriptionLabel, horizontalAlign: .Center, offset: CGPointMake(0, 10))
         
+        imageView.frame = CGRectMake(8, 8, imageWrapperView.bounds.width - 16, imageWrapperView.bounds.height - 50)
+        imageWrapperView.addSubview(imageView)
+        
+        titleLabel = UILabel.boldFontLabel(storytitle, fontSize: 18)
+        titleLabel.textColor = UIColor.blackColor()
+        imageWrapperView.addSubview(titleLabel)
+        titleLabel.layoutBottomInParentView()
+        
+        var buttonWrapper = UIView()
+        
+        var recommendButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        recommendButton.frame = CGRectMake(0, 0, 100, 30)
+        recommendButton.setTitle("추천받기", forState: UIControlState.Normal)
+        recommendButton.addTarget(self, action: "recommend:", forControlEvents: UIControlEvents.TouchUpInside)
+        //buttonWrapper!.addSubview(recommendButton)
+        recommendButton.activateConstraintsLeftInParentView()
+        recommendButton.layer.cornerRadius = 15.0
+        recommendButton.layer.borderColor = UIColor.grayColor().CGColor
+        recommendButton.layer.borderWidth = 1
+
     }
     
 }
