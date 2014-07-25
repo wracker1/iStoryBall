@@ -10,8 +10,6 @@ class NoticeViewController : SBViewController, UITableViewDelegate, UITableViewD
 {
     var tableView: UITableView?
     var page = 1
-    
-    var doc: TFHpple?
     var notices: [TFHppleElement]?
 
     override func viewDidLoad() {

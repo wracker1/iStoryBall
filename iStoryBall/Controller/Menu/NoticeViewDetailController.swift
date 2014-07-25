@@ -8,7 +8,6 @@
 
 class NoticeDetailViewController : SBViewController {
     var url:String = "/"
-    var doc: TFHpple?
     var notices: [TFHppleElement]?
     
     override func viewDidLoad() {
