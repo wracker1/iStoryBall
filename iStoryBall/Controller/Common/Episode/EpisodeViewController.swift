@@ -6,11 +6,13 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class EpisodeViewController: SBViewController
+class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
 {
     var contentWebview: SBWebview?
+    var contentScroller: DHPageScrollView?
     var storyEpisode: Dictionary<String, AnyObject>?
-    
+    var imageDataList: [StoryPageData]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +70,7 @@ class EpisodeViewController: SBViewController
             var pageNo = item["pageNo"] as NSNumber
             
             var data = StoryPageData(episodeId: String(episodeId.integerValue), pageId: String(pageId.integerValue), pageNo: pageNo.integerValue)
+            data.loadImageUrl(nil)
             dataList += data
         }
         
@@ -75,10 +78,40 @@ class EpisodeViewController: SBViewController
             (a: StoryPageData, b: StoryPageData) in
             return a.pageNo < b.pageNo
         }
+
+        imageDataList = dataList
     }
     
     func createImageSlider() {
-        println(id)
-        println(storyEpisode)
+        var size = self.view.bounds.size
+        contentScroller = DHPageScrollView(frame: CGRect(origin: CGPointZero, size: size), dataSource: self)
+        self.view.addSubview(contentScroller)
+        
+        contentScroller!.reloadData(nil)
+    }
+
+    func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
+        return imageDataList!.count
+    }
+    
+    func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView? {
+        var pageView = scrollView.dequeueReusablePageView()
+        var frame = self.view.bounds
+        
+        if pageView == nil {
+            pageView = DHPageView(frame: frame)
+        }
+        
+        var data = imageDataList![page]
+        data.loadImageUrl {
+            (imageUrl: String) in
+            
+            var imageView = UIImageView(frame: frame)
+            imageView.contentMode = UIViewContentMode.ScaleAspectFill
+            imageView.setImageWithURL(NSURL(string: imageUrl))
+            pageView!.contentView = imageView
+        }
+        
+        return pageView
     }
 }
