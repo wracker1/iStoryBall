@@ -23,8 +23,6 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeTitleView("인기")
-        
         storyType += ("1000","천공", "천개의 공감", 1)
         storyType += ("soon", "곧천공", "공감 하나만 굽신", 1)
         storyType += ("5000", "오천공", "오천개의 공감", 1)

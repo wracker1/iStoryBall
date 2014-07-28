@@ -16,8 +16,6 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeTitleView("더보기")
-        
         requestMenuData()
     }
     

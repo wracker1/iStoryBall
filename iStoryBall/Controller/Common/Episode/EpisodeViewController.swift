@@ -38,6 +38,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
                     
                     error = nil
                     self.storyInfo = self.jsonObjectFromString(json, error: &error)
+                } else {
+                    println("유료컨텐츠: \(self.id)")
                 }
                 
                 self.layoutSubviews()
