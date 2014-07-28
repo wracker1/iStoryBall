@@ -22,7 +22,6 @@ class EmpathyListCell: SBTableViewCell {
         titleLabel.textAlignment = .Left
         
         rankLabel = UILabel.boldFontLabel("", fontSize: 11)
-        rankLabel.textColor = UIColor.whiteColor()
         
         super.init(style: .Default, reuseIdentifier: EpisodeListCell.reuseIdentifier())
         
@@ -41,15 +40,20 @@ class EmpathyListCell: SBTableViewCell {
         if let title = titleString() {
             titleLabel.text = title
             titleLabel.sizeToFit()
-            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Center, offset: CGPointMake(5, 0))
+            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
         }
         
-        var rank = indexPath!.row
-        rankLabel.backgroundColor = rank < 4 ? UIColor.rgba(76, g: 134, b: 237, a: 0.6) : UIColor.rgba(0, g: 0, b: 0, a: 0.6)
-        rankLabel.text = "\(rank)"
-        rankLabel.sizeToFit()
-        rankLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
-        rankLabel.layoutTopInParentView(.Left)
+        if let sympathy_count = sympathyCount() {
+            var heartLabel = UILabel.boldFontLabel("♥", fontSize: 11)
+            heartLabel.sizeToFit()
+            heartLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 3))
+            heartLabel.textColor = UIColor.redColor()
+            self.addSubview(heartLabel)
+            
+            rankLabel.text = sympathy_count as NSString
+            rankLabel.sizeToFit()
+            rankLabel.layoutRightFromSibling(heartLabel, verticalAlign: .Center, offset: CGPointMake(3, 0))
+        }
     }
     
     override func titleString() -> NSString? {
@@ -57,7 +61,11 @@ class EmpathyListCell: SBTableViewCell {
     }
     
     override func thumbnailUrl() -> NSString? {
-        var imageElement:TFHppleElement = data?.itemsWithQuery(".thumb_img")[0] as TFHppleElement
+        var imageElement:TFHppleElement = data?.itemWithQuery(".thumb_img") as TFHppleElement
         return imageElement.imageUrlFromHppleElement()
+    }
+    
+    func sympathyCount() -> NSString? {
+        return data?.itemWithQuery(".ico_sympathy")?.text().trim()
     }
 }
