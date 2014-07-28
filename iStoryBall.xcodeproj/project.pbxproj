@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EDFB9811985F016005BB6E4 /* EmpathyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDFB9801985F016005BB6E4 /* EmpathyListCell.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -45,7 +46,6 @@
 		88112B90198101E200776C8D /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88112B8F198101E200776C8D /* EpisodeViewController.swift */; };
 		881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9E197F88160014B39C /* ChoiceViewController.swift */; };
 		881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */; };
-		881A6CA7197F88160014B39C /* DatailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA0197F88160014B39C /* DatailViewController.swift */; };
 		881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA2197F88160014B39C /* MenuViewController.swift */; };
 		881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA3197F88160014B39C /* NoticeViewController.swift */; };
 		881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */; };
@@ -100,6 +100,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5EDFB9801985F016005BB6E4 /* EmpathyListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmpathyListCell.swift; path = View/TableViewCell/EmpathyListCell.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		88112B8F198101E200776C8D /* EpisodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
 		881A6C9E197F88160014B39C /* ChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewController.swift; path = Menu/ChoiceViewController.swift; sourceTree = "<group>"; };
 		881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewDetailController.swift; path = Menu/ChoiceViewDetailController.swift; sourceTree = "<group>"; };
-		881A6CA0197F88160014B39C /* DatailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatailViewController.swift; path = Menu/DatailViewController.swift; sourceTree = "<group>"; };
 		881A6CA2197F88160014B39C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Menu/MenuViewController.swift; sourceTree = "<group>"; };
 		881A6CA3197F88160014B39C /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewController.swift; path = Menu/NoticeViewController.swift; sourceTree = "<group>"; };
 		881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewDetailController.swift; path = Menu/NoticeViewDetailController.swift; sourceTree = "<group>"; };
@@ -316,7 +316,6 @@
 			children = (
 				881A6C9E197F88160014B39C /* ChoiceViewController.swift */,
 				881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */,
-				881A6CA0197F88160014B39C /* DatailViewController.swift */,
 				881A6CA2197F88160014B39C /* MenuViewController.swift */,
 				881A6CA3197F88160014B39C /* NoticeViewController.swift */,
 				881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */,
@@ -361,6 +360,7 @@
 		881A6CB1197F88D70014B39C /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				5EDFB9801985F016005BB6E4 /* EmpathyListCell.swift */,
 				881A6CB2197F890C0014B39C /* EpisodeListCell.swift */,
 				887456551981F91A00B7B8A8 /* StoryListCell.swift */,
 			);
@@ -624,7 +624,6 @@
 				881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
-				881A6CA7197F88160014B39C /* DatailViewController.swift in Sources */,
 				88112B8E198101D000776C8D /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
@@ -640,6 +639,7 @@
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
 				887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */,
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
+				5EDFB9811985F016005BB6E4 /* EmpathyListCell.swift in Sources */,
 				887456561981F91A00B7B8A8 /* StoryListCell.swift in Sources */,
 				881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */,
 				8874565B19823B5400B7B8A8 /* DHScrollViewManager.swift in Sources */,
