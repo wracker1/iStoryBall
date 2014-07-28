@@ -174,6 +174,8 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         
         let titleNode = data.itemWithQuery(".tit_strory")
         themeCell.title = titleNode!.text().trim()
+        
+        themeCell.finishedLabel.hidden = data.itemWithQuery(".sort_story") == nil
     }
     
     func presentThemeDataAtIndexPath(indexPath: NSIndexPath) -> TFHppleElement {
