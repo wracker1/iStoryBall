@@ -24,7 +24,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
                 
                 var raw = html as NSString
                 var error: NSError?
-                var exp = NSRegularExpression.regularExpressionWithPattern("<textarea[^>]*id=\"dataJSONString\"[^>]*>([\\s\\S]+?)<\\/\\s?textarea>",
+                var exp = NSRegularExpression.regularExpressionWithPattern("<(textarea)[^>]*id=\"dataJSONString\"[^>]*>([\\s\\S]+?)<\\/\\s?\\1>",
                     options: NSRegularExpressionOptions(0),
                     error: &error)
                 
@@ -32,7 +32,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
                     options: NSMatchingOptions(0),
                     range: NSMakeRange(0, raw.length))
                 
-                var json = raw.substringWithRange(result.rangeAtIndex(1))
+                var json = raw.substringWithRange(result.rangeAtIndex(2))
                 
                 error = nil
                 self.storyInfo = self.jsonObjectFromString(json, error: &error)

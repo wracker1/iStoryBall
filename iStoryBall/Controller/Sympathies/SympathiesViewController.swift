@@ -195,13 +195,20 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var data = presentStoryList![indexPath.row]
         var href = data.attributes["href"] as? NSString
         
-//        TODO - EpisodeViewController 가 아닌 ListViewController가 나올때도 있음! 확인 할 것!
-        
         if let link = href {
-            var title = data.itemWithQuery(".tit_empathy")
-            var episodeViewController = EpisodeViewController(title: title!.text().trim())
-            episodeViewController.id = link
-            self.navigationController.pushViewController(episodeViewController, animated: true)
+            var isEpisode = link.hasPrefix("/episode")
+            var title = data.itemWithQuery(".tit_empathy")?.text()?.trim()
+            var viewController: SBViewController?
+            
+            if isEpisode {
+                viewController = EpisodeViewController(title: title!)
+            } else {
+                viewController = ListViewController(title: title!)
+            }
+            
+            viewController!.id = link
+            
+            self.navigationController.pushViewController(viewController!, animated: true)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
