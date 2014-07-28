@@ -193,13 +193,14 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         var data = presentStoryList![indexPath.row]
-        var id = data.attributes["href"] as NSString
-        var title = data.itemWithQuery(".tit_empathy")
+        var href = data.attributes["href"] as? NSString
         
-        var listViewController = ListViewController(title: title!.text().trim())
-        listViewController.id = id as String
-        
-        self.navigationController.pushViewController(listViewController, animated: true)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if let link = href {
+            var title = data.itemWithQuery(".tit_empathy")
+            var episodeViewController = EpisodeViewController(title: title!.text().trim())
+            episodeViewController.id = link
+            self.navigationController.pushViewController(episodeViewController, animated: true)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
     }
 }
