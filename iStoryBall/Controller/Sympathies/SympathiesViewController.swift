@@ -203,4 +203,8 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
+    
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 155
+    }
 }

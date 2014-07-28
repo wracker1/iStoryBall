@@ -11,6 +11,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
     var menus: [TFHppleElement]?
     var refinedMenu: [TFHppleElement]?
     let exceptiveMenuUrl = ["/story/pop", "/episode/hit", "/story/list"]
+    // 메뉴
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +94,7 @@ class MenuViewController : SBViewController, UITableViewDelegate, UITableViewDat
         }
         
         cell.textLabel.text = name
+        cell.textLabel.font = UIFont.systemFontOfSize(12)
         return cell
     }
     

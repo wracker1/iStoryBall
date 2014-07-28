@@ -12,22 +12,21 @@ class EmpathyListCell: SBTableViewCell {
     var thumbnailView: UIImageView
     var titleLabel: UILabel
     var rankLabel: UILabel
-    var titleQuery:String = ".tit_empathy"
-    var thumbnailQuery:String = ""
     
     init() {
-        thumbnailView = UIImageView(frame: CGRectMake(0, 0, 80, 43))
+        var width = UIScreen.mainScreen().bounds.width
+        thumbnailView = UIImageView(frame: CGRectMake(10, 10, width - 20, 115))
         
-        titleLabel = UILabel.boldFontLabel("", fontSize: 11)
+        titleLabel = UILabel.boldFontLabel("", fontSize: 13)
         titleLabel.textAlignment = .Left
         
-        rankLabel = UILabel.boldFontLabel("", fontSize: 11)
+        rankLabel = UILabel.boldFontLabel("", fontSize: 13)
         
         super.init(style: .Default, reuseIdentifier: EpisodeListCell.reuseIdentifier())
         
         self.addSubview(thumbnailView)
         self.addSubview(titleLabel)
-        self.addSubview(rankLabel)
+        thumbnailView.addSubview(rankLabel)
     }
     
     override func update(data: TFHppleElement) {
@@ -40,19 +39,18 @@ class EmpathyListCell: SBTableViewCell {
         if let title = titleString() {
             titleLabel.text = title
             titleLabel.sizeToFit()
-            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
+            titleLabel.layoutBottomFromSibling(thumbnailView, horizontalAlign: .Center, offset: CGPointMake(0, 5))
         }
         
         if let sympathy_count = sympathyCount() {
-            var heartLabel = UILabel.boldFontLabel("♥", fontSize: 11)
-            heartLabel.sizeToFit()
-            heartLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 3))
-            heartLabel.textColor = UIColor.redColor()
-            self.addSubview(heartLabel)
-            
             rankLabel.text = sympathy_count as NSString
             rankLabel.sizeToFit()
-            rankLabel.layoutRightFromSibling(heartLabel, verticalAlign: .Center, offset: CGPointMake(3, 0))
+            rankLabel.textColor = UIColor.whiteColor()
+            rankLabel.padding(UIEdgeInsetsMake(2, 5, 2, 5))
+            rankLabel.backgroundColor = UIColor.redColor()
+            rankLabel.layer.masksToBounds = true
+            rankLabel.layer.cornerRadius = 10.0
+            rankLabel.layoutBottomInParentView(.Right, offset:CGPointMake(-5, -5))
         }
     }
     
