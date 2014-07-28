@@ -9,7 +9,6 @@
 class ThemeViewController : SBViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     var themeTitleQuery = ".tit_txt img"
-    var themeEpisodeListQuery = "#storyList .link_story"
     
     var themeScroller: UIScrollView?
     var themeItemList = Array<TFHppleElement>()
@@ -109,7 +108,10 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         themeEpisodeDataById(id) {
             (title: String, list: [TFHppleElement]) in
             
-            
+            if let v = self.themeEpisodeView {
+                v.reloadData()
+                v.scrollToItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+            }
         }
     }
     
@@ -136,7 +138,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
                 (html: String) in
                 var themeDoc = html.htmlDocument()
                 var title = themeDoc.itemWithQuery(self.themeTitleQuery)!.attributes["alt"]! as NSString
-                var list = themeDoc.itemsWithQuery(self.themeEpisodeListQuery) as [TFHppleElement]
+                var list = themeDoc.itemWithQuery("#storyList")!.itemsWithQuery(".link_story") as [TFHppleElement]
 
                 self.themeEpisodeData[id] = (title, list)
                 callback(title: title, list: list)
@@ -165,10 +167,15 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         let id = presentThemeId()
         let (title, list) = themeEpisodeData[id]!
         let data = list[indexPath.row]
+        
         let imageNode = data.itemWithQuery(".thumb_img")
         let imageUrl = imageNode!.imageUrlFromHppleElement()
         
-        println(imageUrl)
+        var themeCell = cell as ThemeEpisodeCell
+        themeCell.thumbnailView.setImageWithURL(NSURL(string: imageUrl))
+        
+        let titleNode = data.itemWithQuery(".tit_strory")
+        themeCell.title = titleNode!.text().trim()
     }
     
 //    UICollectionViewDataSource
