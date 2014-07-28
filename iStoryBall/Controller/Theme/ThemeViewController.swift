@@ -155,7 +155,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         themeEpisodeView!.dataSource = self
         themeEpisodeView!.delegate = self
         
-        themeEpisodeView!.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "Cell")
+        themeEpisodeView!.registerClass(ThemeEpisodeCell.classForCoder(), forCellWithReuseIdentifier: "Cell")
         self.view.addSubview(themeEpisodeView)
         
         themeEpisodeView!.layoutBottomInParentView()
@@ -179,7 +179,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as? UICollectionViewCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as? ThemeEpisodeCell
         
         cell!.backgroundColor = UIColor.whiteColor()
         
