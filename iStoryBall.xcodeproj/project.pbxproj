@@ -43,12 +43,12 @@
 		8808915A196BF3DD00BE3F51 /* NetClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089144196BF3DD00BE3F51 /* NetClient.swift */; };
 		88112B8E198101D000776C8D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88112B8D198101D000776C8D /* ListViewController.swift */; };
 		88112B90198101E200776C8D /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88112B8F198101E200776C8D /* EpisodeViewController.swift */; };
+		8819EB261986430400464FCE /* StoryPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819EB251986430400464FCE /* StoryPageData.swift */; };
 		881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9E197F88160014B39C /* ChoiceViewController.swift */; };
 		881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */; };
 		881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA2197F88160014B39C /* MenuViewController.swift */; };
 		881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA3197F88160014B39C /* NoticeViewController.swift */; };
 		881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */; };
-		881A6CAD197F88510014B39C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CAC197F88510014B39C /* Article.swift */; };
 		883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A7196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352498196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -131,12 +131,12 @@
 		88089144196BF3DD00BE3F51 /* NetClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetClient.swift; sourceTree = "<group>"; };
 		88112B8D198101D000776C8D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		88112B8F198101E200776C8D /* EpisodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
+		8819EB251986430400464FCE /* StoryPageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPageData.swift; sourceTree = "<group>"; };
 		881A6C9E197F88160014B39C /* ChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewController.swift; path = Menu/ChoiceViewController.swift; sourceTree = "<group>"; };
 		881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewDetailController.swift; path = Menu/ChoiceViewDetailController.swift; sourceTree = "<group>"; };
 		881A6CA2197F88160014B39C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Menu/MenuViewController.swift; sourceTree = "<group>"; };
 		881A6CA3197F88160014B39C /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewController.swift; path = Menu/NoticeViewController.swift; sourceTree = "<group>"; };
 		881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewDetailController.swift; path = Menu/NoticeViewDetailController.swift; sourceTree = "<group>"; };
-		881A6CAC197F88510014B39C /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		88352495196D046700E89105 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		88352497196D046700E89105 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 		880890FE196BEE5700BE3F51 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				881A6CAC197F88510014B39C /* Article.swift */,
+				8819EB251986430400464FCE /* StoryPageData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -624,11 +624,11 @@
 				88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */,
 				88089120196BF00000BE3F51 /* SBViewController.swift in Sources */,
 				88089149196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
-				881A6CAD197F88510014B39C /* Article.swift in Sources */,
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
 				881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
+				8819EB261986430400464FCE /* StoryPageData.swift in Sources */,
 				88112B8E198101D000776C8D /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
