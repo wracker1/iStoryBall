@@ -164,9 +164,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     }
     
     func updateCollectionViewCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
-        let id = presentThemeId()
-        let (title, list) = themeEpisodeData[id]!
-        let data = list[indexPath.row]
+        let data = presentThemeDataAtIndexPath(indexPath)
         
         let imageNode = data.itemWithQuery(".thumb_img")
         let imageUrl = imageNode!.imageUrlFromHppleElement()
@@ -176,6 +174,12 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         
         let titleNode = data.itemWithQuery(".tit_strory")
         themeCell.title = titleNode!.text().trim()
+    }
+    
+    func presentThemeDataAtIndexPath(indexPath: NSIndexPath) -> TFHppleElement {
+        let id = presentThemeId()
+        let (title, list) = themeEpisodeData[id]!
+        return list[indexPath.row]
     }
     
 //    UICollectionViewDataSource
@@ -204,5 +208,20 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 0, 10)
+    }
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        let data = presentThemeDataAtIndexPath(indexPath)
+        let linkNode = data.itemWithQuery(".link_story")
+        let href = linkNode!.attributes["href"] as? NSString
+        
+        if let link = href {
+            var title = linkNode!.itemWithQuery(".tit_strory")
+            
+            var listViewController = ListViewController(title: title!.text().trim())
+            listViewController.id = link
+            
+            self.navigationController.pushViewController(listViewController, animated: true)
+        }
     }
 }
