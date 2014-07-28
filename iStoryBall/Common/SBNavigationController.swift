@@ -22,10 +22,10 @@ class SBNavigationController : UINavigationController
         super.init(rootViewController: rootViewController)
         
         var naviFont = UIFont.boldSystemFontOfSize(14)
-        var naviColor = UIColor.rgb(76.0, g: 134.0, b: 255.0)
+        var naviColor = UIColor.blackColor()
         var shadow = NSShadow()
         shadow.shadowBlurRadius = 0.5
-        shadow.shadowColor = UIColor.rgba(0, g: 0, b: 0, a: 0.3)
+        shadow.shadowColor = UIColor.grayColor()
         shadow.shadowOffset = CGSizeMake(0.5, 0.5)
         
         var naviAttr: NSDictionary = [
@@ -35,7 +35,7 @@ class SBNavigationController : UINavigationController
         ]
         UINavigationBar.appearance().titleTextAttributes = naviAttr
         
-        var barFont = UIFont.boldSystemFontOfSize(14)
+        var barFont = UIFont.boldSystemFontOfSize(13)
         var barColor = UIColor.rgb(76.0, g: 134.0, b: 237.0)
         var barAttr: NSDictionary = [ NSFontAttributeName: barFont, NSForegroundColorAttributeName: barColor ]
         

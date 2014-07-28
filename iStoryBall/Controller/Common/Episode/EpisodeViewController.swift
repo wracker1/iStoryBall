@@ -10,6 +10,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
 {
     var contentWebview: SBWebview?
     var contentScroller: DHPageScrollView?
+    var storyInfo: Dictionary<String, AnyObject>?
     var storyEpisode: Dictionary<String, AnyObject>?
     var imageDataList: [StoryPageData]?
 
@@ -20,29 +21,48 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
             NetClient.instance.get(episodeId) {
                 (html: String) in
                 self.doc = html.htmlDocument()
+                
+                var raw = html as NSString
+                var error: NSError?
+                var exp = NSRegularExpression.regularExpressionWithPattern("<textarea[^>]*id=\"dataJSONString\"[^>]*>([\\s\\S]+?)<\\/\\s?textarea>",
+                    options: NSRegularExpressionOptions(0),
+                    error: &error)
+                
+                var result = exp.firstMatchInString(raw,
+                    options: NSMatchingOptions(0),
+                    range: NSMakeRange(0, raw.length))
+                
+                var json = raw.substringWithRange(result.rangeAtIndex(1))
+                
+                error = nil
+                self.storyInfo = self.jsonObjectFromString(json, error: &error)
                 self.layoutSubviews()
             }
         }
     }
     
+    func jsonObjectFromString(jsonString: String, error: NSErrorPointer) -> Dictionary<String, AnyObject>? {
+        var data = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: error) as? Dictionary<String, AnyObject>
+    }
+    
     func layoutSubviews() {
-        var data = doc!.itemWithQuery("#dataJSONString")!.text().dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        var info = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil) as Dictionary<String, AnyObject>
-        
-        var episode: AnyObject? = info["storyEpisode"]
-        storyEpisode = episode as? Dictionary<String, AnyObject>
-        
-        var storyPageList: AnyObject? = info["storyPageList"]
-        
-        var episodeType = storyEpisode!["episodeType"] as NSString
-        var isScroll = episodeType.lowercaseString == "scroll"
-        
-        if isScroll {
-            createContentWebview()
-        } else if let list = storyPageList as? [Dictionary<String, AnyObject>]{
-            createImageDataList(list)
-            createImageSlider()
+        if let info = storyInfo {
+            var episode: AnyObject? = info["storyEpisode"]
+            storyEpisode = episode as? Dictionary<String, AnyObject>
+            
+            var storyPageList: AnyObject? = info["storyPageList"]
+            var episodeType = storyEpisode!["episodeType"] as NSString
+            var isScroll = episodeType.lowercaseString == "scroll"
+            
+            if isScroll {
+                createContentWebview()
+            } else if let list = storyPageList as? [Dictionary<String, AnyObject>]{
+                createImageDataList(list)
+                createImageSlider()
+            }
         }
+        
     }
     
     func createContentWebview() {
