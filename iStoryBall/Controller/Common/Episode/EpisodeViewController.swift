@@ -20,6 +20,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
         if let episodeId = id {
             NetClient.instance.get(episodeId) {
                 (html: String) in
+                
                 self.doc = html.htmlDocument()
                 
                 var raw = html as NSString
@@ -32,10 +33,13 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
                     options: NSMatchingOptions(0),
                     range: NSMakeRange(0, raw.length))
                 
-                var json = raw.substringWithRange(result.rangeAtIndex(2))
+                if let r = result {
+                    var json = raw.substringWithRange(r.rangeAtIndex(2))
+                    
+                    error = nil
+                    self.storyInfo = self.jsonObjectFromString(json, error: &error)
+                }
                 
-                error = nil
-                self.storyInfo = self.jsonObjectFromString(json, error: &error)
                 self.layoutSubviews()
             }
         }
@@ -47,20 +51,23 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
     }
     
     func layoutSubviews() {
+        var isScroll = true
+        var storyPageList: AnyObject?
+        
         if let info = storyInfo {
             var episode: AnyObject? = info["storyEpisode"]
             storyEpisode = episode as? Dictionary<String, AnyObject>
             
-            var storyPageList: AnyObject? = info["storyPageList"]
+            storyPageList = info["storyPageList"]
             var episodeType = storyEpisode!["episodeType"] as NSString
-            var isScroll = episodeType.lowercaseString == "scroll"
-            
-            if isScroll {
-                createContentWebview()
-            } else if let list = storyPageList as? [Dictionary<String, AnyObject>]{
-                createImageDataList(list)
-                createImageSlider()
-            }
+            isScroll = episodeType.lowercaseString == "scroll"
+        }
+        
+        if isScroll {
+            createContentWebview()
+        } else if let list = storyPageList as? [Dictionary<String, AnyObject>]{
+            createImageDataList(list)
+            createImageSlider()
         }
         
     }
