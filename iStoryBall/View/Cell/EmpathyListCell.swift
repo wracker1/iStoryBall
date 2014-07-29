@@ -12,6 +12,8 @@ class EmpathyListCell: SBTableViewCell {
     var thumbnailView: UIImageView
     var titleLabel: UILabel
     var rankLabel: UILabel
+    var iconImageView: UIImageView
+    var iconImage: UIImage
     
     init() {
         var width = UIScreen.mainScreen().bounds.width
@@ -21,12 +23,15 @@ class EmpathyListCell: SBTableViewCell {
         titleLabel.textAlignment = .Left
         
         rankLabel = UILabel.boldFontLabel("", fontSize: 13)
+        iconImage = UIImage(named:"ico_empathy")
+        iconImageView = UIImageView(image: iconImage)
         
         super.init(style: .Default, reuseIdentifier: EpisodeListCell.reuseIdentifier())
         
         self.addSubview(thumbnailView)
         self.addSubview(titleLabel)
-        thumbnailView.addSubview(rankLabel)
+        iconImageView.addSubview(rankLabel)
+        thumbnailView.addSubview(iconImageView)
     }
     
     override func update(data: TFHppleElement) {
@@ -43,14 +48,14 @@ class EmpathyListCell: SBTableViewCell {
         }
         
         if let sympathy_count = sympathyCount() {
+            iconImageView.frame = CGRectMake(0, 0, 42, 40)
+            iconImageView.backgroundColor = UIColor.clearColor()
+            iconImageView.layoutBottomInParentView(.Right, offset:CGPointMake(-5, -5))
+            
             rankLabel.text = sympathy_count as NSString
             rankLabel.sizeToFit()
             rankLabel.textColor = UIColor.whiteColor()
-            rankLabel.padding(UIEdgeInsetsMake(2, 5, 2, 5))
-            rankLabel.backgroundColor = UIColor.redColor()
-            rankLabel.layer.masksToBounds = true
-            rankLabel.layer.cornerRadius = 10.0
-            rankLabel.layoutBottomInParentView(.Right, offset:CGPointMake(-5, -5))
+            rankLabel.layoutCenterInParentView(CGPointMake(0, -3))
         }
     }
     
