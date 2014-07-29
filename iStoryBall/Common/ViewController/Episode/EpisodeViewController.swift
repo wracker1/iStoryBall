@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
+class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScrollViewDelegate, UIGestureRecognizerDelegate
 {
     var contentWebview: SBWebview?
     var contentScroller: DHPageScrollView?
@@ -14,6 +14,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
     var storyInfo: Dictionary<String, AnyObject>?
     var storyEpisode: Dictionary<String, AnyObject>?
     var imageDataList: [StoryPageData]?
+    var scrollViewOffset = CGPointZero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,9 +76,20 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
                 var items = [flex1, comment, flex2, share, flex3, list, flex4]
                 
                 self.toolbarItems = items
-                self.navigationController.setToolbarHidden(false, animated: true)
+                self.navigationController.setToolbarHidden(false, animated: false)
             }
         }
+    }
+    
+    func gestureRecognizer() -> UITapGestureRecognizer {
+        var gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("toggleToolbar"))
+        gestureRecognizer.numberOfTapsRequired = 1
+        gestureRecognizer.delegate = self
+        return gestureRecognizer
+    }
+    
+    func toggleToolbar() {
+        self.navigationController.setToolbarHidden(!self.navigationController.toolbar.hidden, animated: true)
     }
     
     func jsonObjectFromString(jsonString: String, error: NSErrorPointer) -> Dictionary<String, AnyObject>? {
@@ -138,7 +150,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
             var articleId: NSNumber = s["articleId"] as NSNumber
             var commentViewController = CommentViewController(title: "댓글(\(commentCount))")
             commentViewController.id = "\(articleId.integerValue)"
-            commentViewController.commentImageUrl = data["commentImageUrl1"] as? NSString
+            commentViewController.commentImageUrl = data["commentImageUrl2"] as? NSString
             
             var navigator = SBNavigationController.instanceWithViewController(commentViewController)
             self.presentViewController(navigator, animated: true) {}
@@ -150,7 +162,24 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
     }
     
     func showList() {
+        var index = 0
+        var viewControllers = self.navigationController.viewControllers
         
+        for var i = 0; i < viewControllers.count; i++ {
+            var item: AnyObject = viewControllers[i]
+            
+            if item is ListViewController {
+                index = i
+                break
+            }
+        }
+        
+        if index > 0 {
+            var controller = viewControllers[index] as UIViewController
+            self.navigationController.popToViewController(controller, animated: true)
+        } else {
+            
+        }
     }
     
     func createContentWebview() {
@@ -163,6 +192,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
             var size = self.view.bounds.size
             
             contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
+            contentWebview!.scrollView.delegate = self
+            contentWebview!.addGestureRecognizer(gestureRecognizer())
             self.view.addSubview(contentWebview)
             contentWebview!.layoutTopInParentView()
             contentWebview!.loadHTMLString(html, baseURL: NetClient.instance.relativeManager?.baseURL)
@@ -189,6 +220,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
     func createImageSlider() {
         var size = self.view.bounds.size
         contentScroller = DHPageScrollView(frame: CGRect(origin: CGPointZero, size: size), dataSource: self)
+        contentScroller!.addGestureRecognizer(gestureRecognizer())
+        contentScroller!.delegate = self
         self.view.addSubview(contentScroller)
         
         contentScroller!.reloadData(nil)
@@ -217,5 +250,29 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
         }
         
         return pageView
+    }
+    
+//    UIScrollViewDelegate
+    func scrollViewWillBeginDragging(scrollView: UIScrollView!) {
+        scrollViewOffset = scrollView.contentOffset
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
+        var diff = scrollView.contentOffset.y - scrollViewOffset.y
+        
+        if diff > 0 {
+            if !self.navigationController.toolbar.hidden {
+                self.navigationController.setToolbarHidden(true, animated: true)
+            }
+        } else {
+            if self.navigationController.toolbar.hidden {
+                self.navigationController.setToolbarHidden(false, animated: true)
+            }
+        }
+    }
+    
+//    UIGestureRecognizerDelegate
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
+        return true
     }
 }

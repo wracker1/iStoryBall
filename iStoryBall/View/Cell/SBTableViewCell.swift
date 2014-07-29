@@ -13,14 +13,23 @@ protocol SBTableViewCellProtocol {
 
 class SBTableViewCell: UITableViewCell, SBTableViewCellProtocol {
     var data: TFHppleElement?
+    var model: SBModel?
     var indexPath: NSIndexPath?
     
     class func reuseIdentifier() -> String {
         return "Cell"
     }
     
+    class func heightForRowWithModel(model: SBModel) -> CGFloat {
+        return 50.0
+    }
+    
     func update(data: TFHppleElement) {
         self.data = data
+    }
+    
+    func update(model: SBModel) {
+        self.model = model
     }
     
     func thumbnailUrl() -> NSString? {

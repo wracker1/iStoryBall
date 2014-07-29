@@ -6,18 +6,27 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class CommentViewController: SBViewController, UITableViewDataSource
+import QuartzCore
+
+class CommentViewController: SBViewController, UITableViewDataSource, UITableViewDelegate
 {
     var pageIndex: Int = 1
     var pageSize: Int = 20
     var commentImageUrl: String?
     var commentDataList = Array<Comment>()
     var commentTableView: UITableView?
+    var commentLoader: DHScrollViewManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        layoutSubviews()
+        if commentTableView == nil {
+            layoutSubviews()
+        }
     }
     
     func layoutSubviews() {
@@ -25,7 +34,11 @@ class CommentViewController: SBViewController, UITableViewDataSource
         
         commentTableView = UITableView(frame: self.view.bounds, style: .Plain)
         commentTableView!.dataSource = self
+        commentTableView!.delegate = self
         self.view.addSubview(commentTableView!)
+        
+        commentLoader = DHScrollViewManager(scrollView: commentTableView!, viewController: self)
+        commentLoader!.addTarget(self, bottomLoaderAction: Selector("loadMoreComment"))
         
         reloadCommentData()
     }
@@ -47,7 +60,33 @@ class CommentViewController: SBViewController, UITableViewDataSource
             (list: [Comment]) in
             
             self.commentDataList = list
+            self.commentTableView?.reloadData()
         }
+    }
+    
+    func loadMoreComment() {
+        commentLoader!.startBottomLoader()
+        var page = pageIndex + 1
+        
+        loadCommentDataAtPage(page) {
+            (comments: [Comment]) in
+            
+            self.didFinishLoadDataAtPage(comments, page: page)
+        }
+    }
+    
+    func didFinishLoadDataAtPage(comments: [Comment], page: Int) {
+        var indexPaths = Array<NSIndexPath>()
+        var rowNum = commentDataList.count
+        
+        for comment in comments {
+            commentDataList += comment
+            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+        }
+        
+        pageIndex = page
+        commentLoader!.endBottomLoader()
+        commentTableView!.insertRowToBottom(indexPaths)
     }
     
     func loadCommentDataAtPage(page: Int, finishBlock: ((list: [Comment]) -> Void)?) {
@@ -63,6 +102,8 @@ class CommentViewController: SBViewController, UITableViewDataSource
             if let items = list {
                 for item in items {
                     var comment = Comment(data: item)
+                    comment.imageUrl = self.commentImageUrl
+                    comment.loadProfileImage(nil, finish: nil)
                     comments += comment
                 }
             }
@@ -79,6 +120,22 @@ class CommentViewController: SBViewController, UITableViewDataSource
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        return nil
+        var cellId = CommentCell.reuseIdentifier()
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? CommentCell
+        
+        if cell == nil {
+            cell = CommentCell()
+        }
+        
+        var data = commentDataList[indexPath.row]
+        cell!.update(data)
+        
+        return cell
+    }
+    
+//    UITableViewDelegate
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        var data = commentDataList[indexPath.row]
+        return CommentCell.heightForRowWithModel(data)
     }
 }
