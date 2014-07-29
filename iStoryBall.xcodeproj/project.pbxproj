@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5EDFB98319864AEB005BB6E4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -45,11 +44,6 @@
 		88112B8E198101D000776C8D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88112B8D198101D000776C8D /* ListViewController.swift */; };
 		88112B90198101E200776C8D /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88112B8F198101E200776C8D /* EpisodeViewController.swift */; };
 		8819EB261986430400464FCE /* StoryPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819EB251986430400464FCE /* StoryPageData.swift */; };
-		881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9E197F88160014B39C /* ChoiceViewController.swift */; };
-		881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */; };
-		881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA2197F88160014B39C /* MenuViewController.swift */; };
-		881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA3197F88160014B39C /* NoticeViewController.swift */; };
-		881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */; };
 		883524A6196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A7196D046700E89105 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */; };
 		883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 88352498196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -102,7 +96,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Menu/DetailViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -134,11 +127,6 @@
 		88112B8D198101D000776C8D /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		88112B8F198101E200776C8D /* EpisodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
 		8819EB251986430400464FCE /* StoryPageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPageData.swift; sourceTree = "<group>"; };
-		881A6C9E197F88160014B39C /* ChoiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewController.swift; path = Menu/ChoiceViewController.swift; sourceTree = "<group>"; };
-		881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoiceViewDetailController.swift; path = Menu/ChoiceViewDetailController.swift; sourceTree = "<group>"; };
-		881A6CA2197F88160014B39C /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Menu/MenuViewController.swift; sourceTree = "<group>"; };
-		881A6CA3197F88160014B39C /* NoticeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewController.swift; path = Menu/NoticeViewController.swift; sourceTree = "<group>"; };
-		881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NoticeViewDetailController.swift; path = Menu/NoticeViewDetailController.swift; sourceTree = "<group>"; };
 		88352495196D046700E89105 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
 		88352496196D046700E89105 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		88352497196D046700E89105 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -221,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				88112B8A198101D000776C8D /* Common */,
-				880E2C2E196CD67F0005375E /* Menu */,
 				880890FA196BEE5700BE3F51 /* Home */,
 				880890FB196BEE5700BE3F51 /* Popular */,
 				880890FC196BEE5700BE3F51 /* Sympathies */,
@@ -313,19 +300,6 @@
 				88089144196BF3DD00BE3F51 /* NetClient.swift */,
 			);
 			path = NetClient;
-			sourceTree = "<group>";
-		};
-		880E2C2E196CD67F0005375E /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */,
-				881A6C9E197F88160014B39C /* ChoiceViewController.swift */,
-				881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */,
-				881A6CA2197F88160014B39C /* MenuViewController.swift */,
-				881A6CA3197F88160014B39C /* NoticeViewController.swift */,
-				881A6CA4197F88160014B39C /* NoticeViewDetailController.swift */,
-			);
-			name = Menu;
 			sourceTree = "<group>";
 		};
 		88112B8A198101D000776C8D /* Common */ = {
@@ -628,29 +602,23 @@
 				88089120196BF00000BE3F51 /* SBViewController.swift in Sources */,
 				88089149196BF3DD00BE3F51 /* AFHTTPSessionManager.m in Sources */,
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
-				881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
-				5EDFB98319864AEB005BB6E4 /* DetailViewController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				8819EB261986430400464FCE /* StoryPageData.swift in Sources */,
 				88112B8E198101D000776C8D /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
-				881A6CAB197F88160014B39C /* NoticeViewDetailController.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
 				883524B2196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
 				88089123196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
 				887456541981116500B7B8A8 /* SBWebview.swift in Sources */,
 				883524AC196D046700E89105 /* UIButton+AFNetworking.m in Sources */,
 				883524A8196D046700E89105 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				881A6CA6197F88160014B39C /* ChoiceViewDetailController.swift in Sources */,
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
 				887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */,
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
-				881A6CA5197F88160014B39C /* ChoiceViewController.swift in Sources */,
 				8874565B19823B5400B7B8A8 /* DHScrollViewManager.swift in Sources */,
-				881A6CA9197F88160014B39C /* MenuViewController.swift in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,
 				88089159196BF3DD00BE3F51 /* NetClient.swift in Sources */,
 				88B15A0319861BFE00F9E8FE /* EmpathyListCell.swift in Sources */,
