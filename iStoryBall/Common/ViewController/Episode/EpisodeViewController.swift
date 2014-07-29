@@ -15,6 +15,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     var storyEpisode: Dictionary<String, AnyObject>?
     var imageDataList: [StoryPageData]?
     var scrollViewOffset = CGPointZero
+    var imageForShare: UIImageView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +159,25 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     }
     
     func sharePage() {
+        var temp: AnyObject? = storyInfo!["story"]
+        var data = temp! as Dictionary<String, AnyObject>
+        var imageUrl = data["imageUrl1"] as NSString
         
+        imageForShare = UIImageView()
+        
+        var request = NSURLRequest(URL: NSURL(string: imageUrl))
+        imageForShare!.setImageWithURLRequest(request, placeholderImage: nil,
+            success: {
+                (req: NSURLRequest!, res: NSHTTPURLResponse!, image: UIImage!) in
+                
+                var name = data["name"] as NSString
+                var article = self.storyEpisode!["name"] as NSString
+                var title = "<스토리볼: \(name)> \(article)"
+                var items = [title, image]
+                var controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                self.presentViewController(controller, animated: true, completion: nil)
+            },
+            failure: nil)
     }
     
     func showList() {
