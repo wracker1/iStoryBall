@@ -86,6 +86,18 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.addSubview(subscriptionDayLabel)
         subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
+        var writerButton:UIButton = UIButton() as UIButton
+        writerButton.setTitle("저자 소개", forState: .Normal)
+        writerButton.titleLabel.font = UIFont.systemFontOfSize(10)
+        writerButton.frame = CGRectMake(0, 0, 50, 15)
+        writerButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        writerButton.layer.masksToBounds = true
+        writerButton.layer.cornerRadius = 7
+        writerButton.layer.borderWidth = 0.5
+        writerButton.layer.borderColor = UIColor.grayColor().CGColor
+        descView!.addSubview(writerButton)
+        writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
+        
         self.view.addSubview(descView)
         descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
         
