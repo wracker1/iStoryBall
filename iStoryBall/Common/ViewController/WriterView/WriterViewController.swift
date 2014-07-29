@@ -14,8 +14,8 @@ class WriterViewController : SBViewController
         if let url = id {
             NetClient.instance.get(url + "#layer/writer") {
                 (html: String) in
-                var newItems = html.htmlDocument().itemsWithQuery("#writerLayerTemplate")
-                println(newItems.count)
+                var newItem = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
+                println(newItem)
             }
         }
         
@@ -24,24 +24,10 @@ class WriterViewController : SBViewController
     
     func initView() {
         println("initView")
-        var statusBarFrame = UIApplication.sharedApplication().statusBarFrame
-        var height = statusBarFrame.height
-        
-        var toolbar = UIToolbar()
-        toolbar.frame = CGRectMake(0, height, self.view.bounds.width, 40)
-        self.view.addSubview(toolbar)
-        
-        var closeButton = UIButton()
-        closeButton.frame = CGRectMake(0, 0, 80, 40)
-        closeButton.setTitle("닫기", forState: .Normal)
-        closeButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        closeButton.addTarget(self, action: "closeView:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        toolbar.addSubview(closeButton)
-        closeButton.layoutLeftInParentView()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
     }
     
-    func closeView(sender:UIButton!) {
+    func closeView() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
