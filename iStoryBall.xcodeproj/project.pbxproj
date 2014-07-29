@@ -82,6 +82,8 @@
 		88B15A0519861BFE00F9E8FE /* StoryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B15A0219861BFE00F9E8FE /* StoryListCell.swift */; };
 		88B15A0719861C1800F9E8FE /* ThemeEpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B15A0619861C1800F9E8FE /* ThemeEpisodeCell.swift */; };
 		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
+		88D76A5419876C83004D0256 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D76A5319876C83004D0256 /* CommentViewController.swift */; };
+		88D76A5619878F24004D0256 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D76A5519878F24004D0256 /* Comment.swift */; };
 		88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
 		88E70B221973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
 /* End PBXBuildFile section */
@@ -170,6 +172,8 @@
 		88B15A0219861BFE00F9E8FE /* StoryListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListCell.swift; sourceTree = "<group>"; };
 		88B15A0619861C1800F9E8FE /* ThemeEpisodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeEpisodeCell.swift; sourceTree = "<group>"; };
 		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
+		88D76A5319876C83004D0256 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Comment/CommentViewController.swift; sourceTree = "<group>"; };
+		88D76A5519878F24004D0256 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		88E70B201973AF3000B38A0F /* CommonUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				8819EB251986430400464FCE /* StoryPageData.swift */,
+				88D76A5519878F24004D0256 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 		88112B8A198101D000776C8D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				88D76A5219876C71004D0256 /* Comment */,
 				88112B8B198101D000776C8D /* Episode */,
 				88112B8C198101D000776C8D /* List */,
 			);
@@ -498,6 +504,14 @@
 			path = View/Cell;
 			sourceTree = "<group>";
 		};
+		88D76A5219876C71004D0256 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				88D76A5319876C83004D0256 /* CommentViewController.swift */,
+			);
+			name = Comment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -622,6 +636,7 @@
 				886132B6196FEF000094E99F /* DHPageScrollView.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
 				883524B2196D046700E89105 /* UIRefreshControl+AFNetworking.m in Sources */,
+				88D76A5619878F24004D0256 /* Comment.swift in Sources */,
 				88089123196BF0D800BE3F51 /* SBTabBarController.swift in Sources */,
 				887456541981116500B7B8A8 /* SBWebview.swift in Sources */,
 				883524AC196D046700E89105 /* UIButton+AFNetworking.m in Sources */,
@@ -629,6 +644,7 @@
 				8808914D196BF3DD00BE3F51 /* AFSecurityPolicy.m in Sources */,
 				8808911A196BEE9C00BE3F51 /* SympathiesViewController.swift in Sources */,
 				887456581981F95200B7B8A8 /* SBTableViewCell.swift in Sources */,
+				88D76A5419876C83004D0256 /* CommentViewController.swift in Sources */,
 				884FEC55196E88E000AF19CF /* XPathQuery.m in Sources */,
 				8874565B19823B5400B7B8A8 /* DHScrollViewManager.swift in Sources */,
 				88089151196BF3DD00BE3F51 /* AFURLRequestSerialization.m in Sources */,

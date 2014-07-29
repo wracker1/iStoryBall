@@ -18,6 +18,50 @@ extension UITableView {
     }
 }
 
+extension UIImageView {
+    func loadSpriteImageAtPosition(url: String, imageSize: CGSize?, position: CGPoint, finish: (() -> Void)?) {
+        var request = NSURLRequest(URL: NSURL(string: url))
+        
+        self.setImageWithURLRequest(request,
+            placeholderImage: nil,
+            success: {
+                (req: NSURLRequest!, res: NSHTTPURLResponse!, image: UIImage!) in
+                
+                var imgSize: CGSize?
+                
+                self.image = image
+                self.contentMode = .ScaleAspectFill
+                self.clipsToBounds = true
+                
+                if let iSize = imageSize {
+                    imgSize = iSize
+                } else {
+                    imgSize = self.bounds.size
+                }
+                
+                var size = self.image.size
+                var sizeRate = CGSizeMake(imgSize!.width / size.width, imgSize!.height / size.height)
+                var imageOrigin = CGPointMake(sizeRate.width * position.x / imgSize!.width, sizeRate.height * position.y / imgSize!.height)
+                
+                var origin = self.frame.origin
+                self.frame = CGRect(origin: origin, size: imgSize!)
+                
+                self.layer.contentsRect = CGRect(origin: imageOrigin, size: sizeRate)
+                
+                if let f = finish {
+                    f()
+                }
+            },
+            failure: {
+                (req: NSURLRequest!, res: NSHTTPURLResponse!, error: NSError!) in
+                
+                if let f = finish {
+                    f()
+                }
+            })
+    }
+}
+
 extension UILabel {
     class func systemFontLabel(text: String, fontSize: CGFloat) -> UILabel {
         var label = UILabel()
@@ -59,6 +103,25 @@ extension UIButton {
         var spacing: CGFloat = 3.0
         self.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0, 0, -titleSize.width)
         self.titleEdgeInsets = UIEdgeInsetsMake(0, -(imageSize.width), -(imageSize.height + spacing), 0)
+    }
+    
+    class func barButtonItem(title: String?, image: UIImage?, target: AnyObject, selector: Selector) -> UIBarButtonItem {
+        var button = UIButton.buttonWithType(.Custom) as UIButton
+        
+        if let t = title {
+            button.setTitle(t, forState: .Normal)
+            button.titleLabel.font = UIFont.systemFontOfSize(12)
+            button.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        }
+        
+        if let i = image {
+            button.setImage(i, forState: .Normal)
+        }
+        
+        button.addTarget(target, action: selector, forControlEvents: .TouchUpInside)
+        button.sizeToFit()
+
+        return UIBarButtonItem(customView: button)
     }
 }
 

@@ -10,6 +10,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
 {
     var contentWebview: SBWebview?
     var contentScroller: DHPageScrollView?
+    var commentCount = 0
     var storyInfo: Dictionary<String, AnyObject>?
     var storyEpisode: Dictionary<String, AnyObject>?
     var imageDataList: [StoryPageData]?
@@ -47,6 +48,38 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController.setToolbarHidden(true, animated: false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let items = self.toolbarItems {
+            self.navigationController.setToolbarHidden(false, animated: true)
+        } else {
+            requestCommentCount {
+                (commentCount: Int) in
+                
+                self.commentCount = commentCount
+                
+                var comment = UIButton.barButtonItem("댓글(\(commentCount))", image: nil, target: self, selector: Selector("showComment"))
+                var share = UIButton.barButtonItem("공유", image: nil, target: self, selector: Selector("showComment"))
+                var list = UIButton.barButtonItem("목록", image: nil, target: self, selector: Selector("showComment"))
+                var flex1 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+                var flex2 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+                var flex3 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+                var flex4 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+                var items = [flex1, comment, flex2, share, flex3, list, flex4]
+                
+                self.toolbarItems = items
+                self.navigationController.setToolbarHidden(false, animated: true)
+            }
+        }
+    }
+    
     func jsonObjectFromString(jsonString: String, error: NSErrorPointer) -> Dictionary<String, AnyObject>? {
         var data = jsonString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: error) as? Dictionary<String, AnyObject>
@@ -71,6 +104,52 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
             createImageDataList(list)
             createImageSlider()
         }
+    }
+    
+    func requestCommentCount(resultBlock: ((commentCount: Int) -> Void)) {
+        if let s = storyEpisode {
+            var articleId: NSNumber = s["episodeId"] as NSNumber
+            var episodeKey = "EPISODE_\(articleId.integerValue)"
+            
+            NetClient.instance.getWithAbsoluteUrl("http://news.rhea.media.daum.net/rhea/do/api/getCommentTotalCount?bbsId=storyball&docIds=\(episodeKey)") {
+                (result: AnyObject!) in
+                
+                var data = result as Dictionary<String, AnyObject>
+                var count: AnyObject? = data["totalCount"]
+                
+                if let c: AnyObject = count {
+                    var comment: AnyObject? = c[episodeKey]
+                    
+                    if let numberValue: AnyObject = comment {
+                        resultBlock(commentCount: numberValue.integerValue)
+                    } else {
+                        resultBlock(commentCount: 0)
+                    }
+                }
+            }
+        }
+    }
+    
+    func showComment() {
+        if let s = storyEpisode {
+            var temp: AnyObject? = storyInfo!["story"]
+            var data = temp! as Dictionary<String, AnyObject>
+            
+            var articleId: NSNumber = s["articleId"] as NSNumber
+            var commentViewController = CommentViewController(title: "댓글(\(commentCount))")
+            commentViewController.id = "\(articleId.integerValue)"
+            commentViewController.commentImageUrl = data["commentImageUrl1"] as? NSString
+            
+            var navigator = SBNavigationController.instanceWithViewController(commentViewController)
+            self.presentViewController(navigator, animated: true) {}
+        }
+    }
+    
+    func sharePage() {
+        
+    }
+    
+    func showList() {
         
     }
     
@@ -86,7 +165,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
             contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
             self.view.addSubview(contentWebview)
             contentWebview!.layoutTopInParentView()
-            contentWebview!.loadHTMLString(html, baseURL: NetClient.instance.manager?.baseURL)
+            contentWebview!.loadHTMLString(html, baseURL: NetClient.instance.relativeManager?.baseURL)
         }
     }
     
