@@ -82,7 +82,9 @@ class DHPageScrollView: UIScrollView
     weak var _delegate: DHPageScrollViewDelegate!
     override var delegate: UIScrollViewDelegate! {
     set {
-        _delegate = newValue as DHPageScrollViewDelegate
+        if newValue is DHPageScrollViewDelegate {
+            _delegate = newValue as DHPageScrollViewDelegate
+        }
         super.delegate = newValue
     }
     get {

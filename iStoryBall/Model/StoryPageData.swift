@@ -6,17 +6,24 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class StoryPageData
+class StoryPageData: SBModel
 {
     var episodeId: String
     var pageId: String
     var pageNo: Int
     var imageUrlString: String?
     
-    init(episodeId: String, pageId: String, pageNo: Int) {
-        self.episodeId = episodeId
-        self.pageId = pageId
-        self.pageNo = pageNo
+    init(data: Dictionary<String, AnyObject>) {
+        var eId = data["episodeId"] as NSNumber
+        episodeId = String(eId.integerValue)
+        
+        var pId = data["pageId"] as NSNumber
+        pageId = String(pId.integerValue)
+        
+        var pNo = data["pageNo"] as NSNumber
+        pageNo = pNo.integerValue
+        
+        super.init(data: data)
     }
 
     func loadImageUrl(imageUrlBlock: ((imageUrlString: String) -> Void)?) {

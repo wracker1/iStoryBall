@@ -54,7 +54,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
     func createTopFeaturingSlide() {
         var bounds = self.view.bounds
-        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(0, 0, bounds.width, 90), dataSource: self)
+        recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(1, 0, bounds.width, 90), dataSource: self)
         recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
         recommendStoryScrollView!.activateConstraintsTopInParentView()

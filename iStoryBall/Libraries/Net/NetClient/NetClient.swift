@@ -9,7 +9,8 @@
 import Foundation
 
 class NetClient {
-    var manager: AFHTTPRequestOperationManager?
+    var relativeManager: AFHTTPRequestOperationManager?
+    var absoluteManager: AFHTTPRequestOperationManager?
     
     class var instance: NetClient {
         struct Singleton {
@@ -20,8 +21,11 @@ class NetClient {
     
     init() {
         var baseURL = NSURL(string: "http://m.storyball.daum.net/")
-        manager = AFHTTPRequestOperationManager(baseURL: baseURL)
-        manager!.responseSerializer.acceptableContentTypes = nil
+        relativeManager = AFHTTPRequestOperationManager(baseURL: baseURL)
+        relativeManager!.responseSerializer.acceptableContentTypes = nil
+        
+        absoluteManager = AFHTTPRequestOperationManager()
+        absoluteManager!.responseSerializer.acceptableContentTypes = nil
     }
     
     func get(url: String, parameters param: AnyObject?, success: ((html: String) -> Void)?, failure: ((error: NSError) -> Void)?) {
@@ -33,7 +37,7 @@ class NetClient {
     }
     
     func _get(url: String, parameters param: AnyObject?, success: ((html: String) -> Void)?, failure: ((error: NSError) -> Void)?) {
-        manager!.GET(url, parameters: param,
+        relativeManager!.GET(url, parameters: param,
             success: {
                 (operation: AFHTTPRequestOperation!, html: AnyObject!) in
                 
@@ -48,6 +52,24 @@ class NetClient {
                 
                 if let f = failure {
                     f(error: error)
+                }
+            })
+    }
+    
+    func getWithAbsoluteUrl(url: String, success: ((result: AnyObject) -> Void)?) {
+        absoluteManager!.GET(url, parameters: nil,
+            success: {
+                (operation: AFHTTPRequestOperation!, r: AnyObject!) in
+                
+                if let s = success {
+                    s(result: r)
+                }
+            
+            }, failure: {
+                (operation: AFHTTPRequestOperation!, error: NSError!) in
+                
+                if let s = success {
+                    s(result: error)
                 }
             })
     }
