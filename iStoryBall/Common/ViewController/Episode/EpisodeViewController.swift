@@ -67,8 +67,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
                 self.commentCount = commentCount
                 
                 var comment = UIButton.barButtonItem("댓글(\(commentCount))", image: nil, target: self, selector: Selector("showComment"))
-                var share = UIButton.barButtonItem("공유", image: nil, target: self, selector: Selector("showComment"))
-                var list = UIButton.barButtonItem("목록", image: nil, target: self, selector: Selector("showComment"))
+                var share = UIButton.barButtonItem("공유", image: nil, target: self, selector: Selector("sharePage"))
+                var list = UIButton.barButtonItem("목록", image: nil, target: self, selector: Selector("showList"))
                 var flex1 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
                 var flex2 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
                 var flex3 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
@@ -178,7 +178,15 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
             var controller = viewControllers[index] as UIViewController
             self.navigationController.popToViewController(controller, animated: true)
         } else {
+            var temp: AnyObject? = storyInfo!["story"]
+            var data = temp! as Dictionary<String, AnyObject>
+            var title = data["name"] as NSString
+            var storyId = data["storyId"] as NSNumber
             
+            var listViewController = ListViewController(title: title)
+            listViewController.id = "/story/\(storyId.integerValue)"
+            
+            self.navigationController.pushViewController(listViewController, animated: true)
         }
     }
     
