@@ -40,7 +40,7 @@ class StoryListCell: SBTableViewCell {
             titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Center, offset: CGPointMake(5, 0))
         }
         
-        var rank = indexPath!.row
+        var rank = indexPath!.row + 1
         rankLabel.backgroundColor = rank < 4 ? UIColor.rgba(76, g: 134, b: 237, a: 0.6) : UIColor.rgba(0, g: 0, b: 0, a: 0.6)
         rankLabel.text = "\(rank)"
         rankLabel.sizeToFit()
