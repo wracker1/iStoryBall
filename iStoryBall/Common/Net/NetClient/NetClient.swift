@@ -57,15 +57,20 @@ class NetClient {
     }
     
     func getWithAbsoluteUrl(url: String, success: ((result: AnyObject) -> Void)?) {
-        println(url)
-        
-        absoluteManager!.GET(url, parameters: nil, success: {
-            (operation: AFHTTPRequestOperation!, r: AnyObject!) in
+        absoluteManager!.GET(url, parameters: nil,
+            success: {
+                (operation: AFHTTPRequestOperation!, r: AnyObject!) in
+                
+                if let s = success {
+                    s(result: r)
+                }
             
-            if let s = success {
-                s(result: r)
-            }
-            
-            }, failure: nil)
+            }, failure: {
+                (operation: AFHTTPRequestOperation!, error: NSError!) in
+                
+                if let s = success {
+                    s(result: error)
+                }
+            })
     }
 }

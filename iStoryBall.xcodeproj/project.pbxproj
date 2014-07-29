@@ -84,6 +84,7 @@
 		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
 		88D76A5419876C83004D0256 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D76A5319876C83004D0256 /* CommentViewController.swift */; };
 		88D76A5619878F24004D0256 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D76A5519878F24004D0256 /* Comment.swift */; };
+		88D76A5819878FFB004D0256 /* SBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D76A5719878FFB004D0256 /* SBModel.swift */; };
 		88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
 		88E70B221973AF3000B38A0F /* CommonUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E70B201973AF3000B38A0F /* CommonUtil.swift */; };
 /* End PBXBuildFile section */
@@ -174,6 +175,7 @@
 		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		88D76A5319876C83004D0256 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentViewController.swift; path = Comment/CommentViewController.swift; sourceTree = "<group>"; };
 		88D76A5519878F24004D0256 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		88D76A5719878FFB004D0256 /* SBModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBModel.swift; sourceTree = "<group>"; };
 		88E70B201973AF3000B38A0F /* CommonUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -268,6 +270,7 @@
 			children = (
 				8819EB251986430400464FCE /* StoryPageData.swift */,
 				88D76A5519878F24004D0256 /* Comment.swift */,
+				88D76A5719878FFB004D0256 /* SBModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				88089153196BF3DD00BE3F51 /* AFURLResponseSerialization.m in Sources */,
 				88B15A0719861C1800F9E8FE /* ThemeEpisodeCell.swift in Sources */,
 				88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */,
+				88D76A5819878FFB004D0256 /* SBModel.swift in Sources */,
 				883524AA196D046700E89105 /* UIAlertView+AFNetworking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -173,11 +173,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource
         var dataList = Array<StoryPageData>()
         
         for item in list {
-            var episodeId = item["episodeId"] as NSNumber
-            var pageId = item["pageId"] as NSNumber
-            var pageNo = item["pageNo"] as NSNumber
-            
-            var data = StoryPageData(episodeId: String(episodeId.integerValue), pageId: String(pageId.integerValue), pageNo: pageNo.integerValue)
+            var data = StoryPageData(data: item)
             data.loadImageUrl(nil)
             dataList += data
         }
