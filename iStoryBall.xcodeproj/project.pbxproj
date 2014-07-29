@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5EDFB98619873C5F005BB6E4 /* ico_empathy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */; };
-		5EDFB98D19878B8A005BB6E4 /* WriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -19,6 +18,7 @@
 		8808911E196BEEAA00BE3F51 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8808911C196BEEAA00BE3F51 /* ThemeViewController.swift */; };
 		8819EB261986430400464FCE /* StoryPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819EB251986430400464FCE /* StoryPageData.swift */; };
 		884FEC6B196E8AC400AF19CF /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */; };
+		8883E2991987C5A500180F9F /* WriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883E2981987C5A500180F9F /* WriterViewController.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
@@ -78,7 +78,6 @@
 
 /* Begin PBXFileReference section */
 		5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_empathy@2x.png"; sourceTree = "<group>"; };
-		5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriterViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		8808911C196BEEAA00BE3F51 /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		8819EB251986430400464FCE /* StoryPageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPageData.swift; sourceTree = "<group>"; };
 		884FEC6A196E8A1C00AF19CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Base; path = usr/lib/Base.lproj/libxml2.2.dylib; sourceTree = SDKROOT; };
+		8883E2981987C5A500180F9F /* WriterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriterViewController.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,14 +185,6 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		5EDFB98719878B0E005BB6E4 /* Modal */ = {
-			isa = PBXGroup;
-			children = (
-				5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */,
-			);
-			path = Modal;
-			sourceTree = "<group>";
-		};
 		880890E1196BEE5700BE3F51 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,18 +276,20 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		8883E2971987C5A500180F9F /* WriterView */ = {
+			isa = PBXGroup;
+			children = (
+				8883E2981987C5A500180F9F /* WriterViewController.swift */,
+			);
+			path = WriterView;
+			sourceTree = "<group>";
+		};
 		889A9A21196BEB6600358119 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				5EDFB98719878B0E005BB6E4 /* Modal */,
-				88112B8B198101D000776C8D /* Episode */,
-				88112B8C198101D000776C8D /* List */,
-=======
 				889A9A2C196BEB6600358119 /* iStoryBall */,
 				889A9A3A196BEB6600358119 /* iStoryBallTests */,
 				889A9A2B196BEB6600358119 /* Products */,
->>>>>>> FETCH_HEAD
 			);
 			sourceTree = "<group>";
 		};
@@ -479,6 +473,7 @@
 		88CA9EAE198797AD005D2181 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8883E2971987C5A500180F9F /* WriterView */,
 				88CA9EAF198797AD005D2181 /* Comment */,
 				88CA9EB1198797AD005D2181 /* Episode */,
 				88CA9EB3198797AD005D2181 /* List */,
@@ -626,15 +621,10 @@
 				88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */,
 				88CA9E9519879727005D2181 /* AFURLSessionManager.m in Sources */,
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
-<<<<<<< HEAD
-				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
-				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
-				5EDFB98D19878B8A005BB6E4 /* WriterViewController.swift in Sources */,
-=======
 				88CA9E9F19879727005D2181 /* UIWebView+AFNetworking.m in Sources */,
 				88CA9EAB198797A1005D2181 /* StoryListCell.swift in Sources */,
->>>>>>> FETCH_HEAD
 				8819EB261986430400464FCE /* StoryPageData.swift in Sources */,
+				8883E2991987C5A500180F9F /* WriterViewController.swift in Sources */,
 				88CA9E8C19879727005D2181 /* XPathQuery.m in Sources */,
 				88CA9EB8198797AE005D2181 /* CommentViewController.swift in Sources */,
 				889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */,
