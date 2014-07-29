@@ -20,8 +20,6 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeTitleView("테마")
-        
         NetClient.instance.get("/story/list") {
             (html: String) in
 
@@ -46,7 +44,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     
     func createThemeScroller() {
         var size = self.view.bounds.size
-        var height: CGFloat = 60.0
+        var height: CGFloat = 50.0
         
         themeScroller = UIScrollView(frame: CGRectMake(0, 0, size.width, height))
         themeScroller!.showsHorizontalScrollIndicator = false

@@ -23,8 +23,6 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeTitleView("인기")
-        
         storyType += ("1000","천공", "천개의 공감", 1)
         storyType += ("soon", "곧천공", "공감 하나만 굽신", 1)
         storyType += ("5000", "오천공", "오천개의 공감", 1)
@@ -196,10 +194,19 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var href = data.attributes["href"] as? NSString
         
         if let link = href {
-            var title = data.itemWithQuery(".tit_empathy")
-            var episodeViewController = EpisodeViewController(title: title!.text().trim())
-            episodeViewController.id = link
-            self.navigationController.pushViewController(episodeViewController, animated: true)
+            var isEpisode = link.hasPrefix("/episode")
+            var title = data.itemWithQuery(".tit_empathy")?.text()?.trim()
+            var viewController: SBViewController?
+            
+            if isEpisode {
+                viewController = EpisodeViewController(title: title!)
+            } else {
+                viewController = ListViewController(title: title!)
+            }
+            
+            viewController!.id = link
+            
+            self.navigationController.pushViewController(viewController!, animated: true)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }

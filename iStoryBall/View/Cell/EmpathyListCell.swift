@@ -39,7 +39,7 @@ class EmpathyListCell: SBTableViewCell {
         if let title = titleString() {
             titleLabel.text = title
             titleLabel.sizeToFit()
-            titleLabel.layoutBottomFromSibling(thumbnailView, horizontalAlign: .Center, offset: CGPointMake(0, 5))
+            titleLabel.layoutBottomFromSibling(thumbnailView, horizontalAlign: .Left, offset: CGPointMake(5, 5))
         }
         
         if let sympathy_count = sympathyCount() {

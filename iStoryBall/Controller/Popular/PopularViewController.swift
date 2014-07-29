@@ -21,8 +21,6 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        changeTitleView("인기")
-        
         storyType += ("hit","공감순", "공감 1등은 뉴규", 1)
         storyType += ("share", "공유순", "나만 보기 아까워", 1)
         storyType += ("subscribe", "구독순", "두고두고 볼꺼야", 1)
