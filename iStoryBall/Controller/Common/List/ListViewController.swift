@@ -97,12 +97,20 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         writerButton.layer.borderColor = UIColor.grayColor().CGColor
         descView!.addSubview(writerButton)
         writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
+        writerButton.addTarget(self, action: "viewWriterInfo:", forControlEvents: UIControlEvents.TouchUpInside)
         
         self.view.addSubview(descView)
         descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
         
         descView!.sizeToFit()
         descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
+    }
+    
+    func viewWriterInfo(sender:UIButton!) {
+        println("view writer info")
+        var writerViewController = WriterViewController(title:"저자 소개")
+        writerViewController.id = self.id
+        self.presentViewController(writerViewController, animated: true, completion: nil)
     }
     
     func createEpisodeTableView() {

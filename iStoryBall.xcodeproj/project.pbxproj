@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5EDFB98619873C5F005BB6E4 /* ico_empathy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */; };
+		5EDFB98D19878B8A005BB6E4 /* WriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -98,6 +99,7 @@
 
 /* Begin PBXFileReference section */
 		5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_empathy@2x.png"; sourceTree = "<group>"; };
+		5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriterViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,14 @@
 				5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		5EDFB98719878B0E005BB6E4 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				5EDFB98C19878B8A005BB6E4 /* WriterViewController.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 		880890E1196BEE5700BE3F51 /* Common */ = {
@@ -315,6 +325,7 @@
 		88112B8A198101D000776C8D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5EDFB98719878B0E005BB6E4 /* Modal */,
 				88112B8B198101D000776C8D /* Episode */,
 				88112B8C198101D000776C8D /* List */,
 			);
@@ -616,6 +627,7 @@
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
+				5EDFB98D19878B8A005BB6E4 /* WriterViewController.swift in Sources */,
 				8819EB261986430400464FCE /* StoryPageData.swift in Sources */,
 				88112B8E198101D000776C8D /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
