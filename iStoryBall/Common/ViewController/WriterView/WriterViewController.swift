@@ -15,7 +15,7 @@ class WriterViewController : SBViewController
             NetClient.instance.get(url + "#layer/writer") {
                 (html: String) in
                 var newItem = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
-                println(newItem)
+                println(newItem!.content)
             }
         }
         
