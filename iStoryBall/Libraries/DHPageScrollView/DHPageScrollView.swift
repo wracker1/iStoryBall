@@ -155,13 +155,17 @@ class DHPageScrollView: UIScrollView
     }
     
     func _changePage(page: Int) {
-        currentPage = page
+        var numberOfPages = dataSource?.numberOfPagesInScrollView(self)
         
-        requestPageViewAtPage(currentPage)
-        checkContentLeft(currentPage - 1)
-        checkContentRight(currentPage + 1)
-        
-        _delegate?.scrollView?(self, didChangePage: page)
+        if page < numberOfPages {
+            currentPage = page
+            
+            requestPageViewAtPage(currentPage)
+            checkContentLeft(currentPage - 1)
+            checkContentRight(currentPage + 1)
+            
+            _delegate?.scrollView?(self, didChangePage: page)
+        }
     }
     
     func checkContentLeft(page: Int) {
