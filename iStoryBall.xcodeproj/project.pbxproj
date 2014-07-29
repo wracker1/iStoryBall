@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EDFB98319864AEB005BB6E4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -101,6 +102,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Menu/DetailViewController.swift; sourceTree = "<group>"; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		880E2C2E196CD67F0005375E /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				5EDFB98219864AEB005BB6E4 /* DetailViewController.swift */,
 				881A6C9E197F88160014B39C /* ChoiceViewController.swift */,
 				881A6C9F197F88160014B39C /* ChoiceViewDetailController.swift */,
 				881A6CA2197F88160014B39C /* MenuViewController.swift */,
@@ -628,6 +631,7 @@
 				88E70B211973AF3000B38A0F /* CommonUtil.swift in Sources */,
 				881A6CAA197F88160014B39C /* NoticeViewController.swift in Sources */,
 				88089126196BF0E900BE3F51 /* SBNavigationController.swift in Sources */,
+				5EDFB98319864AEB005BB6E4 /* DetailViewController.swift in Sources */,
 				883524AE196D046700E89105 /* UIImageView+AFNetworking.m in Sources */,
 				88112B8E198101D000776C8D /* ListViewController.swift in Sources */,
 				883524B0196D046700E89105 /* UIProgressView+AFNetworking.m in Sources */,
