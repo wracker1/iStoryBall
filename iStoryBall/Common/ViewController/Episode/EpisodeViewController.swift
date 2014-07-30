@@ -23,6 +23,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         if let episodeId = id {
             NetClient.instance.get(episodeId) {
                 (html: String) in
+
+                println(html)
                 
                 self.doc = html.htmlDocument()
                 
