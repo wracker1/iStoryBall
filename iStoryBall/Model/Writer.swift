@@ -18,7 +18,7 @@ class Writer: SBModel
 //        emoticon = data["emoticon"]! as String
 //        description = data["commentContent"]! as String
 //        name = data["name"]! as String
-
+        
         
         super.init(data: data)
     }
@@ -42,10 +42,6 @@ class Writer: SBModel
                 if let f = finish {
                     f()
                 }
-            } else {
-                var index = emoticon.toInt()
-                var x = CGFloat(index! - 1)
-                profileView!.loadSpriteImageAtPosition(url, imageSize: nil, position: CGPointMake(size!.width * x, size!.height), finish: finish)
             }
         } else {
             if let f = finish {
