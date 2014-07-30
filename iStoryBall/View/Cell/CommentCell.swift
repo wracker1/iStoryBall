@@ -11,7 +11,21 @@ class CommentCell: SBTableViewCell
     var profileView: UIImageView?
     var nicknameLabel: UILabel
     var contentLabel: UILabel
-    var profileSize = CGSizeMake(37, 37)
+    
+    class func maxCommentLabelFrame() -> CGRect {
+        var size = UIScreen.mainScreen().bounds.size
+        var inset = cellContentInset()
+        var profileSize = thumbnailSize()
+        return CGRectMake(0, 0, size.width - (profileSize.width + inset.left + inset.right), 0)
+    }
+    
+    class func thumbnailSize() -> CGSize {
+        return CGSizeMake(37, 34.5)
+    }
+    
+    class func cellContentInset() -> UIEdgeInsets {
+        return UIEdgeInsetsMake(3, 7, 3, 4)
+    }
     
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         contentLabel = UILabel.systemFontLabel("", fontSize: 10)
@@ -30,7 +44,7 @@ class CommentCell: SBTableViewCell
     override func update(model: SBModel) {
         var commentModel = model as Comment
         
-        commentModel.loadProfileImage(nil) {
+        commentModel.loadProfileImage(CommentCell.thumbnailSize()) {
             if let s = self.profileView {
                 s.superview.removeFromSuperview()
             }
@@ -50,20 +64,10 @@ class CommentCell: SBTableViewCell
         return max(label.bounds.size.height + 20.0, 39)
     }
     
-    class func maxCommentLabelFrame() -> CGRect {
-        var size = UIScreen.mainScreen().bounds.size
-        var inset = cellContentInset()
-        var profileSize = CGSizeMake(37, 37)
-        return CGRectMake(0, 0, size.width - (profileSize.width + inset.left + inset.right), 0)
-    }
-    
-    class func cellContentInset() -> UIEdgeInsets {
-        return UIEdgeInsetsMake(3, 7, 3, 4)
-    }
-    
     func layout(model: Comment) {
         var size = self.bounds.size
         var inset = CommentCell.cellContentInset()
+        var profileSize = CommentCell.thumbnailSize()
         
         profileView = model.profileView
         self.addSubview(profileView)

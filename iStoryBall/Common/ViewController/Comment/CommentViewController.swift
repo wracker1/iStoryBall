@@ -103,7 +103,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
                 for item in items {
                     var comment = Comment(data: item)
                     comment.imageUrl = self.commentImageUrl
-                    comment.loadProfileImage(nil, finish: nil)
+                    comment.loadProfileImage(CommentCell.thumbnailSize(), finish: nil)
                     comments += comment
                 }
             }
