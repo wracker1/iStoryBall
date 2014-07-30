@@ -8,8 +8,8 @@
 
 class Writer: SBModel
 {
-    var description: String
-    var name: String
+    var description: String = ""
+    var name: String = ""
     var imageUrl: String?
     var profileView: UIImageView?
     
