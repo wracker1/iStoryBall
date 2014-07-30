@@ -18,18 +18,17 @@ class WriterViewController : SBViewController
                 if let data = d {
                     var raw = data.raw as NSString
                     var error: NSError?
-                    var exp = NSRegularExpression.regularExpressionWithPattern("<(li)[^>]*class=\"writer_on\"[^>]*>([\\s\\S]*?)<\\/\\s?\\1>",
-                        options: NSRegularExpressionOptions(0),
-                        error: &error)
+                    var exp = DHRegEx.classSelector("writer_on", error: nil)
                     
 //                    var result = exp.firstMatchInString(raw,
 //                        options: NSMatchingOptions(0),
 //                        range: NSMakeRange(0, raw.length))
-                    var result = exp.matchesInString(raw, options: NSMatchingOptions(0), range: NSMakeRange(0, raw.length))
+                    var result = exp.matchesInString(html, options: NSMatchingOptions(0), ra)
                     println(result.count)
                     for r in result {
                         println(r)
                     }
+                    
                 }
 
             }
