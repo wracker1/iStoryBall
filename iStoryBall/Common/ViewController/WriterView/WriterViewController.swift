@@ -18,7 +18,7 @@ class WriterViewController : SBViewController
                 if let data = d {
                     var raw = data.raw as NSString
                     var error: NSError?
-                    var exp = NSRegularExpression.regularExpressionWithPattern("<(li)[^>]*class=\"writer_on\"[^>]*>([\\s\\S]+?)<\\/\\s?\\1>",
+                    var exp = NSRegularExpression.regularExpressionWithPattern("<(li)[^>]*class=\"writer_on\"[^>]*>([\\s\\S]*?)<\\/\\s?\\1>",
                         options: NSRegularExpressionOptions(0),
                         error: &error)
                     
@@ -26,6 +26,10 @@ class WriterViewController : SBViewController
 //                        options: NSMatchingOptions(0),
 //                        range: NSMakeRange(0, raw.length))
                     var result = exp.matchesInString(raw, options: NSMatchingOptions(0), range: NSMakeRange(0, raw.length))
+                    println(result.count)
+                    for r in result {
+                        println(r)
+                    }
                 }
 
             }
