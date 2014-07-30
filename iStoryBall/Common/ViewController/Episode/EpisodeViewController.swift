@@ -212,6 +212,19 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     }
     
     func createContentWebview() {
+        var size = self.view.bounds.size
+        var htmlString = htmlContentString()
+        
+        contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
+        contentWebview!.scrollView.delegate = self
+        contentWebview!.addGestureRecognizer(gestureRecognizer())
+        self.view.addSubview(contentWebview)
+        
+        contentWebview!.layoutTopInParentView()
+        contentWebview!.loadHTMLString(htmlString, baseURL: NetClient.instance.relativeManager?.baseURL)
+    }
+
+    func htmlContentString() -> String {
         var headerRegex = DHRegEx.idSelector("daumHead", error: nil)
         var range = html!.range()
         var htmlString = headerRegex.stringByReplacingMatchesInString(html!, options: NSMatchingOptions(0), range: range, withTemplate: "")
@@ -222,17 +235,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         
         var footerRegex = DHRegEx.classSelector("inner_footer", error: nil)
         range = htmlString.range()
-        htmlString = footerRegex.stringByReplacingMatchesInString(htmlString, options: NSMatchingOptions(0), range: range, withTemplate: "")
-        
-        var size = self.view.bounds.size
-        
-        contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
-        contentWebview!.scrollView.delegate = self
-        contentWebview!.addGestureRecognizer(gestureRecognizer())
-        self.view.addSubview(contentWebview)
-        
-        contentWebview!.layoutTopInParentView()
-        contentWebview!.loadHTMLString(htmlString, baseURL: NetClient.instance.relativeManager?.baseURL)
+        return footerRegex.stringByReplacingMatchesInString(htmlString, options: NSMatchingOptions(0), range: range, withTemplate: "")
     }
     
     func createImageDataList(list: [Dictionary<String, AnyObject>]) {
