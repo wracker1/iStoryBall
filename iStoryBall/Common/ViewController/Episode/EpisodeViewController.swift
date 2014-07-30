@@ -16,6 +16,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     var imageDataList: [StoryPageData]?
     var scrollViewOffset = CGPointZero
     var imageForShare: UIImageView?
+    var html: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +24,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         if let episodeId = id {
             NetClient.instance.get(episodeId) {
                 (html: String) in
-
-                println(html)
                 
+                self.html = html
                 self.doc = html.htmlDocument()
                 
                 var raw = html as NSString
@@ -212,21 +212,27 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     }
     
     func createContentWebview() {
-        var articleBody = doc!.itemWithQuery("#viewBody")
-        var head = doc!.itemWithQuery("head")!.raw.trim()
+        var headerRegex = DHRegEx.idSelector("daumHead", error: nil)
+        var range = html!.range()
+        var htmlString = headerRegex.stringByReplacingMatchesInString(html!, options: NSMatchingOptions(0), range: range, withTemplate: "")
         
-        if let b = articleBody {
-            var body = b.raw.trim()
-            var html = "<!DOCTYPE html>\(head)<body data-ctpageid=\"storyballView\"><div class=\"cont_view bnr_on fit\" id=\"daumWrap\"><article id=\"daumContent\"><div id=\"cMain\"><article id=\"mArticle\" role=\"main\">\(body)</article></div></article></div></body>"
-            var size = self.view.bounds.size
-            
-            contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
-            contentWebview!.scrollView.delegate = self
-            contentWebview!.addGestureRecognizer(gestureRecognizer())
-            self.view.addSubview(contentWebview)
-            contentWebview!.layoutTopInParentView()
-            contentWebview!.loadHTMLString(html, baseURL: NetClient.instance.relativeManager?.baseURL)
-        }
+        var menuRegex = DHRegEx.classSelector("viewer_header", error: nil)
+        range = htmlString.range()
+        htmlString = menuRegex.stringByReplacingMatchesInString(htmlString, options: NSMatchingOptions(0), range: range, withTemplate: "")
+        
+        var footerRegex = DHRegEx.classSelector("inner_footer", error: nil)
+        range = htmlString.range()
+        htmlString = footerRegex.stringByReplacingMatchesInString(htmlString, options: NSMatchingOptions(0), range: range, withTemplate: "")
+        
+        var size = self.view.bounds.size
+        
+        contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
+        contentWebview!.scrollView.delegate = self
+        contentWebview!.addGestureRecognizer(gestureRecognizer())
+        self.view.addSubview(contentWebview)
+        
+        contentWebview!.layoutTopInParentView()
+        contentWebview!.loadHTMLString(htmlString, baseURL: NetClient.instance.relativeManager?.baseURL)
     }
     
     func createImageDataList(list: [Dictionary<String, AnyObject>]) {

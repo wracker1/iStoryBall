@@ -52,4 +52,9 @@ extension String {
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
+    
+    func range() -> NSRange {
+        var string = self as NSString
+        return NSMakeRange(0, string.length)
+    }
 }
