@@ -325,6 +325,6 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     
 //    UIGestureRecognizerDelegate
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool {
-        return true
+        return otherGestureRecognizer is UITapGestureRecognizer
     }
 }
