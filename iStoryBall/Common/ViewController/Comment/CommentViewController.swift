@@ -97,6 +97,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
             (result: AnyObject) in
             
             var comments = Array<Comment>()
+            println(result)
             var data = result["comments"]
             var list = data as? [Dictionary<String, AnyObject>]
             
