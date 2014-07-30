@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5EDFB98619873C5F005BB6E4 /* ico_empathy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */; };
+		5EDFB98F198889AB005BB6E4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDFB98E198889AB005BB6E4 /* libxml2.2.dylib */; };
 		88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089115196BEE7E00BE3F51 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089113196BEE7E00BE3F51 /* HomeViewController.swift */; };
 		88089117196BEE9000BE3F51 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88089116196BEE9000BE3F51 /* PopularViewController.swift */; };
@@ -17,7 +18,6 @@
 		8808911D196BEEAA00BE3F51 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8808911C196BEEAA00BE3F51 /* ThemeViewController.swift */; };
 		8808911E196BEEAA00BE3F51 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8808911C196BEEAA00BE3F51 /* ThemeViewController.swift */; };
 		8819EB261986430400464FCE /* StoryPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819EB251986430400464FCE /* StoryPageData.swift */; };
-		884FEC6B196E8AC400AF19CF /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */; };
 		8883E2991987C5A500180F9F /* WriterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883E2981987C5A500180F9F /* WriterViewController.swift */; };
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
@@ -78,13 +78,13 @@
 
 /* Begin PBXFileReference section */
 		5EDFB98519873C5F005BB6E4 /* ico_empathy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_empathy@2x.png"; sourceTree = "<group>"; };
+		5EDFB98E198889AB005BB6E4 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		880890DE196BEE3500BE3F51 /* iStoryBall-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iStoryBall-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		88089113196BEE7E00BE3F51 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		88089116196BEE9000BE3F51 /* PopularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		88089119196BEE9C00BE3F51 /* SympathiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SympathiesViewController.swift; sourceTree = "<group>"; };
 		8808911C196BEEAA00BE3F51 /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		8819EB251986430400464FCE /* StoryPageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPageData.swift; sourceTree = "<group>"; };
-		884FEC6A196E8A1C00AF19CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = Base; path = usr/lib/Base.lproj/libxml2.2.dylib; sourceTree = SDKROOT; };
 		8883E2981987C5A500180F9F /* WriterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriterViewController.swift; sourceTree = "<group>"; };
 		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				884FEC6B196E8AC400AF19CF /* libxml2.2.dylib in Frameworks */,
+				5EDFB98F198889AB005BB6E4 /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,11 +267,11 @@
 		884FEC61196E89B800AF19CF /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5EDFB98E198889AB005BB6E4 /* libxml2.2.dylib */,
 				88CA9E5319879727005D2181 /* DHPageScrollView */,
 				88CA9E5519879727005D2181 /* DHScrollViewManager */,
 				88CA9E5719879727005D2181 /* Hpple */,
 				88CA9E5E19879727005D2181 /* Net */,
-				884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -680,18 +680,6 @@
 			targetProxy = 889A9A38196BEB6600358119 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		884FEC69196E8A1C00AF19CF /* libxml2.2.dylib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				884FEC6A196E8A1C00AF19CF /* Base */,
-			);
-			name = libxml2.2.dylib;
-			path = ..;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		889A9A3F196BEB6600358119 /* Debug */ = {

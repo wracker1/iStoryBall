@@ -14,8 +14,20 @@ class WriterViewController : SBViewController
         if let url = id {
             NetClient.instance.get(url + "#layer/writer") {
                 (html: String) in
-                var newItem = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
-                println(newItem!.content)
+                var d = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
+                if let data = d {
+                    var raw = data.raw as NSString
+                    var error: NSError?
+                    var exp = NSRegularExpression.regularExpressionWithPattern("<(li)[^>]*class=\"writer_on\"[^>]*>([\\s\\S]+?)<\\/\\s?\\1>",
+                        options: NSRegularExpressionOptions(0),
+                        error: &error)
+                    
+//                    var result = exp.firstMatchInString(raw,
+//                        options: NSMatchingOptions(0),
+//                        range: NSMakeRange(0, raw.length))
+                    var result = exp.matchesInString(raw, options: NSMatchingOptions(0), range: NSMakeRange(0, raw.length))
+                }
+
             }
         }
         
@@ -27,7 +39,7 @@ class WriterViewController : SBViewController
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
     }
     
-    func closeView() {
+    func dismiss() {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
