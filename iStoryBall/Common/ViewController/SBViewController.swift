@@ -12,7 +12,7 @@ class SBViewController : UIViewController
 {
     var id: String?
     var doc: TFHpple?
-    var titleFontSize: CGFloat = 19.0
+    var titleFontSize: CGFloat = 18.0
     let minFontSize: CGFloat = 11.0
     
     convenience init(title: String)
