@@ -27,6 +27,10 @@ class CommentCell: SBTableViewCell
         return UIEdgeInsetsMake(3, 7, 3, 4)
     }
     
+    class func minHeight() -> CGFloat {
+        return 44.0
+    }
+    
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         contentLabel = UILabel.systemFontLabel("", fontSize: 10)
         contentLabel.numberOfLines = 0
@@ -61,7 +65,7 @@ class CommentCell: SBTableViewCell
         label.frame = maxCommentLabelFrame()
         label.text = commentModel.commentContent
         label.sizeToFit()
-        return max(label.bounds.size.height + 20.0, 39)
+        return max(label.bounds.size.height + 20.0, CommentCell.minHeight())
     }
     
     func layout(model: Comment) {

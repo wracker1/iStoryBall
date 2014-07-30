@@ -35,6 +35,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
         commentTableView = UITableView(frame: self.view.bounds, style: .Plain)
         commentTableView!.dataSource = self
         commentTableView!.delegate = self
+        commentTableView!.rowHeight = CommentCell.minHeight()
         self.view.addSubview(commentTableView!)
         
         commentLoader = DHScrollViewManager(scrollView: commentTableView!, viewController: self)
