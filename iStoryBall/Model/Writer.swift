@@ -23,6 +23,12 @@ class Writer: SBModel
         super.init(data: data)
     }
     
+    func getName(str:String) -> String {
+        var exp = DHRegEx.tagSelector("img", error: nil)
+        var result = exp.firstMatchInString(str, options: NSMatchingOptions(0), range: str.range())
+        return ""
+    }
+    
     func loadProfileImage(s: CGSize?, finish: (() -> Void)?) {
         if imageUrl == nil {
             imageUrl = "http://m1.daumcdn.net/img-media/storyball2014/m480/ico_char_140430.png"
