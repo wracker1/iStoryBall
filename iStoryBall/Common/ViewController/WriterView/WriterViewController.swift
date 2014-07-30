@@ -14,21 +14,11 @@ class WriterViewController : SBViewController
         if let url = id {
             NetClient.instance.get(url + "#layer/writer") {
                 (html: String) in
-                var d = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
-                if let data = d {
-                    var raw = data.raw as NSString
-                    var error: NSError?
-                    var exp = DHRegEx.classSelector("writer_on", error: nil)
-                    
-//                    var result = exp.firstMatchInString(raw,
-//                        options: NSMatchingOptions(0),
-//                        range: NSMakeRange(0, raw.length))
-                    var result = exp.matchesInString(html, options: NSMatchingOptions(0), ra)
-                    println(result.count)
-                    for r in result {
-                        println(r)
-                    }
-                    
+                var error: NSError?
+                var exp = DHRegEx.classSelector("writer_on", error: nil)
+                var result = exp.matchesInString(html, options: NSMatchingOptions(0), range: html.range())
+                for match in result as [NSTextCheckingResult] {
+                    println(html.substringWithRange(match.range))
                 }
 
             }
