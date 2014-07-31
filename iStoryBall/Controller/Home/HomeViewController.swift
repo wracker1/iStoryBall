@@ -57,7 +57,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(1, 0, bounds.width, 90), dataSource: self)
         recommendStoryScrollView!.delegate = self
         self.view.addSubview(recommendStoryScrollView)
-        recommendStoryScrollView!.activateConstraintsTopInParentView()
+        recommendStoryScrollView!.layoutTopInParentView()
         
         createPageControl()
         recommendStoryScrollView!.reloadData(nil)
@@ -72,7 +72,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryPageControl!.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
         self.view.addSubview(recommendStoryPageControl)
         
-        recommendStoryPageControl!.activateConstraintsBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
+        recommendStoryPageControl!.layoutBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
     }
     
     func createDayOfWeekScrollView() {
@@ -94,7 +94,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         self.view.addSubview(dayOfWeekScrollView)
         
         var pageCount = dayOfWeeksCount
-        dayOfWeekScrollView!.activateConstraintsBottomFromSibling(recommendStoryScrollView!)
+        dayOfWeekScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
         dayOfWeekScrollView!.reloadData {
             scrollView.scrollToPage(pageCount, animated: false)
             self.allowContentLoad = true
@@ -111,7 +111,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         contentTableView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
         contentTableView!.layer.borderWidth = 1.0
         self.view.addSubview(contentTableView)
-        contentTableView!.activateConstraintsBottomInParentView()
+        
+        contentTableView!.layoutBottomInParentView()
     }
     
     func pageControlDidTouched() {
