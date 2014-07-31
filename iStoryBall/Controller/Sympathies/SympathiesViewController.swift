@@ -28,7 +28,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         storyType += ("5000", "오천공", "오천개의 공감", 1)
         storyType += ("all", "올천공", "모두 천공 달성", 1)
         
-        id = "/episode/hit"
+        id = "/episode/part/hit"
         var url = id! + "/" + storyType[0].id
         
         NetClient.instance.get(url) {
@@ -162,6 +162,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
             url += "?page=\(p)"
         }
         
+        println(url)
         NetClient.instance.get(url) {
             (html: String) in
             var newItems = html.htmlDocument().itemsWithQuery(self.contentSearchQuery)
