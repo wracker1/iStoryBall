@@ -14,12 +14,13 @@ class WriterCell: SBTableViewCell
     var profileSize = CGSizeMake(37, 37)
     
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        nicknameLabel = UILabel.systemFontLabel("", fontSize: 12)
-        nicknameLabel.numberOfLines = 0
+        nicknameLabel = UILabel.systemFontLabel("", fontSize: 15)
         nicknameLabel.textAlignment = .Left
         
-        descriptionLabel = UILabel.systemFontLabel("", fontSize: 10)
+        descriptionLabel = UILabel.systemFontLabel("", fontSize: 12)
         descriptionLabel.textColor = UIColor.grayColor()
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.textAlignment = .Left
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -39,34 +40,35 @@ class WriterCell: SBTableViewCell
     }
     
     class func minHeight() -> CGFloat {
-        return 44.0
+        return 74.0
     }
     
     override class func heightForRowWithModel(model: SBModel) -> CGFloat {
         var writerModel = model as Writer
-        var label = UILabel.systemFontLabel("", fontSize: 10)
+        var label = UILabel.systemFontLabel("", fontSize: 12)
         label.textAlignment = .Left
         label.numberOfLines = 0
-        label.frame = maxCommentLabelFrame()
+        label.frame = maxContentLabelFrame()
         label.text = writerModel.description
         label.sizeToFit()
-        return max(label.bounds.size.height + 20.0, 39)
+        println(label.bounds.size.height)
+        return max(label.bounds.size.height + 20.0, WriterCell.minHeight())
     }
     
-    class func maxCommentLabelFrame() -> CGRect {
+    class func maxContentLabelFrame() -> CGRect {
         var size = UIScreen.mainScreen().bounds.size
         var inset = cellContentInset()
-        var profileSize = CGSizeMake(37, 37)
-        return CGRectMake(0, 0, size.width - (profileSize.width + inset.left + inset.right), 0)
+        var profileSize = thumbnailSize()
+        return CGRectMake(0, 0, size.width - (profileSize.width + inset.left + inset.right + 5), 0)
     }
     
     class func cellContentInset() -> UIEdgeInsets {
-        return UIEdgeInsetsMake(3, 7, 3, 4)
+        return UIEdgeInsetsMake(5, 7, 5, 10)
     }
     
     
     class func thumbnailSize() -> CGSize {
-        return CGSizeMake(37, 34.5)
+        return CGSizeMake(64, 64)
     }
     
     func layout(model: Writer) {
@@ -81,10 +83,10 @@ class WriterCell: SBTableViewCell
         
         nicknameLabel.text = model.name
         nicknameLabel.sizeToFit()
-        nicknameLabel.layoutTopInParentView(.Left, offset: CGPointMake(profileSize.width + inset.left, inset.top))
+        nicknameLabel.layoutTopInParentView(.Left, offset: CGPointMake(profileSize.width + inset.left + 5, inset.top))
         
         descriptionLabel.text = model.description
-        descriptionLabel.frame = WriterCell.maxCommentLabelFrame()
+        descriptionLabel.frame = WriterCell.maxContentLabelFrame()
         descriptionLabel.sizeToFit()
         descriptionLabel.layoutBottomFromSibling(nicknameLabel, horizontalAlign: .Left, offset: CGPointMake(0, inset.top))
         

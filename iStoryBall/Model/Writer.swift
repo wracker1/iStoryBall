@@ -26,7 +26,7 @@ class Writer: SBModel
     func loadProfileImage(s: CGSize?, finish: (() -> Void)?) {
         var size = s
         if size == nil {
-            size = CGSizeMake(37, 37)
+            size = CGSizeMake(64, 64)
         }
             
         if profileView == nil {
