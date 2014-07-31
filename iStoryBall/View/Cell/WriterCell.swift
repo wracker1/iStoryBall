@@ -51,8 +51,8 @@ class WriterCell: SBTableViewCell
         label.frame = maxContentLabelFrame()
         label.text = writerModel.description
         label.sizeToFit()
-        println(label.bounds.size.height)
-        return max(label.bounds.size.height + 20.0, WriterCell.minHeight())
+        
+        return max(label.bounds.size.height + 32, WriterCell.minHeight())
     }
     
     class func maxContentLabelFrame() -> CGRect {
@@ -78,8 +78,7 @@ class WriterCell: SBTableViewCell
         
         profileView = model.profileView
         self.addSubview(profileView)
-        profileView!.layoutLeftInParentView(.Center, offset: CGPointMake(5, 0))
-        
+        profileView!.layoutLeftInParentView(.Top, offset: CGPointMake(5, 5))
         
         nicknameLabel.text = model.name
         nicknameLabel.sizeToFit()
@@ -88,7 +87,6 @@ class WriterCell: SBTableViewCell
         descriptionLabel.text = model.description
         descriptionLabel.frame = WriterCell.maxContentLabelFrame()
         descriptionLabel.sizeToFit()
-        descriptionLabel.layoutBottomFromSibling(nicknameLabel, horizontalAlign: .Left, offset: CGPointMake(0, inset.top))
-        
+        descriptionLabel.layoutBottomFromSibling(nicknameLabel, horizontalAlign: .Left, offset: CGPointMake(0, 3))
     }
 }
