@@ -43,7 +43,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         self.view.addSubview(headerImageView)
         
         headerImageView!.contentMode = UIViewContentMode.ScaleAspectFill
-        headerImageView!.activateConstraintsTopInParentView()
+        headerImageView!.layoutTopInParentView()
         headerImageView!.setImageWithURL(NSURL(string: url))
         headerImageView!.clipsToBounds = true
     }
