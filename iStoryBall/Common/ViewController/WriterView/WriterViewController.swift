@@ -23,6 +23,8 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
         if writerTableView == nil {
             layoutSubviews()
         }
+        
+        reloadWriterData()
     }
     
     func layoutSubviews() {
@@ -33,9 +35,6 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
         writerTableView!.delegate = self
         writerTableView!.rowHeight = WriterCell.minHeight()
         self.view.addSubview(writerTableView!)
-        writerTableView!.reloadData()
-        
-        reloadWriterData()
     }
     
     func reloadWriterData() {
