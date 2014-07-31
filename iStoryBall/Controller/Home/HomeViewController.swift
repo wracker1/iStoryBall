@@ -17,6 +17,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     var dayOfWeeks: [NSDate] = []
     var dayOfWeeksCount = 6
     var dayOfWeekScrollView: DHPageScrollView?
+    var horizontalIndicator: HorizontalScrollIndicator?
     
     var contentsData = Dictionary<String, [TFHppleElement]>()
     var contentTableView: UITableView?
@@ -87,7 +88,13 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         dayOfWeeks = dayOfWeeks.reverse()
         var width = self.view.bounds.size.width
-        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, width, ComponentSize.HorinzontalScrollerHeight.valueOf()), dataSource: self)
+        var frame = CGRectMake(0, 0, width, ComponentSize.HorinzontalScrollerHeight.valueOf())
+        
+        horizontalIndicator = HorizontalScrollIndicator(frame: frame)
+        self.view.addSubview(horizontalIndicator!)
+        horizontalIndicator!.layoutBottomFromSibling(recommendStoryScrollView!)
+        
+        var scrollView = DHPageScrollView(frame: frame, dataSource: self)
         dayOfWeekScrollView = scrollView
         dayOfWeekScrollView!.delegate = self
         dayOfWeekScrollView!.clipsToBounds = false
@@ -217,12 +224,13 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     
 //    DHPageScrollViewDataSource
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
-        var count = 0
+        var count: Int = 0
         
         if scrollView == recommendStoryScrollView {
             count = recommendStories.count
         } else if scrollView === dayOfWeekScrollView {
             count = dayOfWeeks.count
+            horizontalIndicator!.numberOfPages = count
         }
         
         return count
@@ -253,6 +261,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             recommendStoryPageControl!.currentPage = page
         case let x where x! === dayOfWeekScrollView:
             loadContentAtIndex(page)
+            horizontalIndicator?.didChangePage(page)
         default:
             assert(false)
         }

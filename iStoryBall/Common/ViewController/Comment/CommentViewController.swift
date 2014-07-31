@@ -31,7 +31,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
     }
     
     func layoutSubviews() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
         
         commentTableView = UITableView(frame: self.view.bounds, style: .Plain)
         commentTableView!.dataSource = self

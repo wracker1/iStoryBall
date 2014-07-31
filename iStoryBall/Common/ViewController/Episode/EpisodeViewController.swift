@@ -174,7 +174,9 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
                 
                 var name = data["name"] as NSString
                 var article = self.storyEpisode!["name"] as NSString
-                var title = "<스토리볼: \(name)> \(article)"
+                var articleId = self.storyEpisode!["episodeId"] as NSNumber
+                var link = "http://m.storyball.daum.net/episode/\(articleId.integerValue)"
+                var title = "<스토리볼: \(name)> \(article) - \(link)"
                 var items = [title, image]
                 var controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
                 self.presentViewController(controller, animated: true, completion: nil)
