@@ -16,6 +16,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
     var commentDataList = Array<Comment>()
     var commentTableView: UITableView?
     var commentLoader: DHScrollViewManager?
+    var hasMore = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
     
     func reloadCommentData() {
         pageIndex = 1
+        hasMore = true
         
         commentDataList.removeAll(keepCapacity: false)
         
@@ -66,13 +68,15 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
     }
     
     func loadMoreComment() {
-        commentLoader!.startBottomLoader()
-        var page = pageIndex + 1
-        
-        loadCommentDataAtPage(page) {
-            (comments: [Comment]) in
+        if hasMore {
+            commentLoader!.startBottomLoader()
+            var page = pageIndex + 1
             
-            self.didFinishLoadDataAtPage(comments, page: page)
+            loadCommentDataAtPage(page) {
+                (comments: [Comment]) in
+                
+                self.didFinishLoadDataAtPage(comments, page: page)
+            }
         }
     }
     
@@ -97,7 +101,6 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
             (result: AnyObject) in
             
             var comments = Array<Comment>()
-            println(result)
             var data = result["comments"]
             var list = data as? [Dictionary<String, AnyObject>]
             
@@ -109,6 +112,8 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
                     comments += comment
                 }
             }
+            
+            self.hasMore = list?.count == self.pageSize
             
             if let f = finishBlock {
                 f(list: comments)
