@@ -14,10 +14,10 @@ class StoryListCell: SBTableViewCell {
     init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         
-        titleLabel = UILabel.boldFontLabel("", fontSize: 11)
+        titleLabel = UILabel.boldFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
         titleLabel.textAlignment = .Left
         
-        rankLabel = UILabel.boldFontLabel("", fontSize: 11)
+        rankLabel = UILabel.boldFontLabel("", fontSize: SBFontSize.cellSubTitle.valueOf())
         rankLabel.textColor = UIColor.whiteColor()
         
         super.init(style: .Default, reuseIdentifier: EpisodeListCell.reuseIdentifier())

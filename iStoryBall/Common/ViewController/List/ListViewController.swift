@@ -39,7 +39,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
     func createHeaderView() {
         var thumbImageNode = doc!.itemWithQuery(".intro_img .thumb_img")
         var url = thumbImageNode?.imageUrlFromHppleElement()
-        headerImageView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width, 120))
+        headerImageView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width, 80))
         self.view.addSubview(headerImageView)
         
         headerImageView!.contentMode = UIViewContentMode.ScaleAspectFill
@@ -55,7 +55,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView = UIView()
         
         var title = data!.itemWithQuery(".tit_intro")
-        var titleLabel = UILabel.boldFontLabel(title!.text().trim(), fontSize: 15)
+        var titleLabel = UILabel.boldFontLabel(title!.text().trim(), fontSize: SBFontSize.font3.valueOf())
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Left
         titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
@@ -64,13 +64,13 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
         
         var writer = data!.itemWithQuery(".intro_writer")
-        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: 10)
+        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: SBFontSize.font2.valueOf())
         writerLabel.textAlignment = .Left
         descView!.addSubview(writerLabel)
         writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
         var intro = data!.itemWithQuery(".txt_intro")
-        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: 10)
+        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: SBFontSize.font2.valueOf())
         introLabel.numberOfLines = 0
         introLabel.textAlignment = .Left
         introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
@@ -80,7 +80,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         introLabel.layoutBottomFromSibling(writerLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
         var subscriptionDay = data!.itemWithQuery(".intro_day")
-        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay!.text().trim(), fontSize: 10)
+        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay!.text().trim(), fontSize: SBFontSize.font2.valueOf())
         subscriptionDayLabel.textColor = UIColor.rgb(76, g: 134, b: 237)
         subscriptionDayLabel.sizeToFit()
         descView!.addSubview(subscriptionDayLabel)
@@ -88,13 +88,14 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         
         var writerButton:UIButton = UIButton() as UIButton
         writerButton.setTitle("저자 소개", forState: .Normal)
-        writerButton.titleLabel.font = UIFont.systemFontOfSize(10)
-        writerButton.frame = CGRectMake(0, 0, 50, 15)
+        writerButton.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font2.valueOf())
         writerButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         writerButton.layer.masksToBounds = true
-        writerButton.layer.cornerRadius = 7
-        writerButton.layer.borderWidth = 0.5
+        writerButton.layer.cornerRadius = 10
+        writerButton.layer.borderWidth = 1
         writerButton.layer.borderColor = UIColor.grayColor().CGColor
+        writerButton.sizeToFit()
+        writerButton.padding(UIEdgeInsetsMake(-2, 4, -2, 4))
         descView!.addSubview(writerButton)
         writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
         writerButton.addTarget(self, action: "showWriterInfo:", forControlEvents: UIControlEvents.TouchUpInside)

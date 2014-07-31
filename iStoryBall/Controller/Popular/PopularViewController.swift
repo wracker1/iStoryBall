@@ -70,8 +70,8 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     }
     
     func createStoryTypeScroller() {
-        var width = self.view.bounds.size.width / 2.0
-        storyTypeScroller = DHPageScrollView(frame: CGRectMake(0, 0, width, 43), dataSource: self)
+        var width = self.view.bounds.size.width
+        storyTypeScroller = DHPageScrollView(frame: CGRectMake(0, 0, width, ComponentSize.HorinzontalScrollerHeight.valueOf()), dataSource: self)
         self.view.addSubview(storyTypeScroller)
         storyTypeScroller!.layoutTopInParentView()
         storyTypeScroller!.clipsToBounds = false
@@ -118,12 +118,12 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         var data = storyType[page]
         var color = UIColor.rgb(76.0, g: 134.0, b: 237.0)
         
-        var titleLabel = UILabel.boldFontLabel(data.name, fontSize: 17)
+        var titleLabel = UILabel.boldFontLabel(data.name, fontSize: SBFontSize.font5.valueOf())
         titleLabel.textColor = color
         pageView.addSubview(titleLabel)
-        titleLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 2))
+        titleLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 5))
         
-        var descLabel = UILabel.systemFontLabel(data.desc, fontSize: 10)
+        var descLabel = UILabel.systemFontLabel(data.desc, fontSize: SBFontSize.font2.valueOf())
         descLabel.textColor = color
         pageView.addSubview(descLabel)
         descLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Center, offset: CGPointMake(0, 2))

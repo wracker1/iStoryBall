@@ -44,7 +44,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     
     func createThemeScroller() {
         var size = self.view.bounds.size
-        var height: CGFloat = 50.0
+        var height: CGFloat = ComponentSize.HorinzontalScrollerHeight.valueOf()
         
         themeScroller = UIScrollView(frame: CGRectMake(0, 0, size.width, height))
         themeScroller!.showsHorizontalScrollIndicator = false
@@ -60,20 +60,20 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
             var title = item.itemWithQuery(".tit_genre")?.text()?.trim()
             
             var button = UIButton.buttonWithType(.Custom) as UIButton
-            button.frame = CGRectMake(0, 0, 55, 50)
+            button.frame = CGRectMake(0, 0, 65, 50)
             button.setImageForState(.Normal, withURL: NSURL(string: imageUrl))
             button.setTitle(title!, forState: .Normal)
             button.setTitleColor(UIColor.grayColor(), forState: .Normal)
-            button.titleLabel.font = UIFont.systemFontOfSize(8)
+            button.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font1.valueOf())
             button.tag = i + 100
             button.verticalAlignContent(CGSizeMake(34, 30))
             button.addTarget(self, action: Selector("themeButtonTouched:"), forControlEvents: UIControlEvents.TouchUpInside)
             themeScroller!.addSubview(button)
             
             if let s = sibling {
-                button.layoutRightFromSibling(s, verticalAlign: .Center, offset: CGPointMake(10, 0))
+                button.layoutRightFromSibling(s, verticalAlign: .Center, offset: CGPointMake(15, 0))
             } else {
-                button.layoutLeftInParentView(.Top, offset: CGPointMake(0, 0))
+                button.layoutLeftInParentView(.Top, offset: CGPointMake(0, 3))
                 themeButtonTouched(button)
             }
             
@@ -116,11 +116,11 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     func selectThemeButton(button: UIButton) {
         if let b = selectedButton {
             b.setTitleColor(UIColor.grayColor(), forState: .Normal)
-            b.titleLabel.font = UIFont.systemFontOfSize(8)
+            b.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font1.valueOf())
         }
         
         button.setTitleColor(UIColor.pointColor(1.0), forState: .Normal)
-        button.titleLabel.font = UIFont.boldSystemFontOfSize(8)
+        button.titleLabel.font = UIFont.boldSystemFontOfSize(SBFontSize.font1.valueOf())
         selectedButton = button
     }
     

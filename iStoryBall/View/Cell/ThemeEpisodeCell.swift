@@ -30,15 +30,15 @@ class ThemeEpisodeCell: UICollectionViewCell
         let bottomGap: CGFloat = 50.0
         let size = frame.size
         
-        maxTitleLabelFrame = CGRectMake(0, 0, size.width, size.height - (thumbHeight + bottomGap))
+        maxTitleLabelFrame = CGRectMake(0, 0, size.width - 10.0, size.height - (thumbHeight + bottomGap))
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, size.width, thumbHeight))
         
-        titleLabel = UILabel.systemFontLabel("", fontSize: 12.0)
+        titleLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .Left
         titleLabel.frame = maxTitleLabelFrame
         
-        finishedLabel = UILabel.boldFontLabel("완결", fontSize: 12)
+        finishedLabel = UILabel.boldFontLabel("완결", fontSize: SBFontSize.cellSubTitle.valueOf())
         finishedLabel.textColor = UIColor.whiteColor()
         finishedLabel.backgroundColor = UIColor.rgba(0, g: 0, b: 0, a: 0.6)
         finishedLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))

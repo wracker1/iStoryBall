@@ -18,12 +18,12 @@ class EpisodeListCell: SBTableViewCell {
     init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         
-        titleFontSize = SBFontSize.font3.valueOf()
+        titleFontSize = SBFontSize.cellTitle.valueOf()
         titleLabel = UILabel.boldFontLabel("", fontSize: titleFontSize)
         titleLabel.textAlignment = .Left
         titleLabel.lineBreakMode = .ByTruncatingTail
         
-        subTitleFontSize = SBFontSize.font1.valueOf()
+        subTitleFontSize = SBFontSize.cellSubTitle.valueOf()
         subTitleLabel = UILabel.systemFontLabel("", fontSize: subTitleFontSize)
         subTitleLabel.textAlignment = .Left
         subTitleLabel.lineBreakMode = .ByTruncatingTail
@@ -56,8 +56,8 @@ class EpisodeListCell: SBTableViewCell {
             subTitleLabel.text = subTitle
             subTitleLabel.frame = maxSubLabelBounds
             
-            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 6))
-            subTitleLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 2))
+            titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Top, offset: CGPointMake(5, 8))
+            subTitleLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 4))
         } else {
             titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Center, offset: CGPointMake(5, 0))
         }

@@ -9,7 +9,16 @@
 import Foundation
 
 enum SBFontSize: Int {
-    case font1 = 12, font2 = 14, font3 = 16, font4 = 18, font5 = 20
+    case font1 = 11, font2 = 13, font3 = 15, font4 = 17, font5 = 19
+    case cellSubTitle = 12, cellTitle = 14
+    
+    func valueOf() -> CGFloat {
+        return CGFloat(self.toRaw())
+    }
+}
+
+enum ComponentSize: Int {
+    case HorinzontalScrollerHeight = 55
     
     func valueOf() -> CGFloat {
         return CGFloat(self.toRaw())
@@ -118,7 +127,7 @@ extension UIButton {
         
         if let t = title {
             button.setTitle(t, forState: .Normal)
-            button.titleLabel.font = UIFont.systemFontOfSize(12)
+            button.titleLabel.font = UIFont.boldSystemFontOfSize(SBFontSize.font2.valueOf())
             button.setTitleColor(UIColor.grayColor(), forState: .Normal)
         }
         
