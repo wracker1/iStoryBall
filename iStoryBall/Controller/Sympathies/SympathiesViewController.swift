@@ -18,7 +18,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     var storyTableViewManager: DHScrollViewManager?
     
     var presentStoryList: [TFHppleElement]?
-    var contentSearchQuery = ".list_empathy li a"
+    var contentSearchQuery = "li a"
     
     override func viewDidLoad() {
         super.viewDidLoad()

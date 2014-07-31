@@ -36,7 +36,7 @@ class DHScrollViewManager: NSObject {
     }
     
     deinit {
-        scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: nil)
+        scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: ctx)
     }
     
     override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
