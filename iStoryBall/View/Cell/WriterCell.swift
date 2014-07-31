@@ -70,7 +70,6 @@ class WriterCell: SBTableViewCell
     }
     
     func layout(model: Writer) {
-        println("layout")
         var size = self.bounds.size
         var inset = WriterCell.cellContentInset()
         var profileSize = WriterCell.thumbnailSize()
@@ -81,7 +80,6 @@ class WriterCell: SBTableViewCell
         
         
         nicknameLabel.text = model.name
-        println(model.name)
         nicknameLabel.sizeToFit()
         nicknameLabel.layoutTopInParentView(.Left, offset: CGPointMake(profileSize.width + inset.left, inset.top))
         

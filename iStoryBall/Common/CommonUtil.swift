@@ -58,7 +58,7 @@ extension String {
         return NSMakeRange(0, string.length)
     }
     
-    func replace(pattern : String, replacementPattern:String) -> String {
+    func replace(pattern: String, replacementPattern: String) -> String {
         var searchString = self
         var error:NSError?
         let regex = NSRegularExpression .regularExpressionWithPattern(pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: &error)

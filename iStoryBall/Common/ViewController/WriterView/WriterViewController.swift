@@ -50,7 +50,7 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
                 
                 for element in content.htmlDocument().itemsWithQuery(".writer_on") as [TFHppleElement] {
                     var data = Dictionary<String, AnyObject>()
-                    data["name"] = element.itemWithQuery(".tit_desc")!.text().trim()
+                    data["name"] = element.itemWithQuery(".tit_desc")!.text().replace("(\\s)+", replacementPattern: " ")
                     data["description"] = element.itemWithQuery(".txt_desc")!.text().trim()
                     data["imageUrl"] = element.itemWithQuery("img")!.attributes["src"]
                     var writer = Writer(data: data)
