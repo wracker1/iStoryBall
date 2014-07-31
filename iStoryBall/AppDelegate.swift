@@ -47,9 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func rootViewController() -> SBTabBarController {
         var homeViewController = SBNavigationController.instanceWithViewController(HomeViewController(title: "홈"))
+        homeViewController.tabBarItem.image = UIImage(named: "home")
+        
         var popularViewController = SBNavigationController.instanceWithViewController(PopularViewController(title: "인기"))
+        popularViewController.tabBarItem.image = UIImage(named: "pop")
+        
         var themeViewController = SBNavigationController.instanceWithViewController(ThemeViewController(title: "테마"))
+        themeViewController.tabBarItem.image = UIImage(named: "theme")
+        
         var sympathiesViewController = SBNavigationController.instanceWithViewController(SympathiesViewController(title: "천개의공감"))
+        sympathiesViewController.tabBarItem.image = UIImage(named: "sympathies")
         
         var tabBarController = SBTabBarController()
         tabBarController.viewControllers = [homeViewController, popularViewController, themeViewController, sympathiesViewController]
