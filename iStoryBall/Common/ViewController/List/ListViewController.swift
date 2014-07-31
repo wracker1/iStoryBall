@@ -64,13 +64,13 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
         
         var writer = data!.itemWithQuery(".intro_writer")
-        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: SBFontSize.font2.valueOf())
+        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: SBFontSize.font1.valueOf())
         writerLabel.textAlignment = .Left
         descView!.addSubview(writerLabel)
         writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
         var intro = data!.itemWithQuery(".txt_intro")
-        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: SBFontSize.font2.valueOf())
+        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: SBFontSize.font1.valueOf())
         introLabel.numberOfLines = 0
         introLabel.textAlignment = .Left
         introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
@@ -87,18 +87,19 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
         var writerButton:UIButton = UIButton() as UIButton
-        writerButton.setTitle("저자 소개", forState: .Normal)
-        writerButton.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font2.valueOf())
+        writerButton.setTitle("저자소개", forState: .Normal)
+        writerButton.frame = CGRectMake(0, 0, 52, 16)
+        writerButton.titleLabel.font = UIFont.boldSystemFontOfSize(SBFontSize.font1.valueOf())
         writerButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         writerButton.layer.masksToBounds = true
-        writerButton.layer.cornerRadius = 10
-        writerButton.layer.borderWidth = 1
-        writerButton.layer.borderColor = UIColor.grayColor().CGColor
-        writerButton.sizeToFit()
-        writerButton.padding(UIEdgeInsetsMake(-2, 4, -2, 4))
+        writerButton.layer.cornerRadius = 7
+        writerButton.layer.borderWidth = 1.5
+        writerButton.layer.borderColor = UIColor.blackColor().CGColor
         descView!.addSubview(writerButton)
         writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
         writerButton.addTarget(self, action: "showWriterInfo:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        println(writerButton)
         
         self.view.addSubview(descView)
         descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)

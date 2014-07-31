@@ -64,6 +64,7 @@ class SBViewController : UIViewController
                 return titleLabelWithFontSize(fontSize - 1.0)
             } else {
                 titleLabel.numberOfLines = 0
+                titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
                 titleLabel.sizeToFit()
                 return titleLabel
             }
