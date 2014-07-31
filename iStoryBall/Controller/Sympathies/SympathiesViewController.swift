@@ -10,7 +10,9 @@ import UIKit
 
 class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
 {
-    var storyType = Array<(id: String, name: String, desc: String, page: Int)>()
+    var numberOfItemsPerPage = 20
+    
+    var storyType = Array<(id: String, name: String, desc: String, page: Int, hasMore: Bool)>()
     var storyDataList = Dictionary<String, [TFHppleElement]>()
     
     var storyTypeScroller: DHPageScrollView?
@@ -23,10 +25,10 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyType += ("1000","천공", "천개의 공감", 1)
-        storyType += ("soon", "곧천공", "공감 하나만 굽신", 1)
-        storyType += ("5000", "오천공", "오천개의 공감", 1)
-        storyType += ("all", "올천공", "모두 천공 달성", 1)
+        storyType += ("1000","천공", "천개의 공감", 1, true)
+        storyType += ("soon", "곧천공", "공감 하나만 굽신", 1, true)
+        storyType += ("5000", "오천공", "오천개의 공감", 1, true)
+        storyType += ("all", "올천공", "모두 천공 달성", 1, true)
         
         id = "/episode/part/hit"
         var url = id! + "/" + storyType[0].id
@@ -39,13 +41,34 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     }
     
     func layoutSubviews() {
-        var key = storyType[0].id
         var items = doc!.itemsWithQuery(contentSearchQuery)
-        storyDataList[key] = items
-        presentStoryList = items
+        setPresentStoryListWithIndex(0, items: items)
         
         createStoryTypeScroller()
         createStoryTableView()
+    }
+    
+    func setPresentStoryListWithIndex(index: Int, items: [TFHppleElement]) -> [NSIndexPath] {
+        var key = storyType[index].id
+        var stories = Array<TFHppleElement>()
+        storyType[index].hasMore = items.count == numberOfItemsPerPage
+        
+        if let list = storyDataList[key] {
+            stories = list
+        }
+        
+        var indexPaths = Array<NSIndexPath>()
+        var rowNum = stories.count
+        
+        for item in items {
+            stories += item
+            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+        }
+        
+        storyDataList[key] = stories
+        presentStoryList = stories
+        
+        return indexPaths
     }
     
     func createStoryTypeScroller() {
@@ -71,33 +94,23 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     }
     
     func loadMorePage() {
-        storyTableViewManager!.startBottomLoader()
         var page = storyTypeScroller!.page
-        var data = storyType[page]
         
-        loadData(data.id, page: data.page + 1, filter: nil) {
-            (items: [TFHppleElement]) in
+        if storyType[page].hasMore {
+            storyTableViewManager!.startBottomLoader()
+            var data = storyType[page]
             
-            self.didFinishLoadDataAtPage(items, page: page)
+            loadData(data.id, page: data.page + 1, filter: nil) {
+                (items: [TFHppleElement]) in
+                
+                self.didFinishLoadDataAtPage(items, page: page)
+            }
         }
     }
     
     func didFinishLoadDataAtPage(items: [TFHppleElement], page: Int) {
-        var data = storyType[page]
-        var stories = self.storyDataList[data.id] as Array
-        var indexPaths = Array<NSIndexPath>()
-        var rowNum = stories.count
-        
-        for item in items {
-            stories += item
-            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
-        }
-        
-        storyDataList[data.id] = stories
-        presentStoryList = stories
-        
-        data.page += 1
-        storyType[page] = data
+        var indexPaths = setPresentStoryListWithIndex(page, items: items)
+        storyType[page].page += 1
         
         storyTableView!.insertRowToBottom(indexPaths)
         storyTableViewManager!.endBottomLoader()

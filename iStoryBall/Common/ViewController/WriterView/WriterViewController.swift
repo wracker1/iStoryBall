@@ -46,8 +46,12 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
                 var result = regex.firstMatchInString(html, options: NSMatchingOptions(0), range: html.range())
                 var content = (html as NSString).substringWithRange(result.rangeAtIndex(4)) as String
                 
+                var elementArr = content.htmlDocument().itemsWithQuery(".writer_on")
+                if elementArr.count == 0 {
+                    elementArr = content.htmlDocument().itemsWithQuery(".cp_on")
+                }
                 
-                for element in content.htmlDocument().itemsWithQuery(".writer_on") as [TFHppleElement] {
+                for element in elementArr as [TFHppleElement] {
                     var data = Dictionary<String, AnyObject>()
                     data["name"] = element.itemWithQuery(".tit_desc")!.text().replace("(\\s)+", replacementPattern: " ").trim()
                     data["description"] = element.itemWithQuery(".txt_desc")!.text().trim()
