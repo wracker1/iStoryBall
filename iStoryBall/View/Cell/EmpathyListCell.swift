@@ -19,10 +19,10 @@ class EmpathyListCell: SBTableViewCell {
         var width = UIScreen.mainScreen().bounds.width
         thumbnailView = UIImageView(frame: CGRectMake(10, 10, width - 20, 115))
         
-        titleLabel = UILabel.boldFontLabel("", fontSize: 13)
+        titleLabel = UILabel.boldFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
         titleLabel.textAlignment = .Left
         
-        rankLabel = UILabel.boldFontLabel("", fontSize: 13)
+        rankLabel = UILabel.boldFontLabel("", fontSize: SBFontSize.cellSubTitle.valueOf())
         iconImage = UIImage(named:"ico_empathy")
         iconImageView = UIImageView(image: iconImage)
         

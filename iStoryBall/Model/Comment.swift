@@ -14,6 +14,7 @@ class Comment: SBModel
     var regDate: Dictionary<String, NSNumber>
     var imageUrl: String?
     var profileView: UIImageView?
+    var cellHeight: CGFloat?
     
     init(data: Dictionary<String, AnyObject>) {
         emoticon = data["emoticon"]! as String

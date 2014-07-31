@@ -32,11 +32,11 @@ class CommentCell: SBTableViewCell
     }
     
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-        contentLabel = UILabel.systemFontLabel("", fontSize: 10)
+        contentLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .Left
         
-        nicknameLabel = UILabel.systemFontLabel("", fontSize: 10)
+        nicknameLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellSubTitle.valueOf())
         nicknameLabel.textColor = UIColor.grayColor()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,13 +60,24 @@ class CommentCell: SBTableViewCell
     
     override class func heightForRowWithModel(model: SBModel) -> CGFloat {
         var commentModel = model as Comment
-        var label = UILabel.systemFontLabel("", fontSize: 10)
-        label.textAlignment = .Left
-        label.numberOfLines = 0
-        label.frame = maxCommentLabelFrame()
-        label.text = commentModel.commentContent
-        label.sizeToFit()
-        return max(label.bounds.size.height + 20.0, CommentCell.minHeight())
+        
+        if let height = commentModel.cellHeight {
+            return height
+        } else {
+            var label = UILabel.systemFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
+            label.textAlignment = .Left
+            label.numberOfLines = 0
+            label.frame = maxCommentLabelFrame()
+            label.text = commentModel.commentContent
+            label.sizeToFit()
+            
+            var inset = self.cellContentInset()
+            var calcHeight = label.bounds.size.height + SBFontSize.cellSubTitle.valueOf() + (inset.top * 2 + inset.bottom * 2)
+            
+            var height = max(calcHeight, CommentCell.minHeight())
+            commentModel.cellHeight = height
+            return height
+        }
     }
     
     func layout(model: Comment) {
