@@ -87,7 +87,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         dayOfWeeks = dayOfWeeks.reverse()
         var width = self.view.bounds.size.width / 2.0
-        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, width, 43), dataSource: self)
+        var scrollView = DHPageScrollView(frame: CGRectMake(0, 0, width, 55), dataSource: self)
         dayOfWeekScrollView = scrollView
         dayOfWeekScrollView!.delegate = self
         dayOfWeekScrollView!.clipsToBounds = false
@@ -158,7 +158,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         contentView.setImageWithURL(NSURL(string: imageUrl))
         
         var title = recommendStoryTitleFromData(data)
-        var pointLabel = UILabel.boldFontLabel(title.title, fontSize: 8)
+        var pointLabel = UILabel.boldFontLabel(title.title, fontSize: SBFontSize.font1.valueOf())
         pointLabel.textColor = UIColor.whiteColor()
         pointLabel.padding(UIEdgeInsetsMake(1, 3, 1, 3))
         pointLabel.backgroundColor = UIColor.redColor()
@@ -166,7 +166,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         pointLabel.layer.cornerRadius = 5.0
         contentView.addSubview(pointLabel)
         
-        var titleLabel = UILabel.systemFontLabel(title.subTitle, fontSize: 10)
+        var titleLabel = UILabel.systemFontLabel(title.subTitle, fontSize: SBFontSize.font2.valueOf())
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.shadowColor = UIColor.blackColor()
         titleLabel.shadowOffset = CGSizeMake(1, 1)
@@ -194,14 +194,14 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
             var formatter = NSDateFormatter()
             formatter.dateFormat = "EEEE"
             var weekday = formatter.stringFromDate(data)
-            var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: 17)
+            var weekdayLabel = UILabel.boldFontLabel(weekday, fontSize: SBFontSize.font5.valueOf())
             weekdayLabel.textColor = color
             view.addSubview(weekdayLabel)
             weekdayLabel.layoutTopInParentView(.Center, offset: CGPointMake(0, 3))
             
             formatter.dateFormat = "M.dd"
             var dateString = page == (dayOfWeeks.count - 1) ? "Today \(formatter.stringFromDate(data))" : "최종업데이트 \(formatter.stringFromDate(data))"
-            var dateLabel = UILabel.systemFontLabel(dateString, fontSize: 10)
+            var dateLabel = UILabel.systemFontLabel(dateString, fontSize: SBFontSize.font2.valueOf())
             dateLabel.padding(UIEdgeInsetsMake(2, 4, 2, 4))
             dateLabel.textColor = color
             dateLabel.layer.borderColor = color.CGColor

@@ -8,6 +8,14 @@
 
 import Foundation
 
+enum SBFontSize: Int {
+    case font1 = 12, font2 = 14, font3 = 16, font4 = 18, font5 = 20
+    
+    func valueOf() -> CGFloat {
+        return CGFloat(self.toRaw())
+    }
+}
+
 extension UITableView {
     func insertRowToBottom(indexPaths: [NSIndexPath]) {
         UIView.setAnimationsEnabled(false)

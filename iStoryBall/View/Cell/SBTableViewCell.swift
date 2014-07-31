@@ -20,8 +20,12 @@ class SBTableViewCell: UITableViewCell, SBTableViewCellProtocol {
         return "Cell"
     }
     
+    class func defaultHeight() -> CGFloat {
+        return 44.0
+    }
+    
     class func heightForRowWithModel(model: SBModel) -> CGFloat {
-        return 50.0
+        return self.defaultHeight()
     }
     
     func update(data: TFHppleElement) {
