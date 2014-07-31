@@ -11,40 +11,54 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
 {
     
     var writerDataList = Array<Writer>()
-    var tableView: UITableView?
+    var writerTableView: UITableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if writerTableView == nil {
+            layoutSubviews()
+        }
+    }
+    
+    func layoutSubviews() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
+        
+        writerTableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: .Plain)
+        writerTableView!.dataSource = self
+        writerTableView!.delegate = self
+        writerTableView!.rowHeight = WriterCell.minHeight()
+        self.view.addSubview(writerTableView!)
+        writerTableView!.reloadData()
+        
+        reloadWriterData()
+    }
+    
+    func reloadWriterData() {
         if let url = id {
             NetClient.instance.get(url + "#layer/writer") {
                 (html: String) in
-                var d = html.htmlDocument().itemWithQuery("#writerLayerTemplate")
-                if let data = d {
-                    var raw = data.raw as NSString
-                    var error: NSError?
-                    var exp = DHRegEx.classSelector("(writer_on|cp_on)", error: nil)
-                    
-
-                    var result = exp.matchesInString(html, options: NSMatchingOptions(0), range:html.range())
-                    for match in result as [NSTextCheckingResult] {
-                        var r = (html as NSString).substringWithRange(match.range) as String
-                        var writer = Writer(raw: r)
-                        // 완성
-                    }
+                
+                var regex = DHRegEx.classSelector("list_writer", error: nil)
+                var result = regex.firstMatchInString(html, options: NSMatchingOptions(0), range: html.range())
+                var content = (html as NSString).substringWithRange(result.rangeAtIndex(4)) as String
+                
+                
+                for element in content.htmlDocument().itemsWithQuery(".writer_on") as [TFHppleElement] {
+                    var data = Dictionary<String, AnyObject>()
+                    data["name"] = element.itemWithQuery(".tit_desc")!.text().trim()
+                    data["description"] = element.itemWithQuery(".txt_desc")!.text().trim()
+                    data["imageUrl"] = element.itemWithQuery("img")!.attributes["src"]
+                    var writer = Writer(data: data)
+                    self.writerDataList += writer
                 }
+                self.writerTableView!.reloadData()
             }
         }
-        
-        initView()
-    }
-    
-    func initView() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismiss"))
-        
-        tableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height), style: .Plain)
-        tableView!.dataSource = self
-        tableView!.delegate = self
-        self.view.addSubview(tableView!)
     }
     
     func dismiss() {

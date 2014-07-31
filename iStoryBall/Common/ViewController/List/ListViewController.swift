@@ -107,7 +107,6 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
     }
     
     func showWriterInfo(sender:UIButton!) {
-        println("view writer info")
         var writerViewController = WriterViewController(title:"저자 소개")
         writerViewController.id = self.id
         var navigator = SBNavigationController.instanceWithViewController(writerViewController)

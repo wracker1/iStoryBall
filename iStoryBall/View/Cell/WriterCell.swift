@@ -38,6 +38,10 @@ class WriterCell: SBTableViewCell
         }
     }
     
+    class func minHeight() -> CGFloat {
+        return 44.0
+    }
+    
     override class func heightForRowWithModel(model: SBModel) -> CGFloat {
         var writerModel = model as Writer
         var label = UILabel.systemFontLabel("", fontSize: 10)
@@ -60,9 +64,16 @@ class WriterCell: SBTableViewCell
         return UIEdgeInsetsMake(3, 7, 3, 4)
     }
     
+    
+    class func thumbnailSize() -> CGSize {
+        return CGSizeMake(37, 34.5)
+    }
+    
     func layout(model: Writer) {
+        println("layout")
         var size = self.bounds.size
         var inset = WriterCell.cellContentInset()
+        var profileSize = WriterCell.thumbnailSize()
         
         profileView = model.profileView
         self.addSubview(profileView)
@@ -70,6 +81,7 @@ class WriterCell: SBTableViewCell
         
         
         nicknameLabel.text = model.name
+        println(model.name)
         nicknameLabel.sizeToFit()
         nicknameLabel.layoutTopInParentView(.Left, offset: CGPointMake(profileSize.width + inset.left, inset.top))
         

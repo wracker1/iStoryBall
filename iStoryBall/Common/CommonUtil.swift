@@ -57,4 +57,15 @@ extension String {
         var string = self as NSString
         return NSMakeRange(0, string.length)
     }
+    
+    func replace(pattern : String, replacementPattern:String) -> String {
+        var searchString = self
+        var error:NSError?
+        let regex = NSRegularExpression .regularExpressionWithPattern(pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: &error)
+        if (!error){
+            let replacedString = regex.stringByReplacingMatchesInString(searchString, options: NSMatchingOptions.fromMask(0), range: NSMakeRange(0, countElements(searchString)), withTemplate: replacementPattern)
+            return replacedString
+        }
+        return searchString
+    }
 }
