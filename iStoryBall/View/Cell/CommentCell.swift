@@ -41,6 +41,7 @@ class CommentCell: SBTableViewCell
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = UITableViewCellSelectionStyle.None
         self.addSubview(contentLabel)
         self.addSubview(nicknameLabel)
     }
