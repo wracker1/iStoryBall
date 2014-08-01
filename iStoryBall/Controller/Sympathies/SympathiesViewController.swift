@@ -18,6 +18,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     var storyTypeScroller: DHPageScrollView?
     var storyTableView: UITableView?
     var storyTableViewManager: DHScrollViewManager?
+    var horizontalIndicator: HorizontalScrollIndicator?
     
     var presentStoryList: [TFHppleElement]?
     var contentSearchQuery = "li a"
@@ -73,11 +74,22 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     
     func createStoryTypeScroller() {
         var width = self.view.bounds.size.width
-        storyTypeScroller = DHPageScrollView(frame: CGRectMake(0, 0, width, ComponentSize.HorinzontalScrollerHeight.valueOf()), dataSource: self)
+        var size = CGSizeMake(width, ComponentSize.HorinzontalScrollerHeight.valueOf())
+        var frame = CGRect(origin: CGPointZero, size: size)
+        
+        horizontalIndicator = HorizontalScrollIndicator(frame: frame)
+        self.view.addSubview(horizontalIndicator)
+        horizontalIndicator!.layoutTopInParentView()
+        
+        storyTypeScroller = DHPageScrollView(frame: frame, dataSource: self)
+        storyTypeScroller!.delegate = self
         self.view.addSubview(storyTypeScroller)
         storyTypeScroller!.layoutTopInParentView()
         storyTypeScroller!.clipsToBounds = false
-        storyTypeScroller!.delegate = self
+        
+        if let page = storyTypeScroller?.page {
+            horizontalIndicator!.didChangePage(page)
+        }
     }
     
     func createStoryTableView() {
@@ -132,7 +144,9 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     }
     
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
-        return storyType.count
+        var page = storyType.count
+        horizontalIndicator!.numberOfPages = page
+        return page
     }
     
     func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView? {
@@ -153,6 +167,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var storyList = storyDataList[key]
         
         storyTableView!.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        horizontalIndicator!.didChangePage(page)
         
         if let stories = storyList {
             presentStoryList = stories
