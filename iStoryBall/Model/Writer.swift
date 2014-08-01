@@ -33,6 +33,7 @@ class Writer: SBModel
             profileView = UIImageView(frame: CGRect(origin: CGPointZero, size: size!))
         }
         
+        profileView!.layer.cornerRadius = profileView!.frame.height / 2
         profileView!.loadSpriteImageAtPosition(imageUrl, imageSize: nil, position: CGPointZero, finish: finish)
     }
 }
