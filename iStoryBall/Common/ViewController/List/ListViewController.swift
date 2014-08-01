@@ -86,20 +86,15 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.addSubview(subscriptionDayLabel)
         subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
         
-        var writerButton:UIButton = UIButton() as UIButton
-        writerButton.setTitle("저자소개", forState: .Normal)
-        writerButton.frame = CGRectMake(0, 0, 52, 16)
-        writerButton.titleLabel.font = UIFont.boldSystemFontOfSize(SBFontSize.font1.valueOf())
-        writerButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        writerButton.layer.masksToBounds = true
-        writerButton.layer.cornerRadius = 7
-        writerButton.layer.borderWidth = 1.5
-        writerButton.layer.borderColor = UIColor.blackColor().CGColor
+        var writerButton:UIButton = makeInfoButton("저자소개")
         descView!.addSubview(writerButton)
         writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
-        writerButton.addTarget(self, action: "showWriterInfo:", forControlEvents: UIControlEvents.TouchUpInside)
+        writerButton.addTarget(self, action: Selector("showWriterInfo"), forControlEvents: UIControlEvents.TouchUpInside)
         
-        println(writerButton)
+        var shareButton:UIButton = makeInfoButton("공유하기")
+        descView!.addSubview(shareButton)
+        shareButton.layoutRightFromSibling(writerButton, verticalAlign:.Center, offset:CGPointMake(10, 0))
+        shareButton.addTarget(self, action: Selector("sharePage"), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.view.addSubview(descView)
         descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
@@ -108,7 +103,29 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
     }
     
-    func showWriterInfo(sender:UIButton!) {
+    func makeInfoButton(title:String) -> UIButton {
+        var button:UIButton = UIButton() as UIButton
+        button.setTitle(title, forState: .Normal)
+        button.frame = CGRectMake(0, 0, 52, 16)
+        button.titleLabel.font = UIFont.boldSystemFontOfSize(SBFontSize.font1.valueOf())
+        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 7
+        button.layer.borderWidth = 1.5
+        button.layer.borderColor = UIColor.blackColor().CGColor
+        return button
+    }
+    
+    func sharePage() {
+        var name = self.title
+        var link = "http://m.storyball.daum.net\(self.id!)"
+        var title = "<스토리볼: \(name)> - \(link)"
+        var items = [title, headerImageView!.image]
+        var controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        self.presentViewController(controller, animated: true, completion: nil)
+    }
+    
+    func showWriterInfo() {
         var writerViewController = WriterViewController(title:"저자 소개")
         writerViewController.id = self.id
         var navigator = SBNavigationController.instanceWithViewController(writerViewController)
