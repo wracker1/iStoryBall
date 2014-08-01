@@ -24,6 +24,7 @@ class WriterCell: SBTableViewCell
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = UITableViewCellSelectionStyle.None
         self.addSubview(nicknameLabel)
         self.addSubview(descriptionLabel)
     }
