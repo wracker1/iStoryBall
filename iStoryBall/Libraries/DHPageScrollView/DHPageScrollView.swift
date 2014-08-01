@@ -244,7 +244,7 @@ class DHPageScrollView: UIScrollView
     }
     
     func scrollToPage(page: Int, animated: Bool) {
-        if page < numberOfPages() {
+        if page > -1 && page < numberOfPages() {
             var rect = rectByPage(page)
             changePage(page)
             self.scrollRectToVisible(rect, animated: animated)
