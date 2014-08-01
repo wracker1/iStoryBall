@@ -20,8 +20,9 @@ class HorizontalScrollIndicator: UIView {
         self.addSubview(prevArrow)
         self.addSubview(nextArrow)
         
-        prevArrow.layoutLeftInParentView(.Center, offset: CGPointMake(30, 0))
-        nextArrow.layoutRightInParentView(.Center, offset: CGPointMake(-30, 0))
+        var inset:CGFloat = 35.0
+        prevArrow.layoutLeftInParentView(.Center, offset: CGPointMake(inset, 0))
+        nextArrow.layoutRightInParentView(.Center, offset: CGPointMake(-inset, 0))
         
         self.backgroundColor = UIColor.clearColor()
     }
