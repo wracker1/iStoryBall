@@ -34,6 +34,7 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
         writerTableView!.dataSource = self
         writerTableView!.delegate = self
         writerTableView!.rowHeight = WriterCell.minHeight()
+        writerTableView!.separatorColor = UIColor.clearColor()
         self.view.addSubview(writerTableView!)
     }
     
