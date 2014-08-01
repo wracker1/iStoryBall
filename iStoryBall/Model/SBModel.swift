@@ -8,7 +8,14 @@
 
 class SBModel
 {
+    var data: Dictionary<String, AnyObject>?
+    var hppleElement: TFHppleElement?
+    
     init(data: Dictionary<String, AnyObject>) {
-        
+        self.data = data
+    }
+    
+    init (hppleElement: TFHppleElement) {
+        self.hppleElement = hppleElement
     }
 }

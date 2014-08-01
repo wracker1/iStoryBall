@@ -14,6 +14,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     var storyInfo: Dictionary<String, AnyObject>?
     var storyEpisode: Dictionary<String, AnyObject>?
     var imageDataList: [StoryPageData]?
+    var toolbars = Array<UIBarButtonItem>()
     var scrollViewOffset = CGPointZero
     var imageForShare: UIImageView?
     var html: String?
@@ -61,8 +62,8 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let items = self.toolbarItems {
-            self.navigationController.setToolbarHidden(false, animated: true)
+        if toolbars.count > 0 {
+            self.navigationController.setToolbarHidden(false, animated: false)
         } else {
             requestCommentCount {
                 (commentCount: Int) in
@@ -76,12 +77,13 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
                 var flex2 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
                 var flex3 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
                 var flex4 = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-                var items = [flex1, comment, flex2, share, flex3, list, flex4]
+                self.toolbars = [flex1, comment, flex2, share, flex3, list, flex4]
                 
-                self.toolbarItems = items
+                self.toolbarItems = self.toolbars
                 self.navigationController.setToolbarHidden(false, animated: false)
             }
         }
+        
     }
     
     func gestureRecognizer() -> UITapGestureRecognizer {

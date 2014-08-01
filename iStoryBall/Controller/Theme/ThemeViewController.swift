@@ -14,7 +14,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     var themeItemList = Array<TFHppleElement>()
     var selectedButton: UIButton?
     
-    var themeEpisodeData = Dictionary<String, (NSString, [TFHppleElement])>()
+    var themeEpisodeData = Dictionary<String, (NSString, [Theme])>()
     var themeEpisodeView: UICollectionView?
     
     override func viewDidLoad() {
@@ -35,11 +35,23 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         var title = wrapper!.itemWithQuery(themeTitleQuery)!.attributes!["alt"]! as NSString
         var list = wrapper!.itemWithQuery("#storyList")!.itemsWithQuery(".link_story") as [TFHppleElement]
         var id = themeIdAtIndex(0)
+        var modelList = themeModelList(list)
         
-        themeEpisodeData[id] = (title, list)
+        themeEpisodeData[id] = (title, modelList)
         
         createThemeScroller()
         createThemeEpisodeCollectionview()
+    }
+    
+    func themeModelList(items: [TFHppleElement]) -> [Theme] {
+        var themeList = Array<Theme>()
+        
+        for item in items {
+            var theme = Theme(hppleElement: item)
+            themeList += theme
+        }
+        
+        return themeList
     }
     
     func createThemeScroller() {
@@ -104,7 +116,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         
         selectThemeButton(button)
         themeEpisodeDataById(id) {
-            (title: String, list: [TFHppleElement]) in
+            (title: String, list: [Theme]) in
             
             if let v = self.themeEpisodeView {
                 v.reloadData()
@@ -124,7 +136,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         selectedButton = button
     }
     
-    func themeEpisodeDataById(id: String, callback: ((title: String, list: [TFHppleElement]) -> Void)) {
+    func themeEpisodeDataById(id: String, callback: ((title: String, list: [Theme]) -> Void)) {
         var data = themeEpisodeData[id]
         
         if let (title, list) = data {
@@ -137,9 +149,10 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
                 var themeDoc = html.htmlDocument()
                 var title = themeDoc.itemWithQuery(self.themeTitleQuery)!.attributes["alt"]! as NSString
                 var list = themeDoc.itemWithQuery("#storyList")!.itemsWithQuery(".link_story") as [TFHppleElement]
+                var modelList = self.themeModelList(list)
 
-                self.themeEpisodeData[id] = (title, list)
-                callback(title: title, list: list)
+                self.themeEpisodeData[id] = (title, modelList)
+                callback(title: title, list: modelList)
             }
         }
     }
@@ -164,34 +177,24 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     func updateCollectionViewCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
         let data = presentThemeDataAtIndexPath(indexPath)
         
-        let imageNode = data.itemWithQuery(".thumb_img")
-        let imageUrl = imageNode!.imageUrlFromHppleElement()
-        
         var themeCell = cell as ThemeEpisodeCell
-        themeCell.thumbnailView.setImageWithURL(NSURL(string: imageUrl))
         
-        let titleNode = data.itemWithQuery(".tit_strory")
-        themeCell.title = titleNode!.text().trim()
-        
-        themeCell.finishedLabel.hidden = data.itemWithQuery(".sort_story") == nil
-        
-        let infoNodes = data.itemsWithQuery(".item_info")
-        
-        if infoNodes.count > 1 {
-            var sympathiesNode: AnyObject = infoNodes[0]
-            var shareNode: AnyObject = infoNodes[1]
-            
-            if let sympathies = sympathiesNode.children?[1] as? TFHppleElement {
-                themeCell.sympathies = sympathies.content.trim()
-            }
-            
-            if let share = shareNode.children?[1] as? TFHppleElement {
-                themeCell.share = share.content.trim()
-            }
+        if let image = data.thumbnailView?.image {
+            themeCell.thumbnailView.image = image
+        } else {
+            themeCell.thumbnailView.setImageWithURL(NSURL(string: data.imageUrl))
         }
+
+        if let title = data.title {
+            themeCell.title = title
+        }
+        
+        themeCell.finishedLabel.hidden = !data.finished
+        themeCell.sympathies = "\(data.sympathiesCount)"
+        themeCell.share = "\(data.shareCount)"
     }
     
-    func presentThemeDataAtIndexPath(indexPath: NSIndexPath) -> TFHppleElement {
+    func presentThemeDataAtIndexPath(indexPath: NSIndexPath) -> Theme {
         let id = presentThemeId()
         let (title, list) = themeEpisodeData[id]!
         return list[indexPath.row]
@@ -227,13 +230,11 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
         let data = presentThemeDataAtIndexPath(indexPath)
-        let linkNode = data.itemWithQuery(".link_story")
-        let href = linkNode!.attributes["href"] as? NSString
         
-        if let link = href {
-            var title = linkNode!.itemWithQuery(".tit_strory")
+        if let link = data.link {
+            var title = data.title
             
-            var listViewController = ListViewController(title: title!.text().trim())
+            var listViewController = ListViewController(title: title!.trim())
             listViewController.id = link
             
             self.navigationController.pushViewController(listViewController, animated: true)
