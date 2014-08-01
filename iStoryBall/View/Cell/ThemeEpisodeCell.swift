@@ -11,6 +11,9 @@ class ThemeEpisodeCell: UICollectionViewCell
     var maxTitleLabelFrame: CGRect
     var thumbnailView: UIImageView
     var titleLabel: UILabel
+    var sympathiesCountButton: UIButton
+    var shareCountButton: UIButton
+    
     var title: String {
     get {
         return titleLabel.text
@@ -23,6 +26,40 @@ class ThemeEpisodeCell: UICollectionViewCell
         titleLabel.layoutBottomFromSibling(thumbnailView, horizontalAlign: .Left, offset: CGPointMake(5.0, 10.0))
     }
     }
+    
+    var sympathies: String {
+    get {
+        return sympathiesCountButton.titleLabel.text
+    }
+    set {
+        var inset = UIEdgeInsetsMake(0, 7, 0, 0)
+        sympathiesCountButton.setTitle(newValue, forState: .Normal)
+        sympathiesCountButton.sizeToFit()
+        sympathiesCountButton.titleEdgeInsets = inset
+        var frame = sympathiesCountButton.frame
+        frame.size.width += (inset.left + inset.right)
+        sympathiesCountButton.frame = frame
+        
+        sympathiesCountButton.layoutBottomInParentView(.Left, offset: CGPointMake(3, -5))
+    }
+    }
+    
+    var share: String {
+    get {
+        return shareCountButton.titleLabel.text
+    }
+    set {
+        var inset = UIEdgeInsetsMake(0, 7, 0, 0)
+        shareCountButton.setTitle(newValue, forState: .Normal)
+        shareCountButton.sizeToFit()
+        shareCountButton.titleEdgeInsets = inset
+        var frame = shareCountButton.frame
+        frame.size.width += (inset.left + inset.right)
+        shareCountButton.frame = frame
+        shareCountButton.layoutRightFromSibling(sympathiesCountButton, verticalAlign: .Center, offset: CGPointMake(5, 0))
+    }
+    }
+    
     var finishedLabel: UILabel
     
     init(frame: CGRect) {
@@ -46,10 +83,25 @@ class ThemeEpisodeCell: UICollectionViewCell
         finishedLabel.layer.cornerRadius = 3.0
         finishedLabel.clipsToBounds = true
         
+        sympathiesCountButton = UIButton.buttonWithType(.Custom) as UIButton
+        sympathiesCountButton.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font1.valueOf())
+        sympathiesCountButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        sympathiesCountButton.setImage(UIImage(named: "ico_empathy"), forState: .Normal)
+        sympathiesCountButton.userInteractionEnabled = false
+        
+        shareCountButton = UIButton.buttonWithType(.Custom) as UIButton
+        shareCountButton.titleLabel.font = UIFont.systemFontOfSize(SBFontSize.font1.valueOf())
+        shareCountButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        shareCountButton.setImage(UIImage(named: "ico_share"), forState: .Normal)
+        shareCountButton.userInteractionEnabled = false
+        
         super.init(frame: frame)
         
         self.addSubview(thumbnailView)
         self.addSubview(titleLabel)
         self.addSubview(finishedLabel)
+        self.addSubview(sympathiesCountButton)
+        self.addSubview(shareCountButton)
+        
     }
 }

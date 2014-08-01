@@ -174,6 +174,21 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         themeCell.title = titleNode!.text().trim()
         
         themeCell.finishedLabel.hidden = data.itemWithQuery(".sort_story") == nil
+        
+        let infoNodes = data.itemsWithQuery(".item_info")
+        
+        if infoNodes.count > 1 {
+            var sympathiesNode: AnyObject = infoNodes[0]
+            var shareNode: AnyObject = infoNodes[1]
+            
+            if let sympathies = sympathiesNode.children?[1] as? TFHppleElement {
+                themeCell.sympathies = sympathies.content.trim()
+            }
+            
+            if let share = shareNode.children?[1] as? TFHppleElement {
+                themeCell.share = share.content.trim()
+            }
+        }
     }
     
     func presentThemeDataAtIndexPath(indexPath: NSIndexPath) -> TFHppleElement {
