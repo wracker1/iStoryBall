@@ -91,4 +91,8 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
         var data = writerDataList[indexPath.row]
         return WriterCell.heightForRowWithModel(data)
     }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
 }
