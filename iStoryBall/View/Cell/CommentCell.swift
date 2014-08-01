@@ -11,6 +11,8 @@ class CommentCell: SBTableViewCell
     var profileView: UIImageView?
     var nicknameLabel: UILabel
     var contentLabel: UILabel
+    var dateLabel: UILabel
+    var sepLabel: UILabel
     
     class func maxCommentLabelFrame() -> CGRect {
         var size = UIScreen.mainScreen().bounds.size
@@ -39,11 +41,19 @@ class CommentCell: SBTableViewCell
         nicknameLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellSubTitle.valueOf())
         nicknameLabel.textColor = UIColor.grayColor()
         
+        dateLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellSubTitle.valueOf())
+        dateLabel.textColor = UIColor.grayColor()
+        
+        sepLabel = UILabel.systemFontLabel("|", fontSize: 7)
+        sepLabel.textColor = UIColor.grayColor()
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.addSubview(contentLabel)
         self.addSubview(nicknameLabel)
+        self.addSubview(sepLabel)
+        self.addSubview(dateLabel)
     }
     
     override func update(model: SBModel) {
@@ -97,5 +107,11 @@ class CommentCell: SBTableViewCell
         nicknameLabel.text = model.daumName
         nicknameLabel.sizeToFit()
         nicknameLabel.layoutBottomFromSibling(contentLabel, horizontalAlign: .Left, offset: CGPointMake(0, inset.top))
+        
+        sepLabel.layoutRightFromSibling(nicknameLabel, verticalAlign: .Center, offset: CGPointMake(5, 0))
+        
+        dateLabel.text = model.date
+        dateLabel.sizeToFit()
+        dateLabel.layoutRightFromSibling(sepLabel, verticalAlign: .Center, offset: CGPointMake(5, 0))
     }
 }

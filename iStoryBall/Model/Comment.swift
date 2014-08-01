@@ -11,7 +11,16 @@ class Comment: SBModel
     var emoticon: String
     var commentContent: String
     var daumName: String
-    var regDate: Dictionary<String, NSNumber>
+    var regDate: NSDate
+    var limitHours = 24 * 60 * 60
+    var date: String {
+        var now = NSDate()
+        var diff = now.timeIntervalSinceDate(regDate)
+            
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = Int(diff) > limitHours ? "yy.MM.dd" : "HH:mm"
+    return formatter.stringFromDate(regDate)
+    }
     var imageUrl: String?
     var profileView: UIImageView?
     var cellHeight: CGFloat?
@@ -20,7 +29,18 @@ class Comment: SBModel
         emoticon = data["emoticon"]! as String
         commentContent = data["commentContent"]! as String
         daumName = data["daumName"]! as String
-        regDate = data["regDate"]! as Dictionary<String, NSNumber>
+        
+        var regdttm = data["regDate"]! as Dictionary<String, NSNumber>
+        
+        var year = regdttm["year"]
+        var month = regdttm["month"]
+        var day = regdttm["date"]
+        var hour = regdttm["hours"]
+        var min = regdttm["minutes"]
+        
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-M-d-H-m"
+        regDate = formatter.dateFromString("20\(year!.integerValue - 100)-\(month!.integerValue + 1)-\(day!)-\(hour!)-\(min!)")
         
         super.init(data: data)
     }
