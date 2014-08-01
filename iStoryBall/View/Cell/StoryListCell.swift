@@ -27,14 +27,18 @@ class StoryListCell: SBTableViewCell {
         self.addSubview(rankLabel)
     }
     
-    override func update(data: TFHppleElement) {
-        super.update(data)
+    override func update(model: SBModel) {
+        super.update(model)
+     
+        let story = model as Story
         
-        if let imageUrl = thumbnailUrl() {
-            thumbnailView.setImageWithURL(NSURL(string: imageUrl))
+        if let image = story.thumbnailView?.image {
+            thumbnailView.image = image
+        } else {
+            thumbnailView.setImageWithURL(NSURL(string: story.imageUrl!))
         }
         
-        if let title = titleString() {
+        if let title = story.title {
             titleLabel.text = title
             titleLabel.sizeToFit()
             titleLabel.layoutRightFromSibling(thumbnailView, verticalAlign: .Center, offset: CGPointMake(5, 0))

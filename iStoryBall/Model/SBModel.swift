@@ -18,4 +18,16 @@ class SBModel
     init (hppleElement: TFHppleElement) {
         self.hppleElement = hppleElement
     }
+    
+    func thumbnailUrl() -> NSString? {
+        return hppleElement?.itemWithQuery(".thumb_view")?.attributes["src"] as? NSString
+    }
+    
+    func titleString() -> NSString? {
+        return hppleElement?.itemWithQuery(".tit_product")?.text().trim()
+    }
+    
+    func subTitleString() -> String? {
+        return hppleElement?.attributes["title"] as? NSString
+    }
 }

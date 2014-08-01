@@ -11,14 +11,14 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     var numberOfItemsPerPage = 20
     
     var storyType = Array<(id: String, name: String, desc: String, page: Int, hasMore: Bool)>()
-    var storyDataList = Dictionary<String, [TFHppleElement]>()
+    var storyDataList = Dictionary<String, [Story]>()
     
     var storyTypeScroller: DHPageScrollView?
     var storyTableView: UITableView?
     var storyTableViewManager: DHScrollViewManager?
     var horizontalIndicator: HorizontalScrollIndicator?
     
-    var presentStoryList: [TFHppleElement]?
+    var presentStoryList: [Story]?
     var contentSearchQuery = ".list_product li a"
     
     override func viewDidLoad() {
@@ -41,15 +41,16 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     
     func layoutSubviews() {
         var items = doc!.itemsWithQuery(contentSearchQuery)
-        setPresentStoryListWithIndex(0, items: items)
+        var models = modelListFromHppleList(items)
+        setPresentStoryListWithIndex(0, items: models)
         
         createStoryTypeScroller()
         createStoryTableView()
     }
     
-    func setPresentStoryListWithIndex(index: Int, items: [TFHppleElement]) -> [NSIndexPath] {
+    func setPresentStoryListWithIndex(index: Int, items: [Story]) -> [NSIndexPath] {
         var key = storyType[index].id
-        var stories = Array<TFHppleElement>()
+        var stories = Array<Story>()
         storyType[index].hasMore = items.count == numberOfItemsPerPage
         
         if let list = storyDataList[key] {
@@ -68,6 +69,17 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         presentStoryList = stories
         
         return indexPaths
+    }
+    
+    func modelListFromHppleList(list: [TFHppleElement]) -> [Story] {
+        var models = Array<Story>()
+        
+        for item in list {
+            var model = Story(hppleElement: item)
+            models += model
+        }
+        
+        return models
     }
     
     func createStoryTypeScroller() {
@@ -111,14 +123,14 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
             var data = storyType[page]
             
             loadData(data.id, page: data.page + 1, filter: nil) {
-                (items: [TFHppleElement]) in
+                (items: [Story]) in
                 
                 self.didFinishLoadDataAtPage(items, page: page)
             }
         }
     }
     
-    func didFinishLoadDataAtPage(items: [TFHppleElement], page: Int) {
+    func didFinishLoadDataAtPage(items: [Story], page: Int) {
         var indexPaths = setPresentStoryListWithIndex(page, items: items)
         storyType[page].page += 1
         
@@ -172,7 +184,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
             storyTableView!.reloadData()
         } else {
             loadData(key, page: data.page, filter: nil) {
-                (items: [TFHppleElement]) in
+                (items: [Story]) in
                 
                 self.storyDataList[key] = items
                 self.presentStoryList = items
@@ -181,7 +193,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         }
     }
     
-    func loadData(key: String, page: Int?, filter: String?, result: ((items: [TFHppleElement]) -> Void)) {
+    func loadData(key: String, page: Int?, filter: String?, result: ((items: [Story]) -> Void)) {
         var url = id! + "/" + key
         
         if let p = page {
@@ -199,8 +211,9 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         NetClient.instance.get(url) {
             (html: String) in
             var newItems = html.htmlDocument().itemsWithQuery(self.contentSearchQuery)
+            var models = self.modelListFromHppleList(newItems)
             
-            result(items: newItems)
+            result(items: models)
         }
     }
     
@@ -225,12 +238,9 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         var data = presentStoryList![indexPath.row]
-        var id = data.attributes["href"] as NSString
-        var title = data.itemWithQuery(".tit_product")
-        
-        var listViewController = ListViewController(title: title!.text().trim())
-        listViewController.id = id as String
-        
+        var listViewController = ListViewController(title: data.title!)
+        listViewController.id = data.link
+
         self.navigationController.pushViewController(listViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

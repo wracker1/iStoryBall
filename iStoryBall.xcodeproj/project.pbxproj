@@ -34,6 +34,7 @@
 		88A9487F198B2B77002B88E3 /* theme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94877198B2B77002B88E3 /* theme@2x.png */; };
 		88A94881198B2BA0002B88E3 /* ico_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94880198B2BA0002B88E3 /* ico_share@2x.png */; };
 		88A94883198B6350002B88E3 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A94882198B6350002B88E3 /* Theme.swift */; };
+		88A94885198B844A002B88E3 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A94884198B844A002B88E3 /* Story.swift */; };
 		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
 		88CA9E8819879727005D2181 /* DHPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5419879727005D2181 /* DHPageScrollView.swift */; };
 		88CA9E8919879727005D2181 /* DHScrollViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5619879727005D2181 /* DHScrollViewManager.swift */; };
@@ -117,6 +118,7 @@
 		88A94877198B2B77002B88E3 /* theme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme@2x.png"; sourceTree = "<group>"; };
 		88A94880198B2BA0002B88E3 /* ico_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_share@2x.png"; sourceTree = "<group>"; };
 		88A94882198B6350002B88E3 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		88A94884198B844A002B88E3 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		88CA9E5419879727005D2181 /* DHPageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHPageScrollView.swift; sourceTree = "<group>"; };
 		88CA9E5619879727005D2181 /* DHScrollViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHScrollViewManager.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				88D76A5719878FFB004D0256 /* SBModel.swift */,
 				5EF6B6881988AED9001752D6 /* Writer.swift */,
 				88A94882198B6350002B88E3 /* Theme.swift */,
+				88A94884198B844A002B88E3 /* Story.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				88CA9E8F19879727005D2181 /* AFHTTPSessionManager.m in Sources */,
 				88089114196BEE7E00BE3F51 /* HomeViewController.swift in Sources */,
 				88D76A5819878FFB004D0256 /* SBModel.swift in Sources */,
+				88A94885198B844A002B88E3 /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
