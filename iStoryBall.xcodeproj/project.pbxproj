@@ -30,9 +30,9 @@
 		88A9487A198B2B77002B88E3 /* next_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94872198B2B77002B88E3 /* next_arrow@2x.png */; };
 		88A9487B198B2B77002B88E3 /* pop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94873198B2B77002B88E3 /* pop@2x.png */; };
 		88A9487C198B2B77002B88E3 /* prev_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94874198B2B77002B88E3 /* prev_arrow@2x.png */; };
-		88A9487D198B2B77002B88E3 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94875198B2B77002B88E3 /* share@2x.png */; };
 		88A9487E198B2B77002B88E3 /* sympathies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94876198B2B77002B88E3 /* sympathies@2x.png */; };
 		88A9487F198B2B77002B88E3 /* theme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94877198B2B77002B88E3 /* theme@2x.png */; };
+		88A94881198B2BA0002B88E3 /* ico_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94880198B2BA0002B88E3 /* ico_share@2x.png */; };
 		88C070BC1977B0A3003C1FA5 /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C070BB1977B0A3003C1FA5 /* CommonUI.swift */; };
 		88CA9E8819879727005D2181 /* DHPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5419879727005D2181 /* DHPageScrollView.swift */; };
 		88CA9E8919879727005D2181 /* DHScrollViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5619879727005D2181 /* DHScrollViewManager.swift */; };
@@ -112,9 +112,9 @@
 		88A94872198B2B77002B88E3 /* next_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next_arrow@2x.png"; sourceTree = "<group>"; };
 		88A94873198B2B77002B88E3 /* pop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pop@2x.png"; sourceTree = "<group>"; };
 		88A94874198B2B77002B88E3 /* prev_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prev_arrow@2x.png"; sourceTree = "<group>"; };
-		88A94875198B2B77002B88E3 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		88A94876198B2B77002B88E3 /* sympathies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sympathies@2x.png"; sourceTree = "<group>"; };
 		88A94877198B2B77002B88E3 /* theme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theme@2x.png"; sourceTree = "<group>"; };
+		88A94880198B2BA0002B88E3 /* ico_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ico_share@2x.png"; sourceTree = "<group>"; };
 		88C070BB1977B0A3003C1FA5 /* CommonUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
 		88CA9E5419879727005D2181 /* DHPageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHPageScrollView.swift; sourceTree = "<group>"; };
 		88CA9E5619879727005D2181 /* DHScrollViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHScrollViewManager.swift; sourceTree = "<group>"; };
@@ -202,12 +202,12 @@
 		5EDFB98419873C5F005BB6E4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				88A94880198B2BA0002B88E3 /* ico_share@2x.png */,
 				88A94870198B2B77002B88E3 /* home@2x.png */,
 				88A94871198B2B77002B88E3 /* ico_empathy@2x.png */,
 				88A94872198B2B77002B88E3 /* next_arrow@2x.png */,
 				88A94873198B2B77002B88E3 /* pop@2x.png */,
 				88A94874198B2B77002B88E3 /* prev_arrow@2x.png */,
-				88A94875198B2B77002B88E3 /* share@2x.png */,
 				88A94876198B2B77002B88E3 /* sympathies@2x.png */,
 				88A94877198B2B77002B88E3 /* theme@2x.png */,
 			);
@@ -646,8 +646,8 @@
 				88A9487C198B2B77002B88E3 /* prev_arrow@2x.png in Resources */,
 				88A94878198B2B77002B88E3 /* home@2x.png in Resources */,
 				88A9487E198B2B77002B88E3 /* sympathies@2x.png in Resources */,
-				88A9487D198B2B77002B88E3 /* share@2x.png in Resources */,
 				88A9487A198B2B77002B88E3 /* next_arrow@2x.png in Resources */,
+				88A94881198B2BA0002B88E3 /* ico_share@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
