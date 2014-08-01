@@ -137,6 +137,7 @@ extension UIButton {
         
         button.addTarget(target, action: selector, forControlEvents: .TouchUpInside)
         button.sizeToFit()
+        button.padding(UIEdgeInsetsMake(5, 5, 5, 5))
 
         return UIBarButtonItem(customView: button)
     }

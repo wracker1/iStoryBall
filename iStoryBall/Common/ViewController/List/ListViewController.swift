@@ -63,8 +63,10 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         descView!.addSubview(titleLabel)
         titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
         
-        var writer = data!.itemWithQuery(".intro_writer")
-        var writerLabel = UILabel.systemFontLabel(writer!.text().trim(), fontSize: SBFontSize.font1.valueOf())
+        var writer = data!.itemWithQuery(".intro_writer")!.text()
+        var regex = DHRegEx.regexWithPattern("\\s", error: nil)
+        writer = regex.stringByReplacingMatchesInString(writer, options: NSMatchingOptions(0), range: writer.range(), withTemplate: "")
+        var writerLabel = UILabel.systemFontLabel(writer, fontSize: SBFontSize.font1.valueOf())
         writerLabel.textAlignment = .Left
         descView!.addSubview(writerLabel)
         writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
