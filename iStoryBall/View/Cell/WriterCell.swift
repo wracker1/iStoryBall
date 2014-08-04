@@ -79,7 +79,7 @@ class WriterCell: SBTableViewCell
         
         profileView = model.profileView
         self.addSubview(profileView)
-        profileView!.layoutLeftInParentView(.Top, offset: CGPointMake(5, 0))
+        profileView!.layoutLeftInParentView(.Top, offset: CGPointMake(5, 5))
         
         nicknameLabel.text = model.name
         nicknameLabel.sizeToFit()
