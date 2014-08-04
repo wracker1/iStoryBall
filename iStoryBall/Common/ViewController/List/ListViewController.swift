@@ -42,10 +42,12 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         headerImageView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width, 80))
         self.view.addSubview(headerImageView)
         
-        headerImageView!.contentMode = UIViewContentMode.ScaleAspectFill
-        headerImageView!.layoutTopInParentView()
-        headerImageView!.setImageWithURL(NSURL(string: url))
-        headerImageView!.clipsToBounds = true
+        if let h = headerImageView {
+            h.contentMode = UIViewContentMode.ScaleAspectFill
+            h.layoutTopInParentView()
+            h.setImageWithURL(NSURL(string: url))
+            h.clipsToBounds = true
+        }
     }
     
     func createStoryDescView() {
