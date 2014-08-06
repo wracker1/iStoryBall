@@ -5,3 +5,4 @@
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
 #import "TFHpple.h"
+#import <Crashlytics/Crashlytics.h>
