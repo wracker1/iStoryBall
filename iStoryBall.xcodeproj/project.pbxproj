@@ -26,6 +26,7 @@
 		889A9A30196BEB6600358119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A2F196BEB6600358119 /* AppDelegate.swift */; };
 		889A9A32196BEB6600358119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889A9A31196BEB6600358119 /* Images.xcassets */; };
 		889A9A3E196BEB6600358119 /* iStoryBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889A9A3D196BEB6600358119 /* iStoryBallTests.swift */; };
+		88A1862F199346060072AB43 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E6119879727005D2181 /* AFHTTPRequestOperation.m */; };
 		88A94878198B2B77002B88E3 /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94870198B2B77002B88E3 /* home@2x.png */; };
 		88A94879198B2B77002B88E3 /* ico_empathy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94871198B2B77002B88E3 /* ico_empathy@2x.png */; };
 		88A9487A198B2B77002B88E3 /* next_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88A94872198B2B77002B88E3 /* next_arrow@2x.png */; };
@@ -42,7 +43,6 @@
 		88CA9E8A19879727005D2181 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5919879727005D2181 /* TFHpple.m */; };
 		88CA9E8B19879727005D2181 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5B19879727005D2181 /* TFHppleElement.m */; };
 		88CA9E8C19879727005D2181 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E5D19879727005D2181 /* XPathQuery.m */; };
-		88CA9E8D19879727005D2181 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E6119879727005D2181 /* AFHTTPRequestOperation.m */; };
 		88CA9E8E19879727005D2181 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E6319879727005D2181 /* AFHTTPRequestOperationManager.m */; };
 		88CA9E8F19879727005D2181 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E6519879727005D2181 /* AFHTTPSessionManager.m */; };
 		88CA9E9019879727005D2181 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CA9E6819879727005D2181 /* AFNetworkReachabilityManager.m */; };
@@ -104,7 +104,7 @@
 		88402595198A46370019EAF2 /* HorizontalScrollIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HorizontalScrollIndicator.swift; path = View/Custom/HorizontalScrollIndicator.swift; sourceTree = "<group>"; };
 		8883E2981987C5A500180F9F /* WriterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriterViewController.swift; sourceTree = "<group>"; };
 		8883E29E19888F8500180F9F /* DHRegEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DHRegEx.swift; sourceTree = "<group>"; };
-		889A9A2A196BEB6600358119 /* iStoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iStoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		889A9A2A196BEB6600358119 /* StoryBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889A9A2E196BEB6600358119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889A9A2F196BEB6600358119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		889A9A31196BEB6600358119 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -355,7 +355,7 @@
 		889A9A2B196BEB6600358119 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				889A9A2A196BEB6600358119 /* iStoryBall.app */,
+				889A9A2A196BEB6600358119 /* StoryBall.app */,
 				889A9A37196BEB6600358119 /* iStoryBallTests.xctest */,
 			);
 			name = Products;
@@ -586,7 +586,7 @@
 			);
 			name = iStoryBall;
 			productName = iStoryBall;
-			productReference = 889A9A2A196BEB6600358119 /* iStoryBall.app */;
+			productReference = 889A9A2A196BEB6600358119 /* StoryBall.app */;
 			productType = "com.apple.product-type.application";
 		};
 		889A9A36196BEB6600358119 /* iStoryBallTests */ = {
@@ -632,6 +632,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 889A9A21196BEB6600358119;
 			productRefGroup = 889A9A2B196BEB6600358119 /* Products */;
@@ -691,6 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88A1862F199346060072AB43 /* AFHTTPRequestOperation.m in Sources */,
 				88CA9EAD198797A1005D2181 /* SBWebview.swift in Sources */,
 				88CA9EBC198797AE005D2181 /* SBTabBarController.swift in Sources */,
 				88CA9E9019879727005D2181 /* AFNetworkReachabilityManager.m in Sources */,
@@ -724,7 +726,6 @@
 				88CA9E9D19879727005D2181 /* UIProgressView+AFNetworking.m in Sources */,
 				88CA9E9419879727005D2181 /* AFURLResponseSerialization.m in Sources */,
 				88CA9E9619879727005D2181 /* DHHTMLStringParser.swift in Sources */,
-				88CA9E8D19879727005D2181 /* AFHTTPRequestOperation.m in Sources */,
 				88CA9E9219879727005D2181 /* AFURLConnectionOperation.m in Sources */,
 				88CA9EA8198797A1005D2181 /* EmpathyListCell.swift in Sources */,
 				88CA9EBF198797D4005D2181 /* CommentCell.swift in Sources */,
@@ -872,7 +873,7 @@
 				);
 				INFOPLIST_FILE = iStoryBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StoryBall;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iStoryBall-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -899,7 +900,7 @@
 				);
 				INFOPLIST_FILE = iStoryBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = StoryBall;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iStoryBall-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
