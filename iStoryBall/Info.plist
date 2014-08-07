@@ -29,7 +29,7 @@
 			<string>com.daumcorp.istoryball</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>istoryball</string>
+				<string>istoryballinhouse</string>
 			</array>
 		</dict>
 	</array>

@@ -319,14 +319,18 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     }
     
     func checkAndHideToolbar() {
-        if !self.navigationController.toolbar.hidden {
-            self.navigationController.setToolbarHidden(true, animated: true)
+        if let toolbar = self.navigationController?.toolbar {
+            if !toolbar.hidden {
+                self.navigationController.setToolbarHidden(true, animated: true)
+            }
         }
     }
     
     func checkAndShowToolbar() {
-        if self.navigationController.toolbar.hidden {
-            self.navigationController.setToolbarHidden(false, animated: true)
+        if let toolbar = self.navigationController?.toolbar {
+            if toolbar.hidden {
+                self.navigationController.setToolbarHidden(false, animated: true)
+            }
         }
     }
     
