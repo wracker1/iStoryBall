@@ -77,15 +77,13 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var size = CGSizeMake(width, ComponentSize.HorinzontalScrollerHeight.valueOf())
         var frame = CGRect(origin: CGPointZero, size: size)
         
-        horizontalIndicator = HorizontalScrollIndicator(frame: frame)
-        self.view.addSubview(horizontalIndicator)
-        horizontalIndicator!.layoutTopInParentView()
-        
         storyTypeScroller = DHPageScrollView(frame: frame, dataSource: self)
         storyTypeScroller!.delegate = self
-        self.view.addSubview(storyTypeScroller)
-        storyTypeScroller!.layoutTopInParentView()
         storyTypeScroller!.clipsToBounds = false
+        
+        horizontalIndicator = HorizontalScrollIndicator(scrollView: storyTypeScroller!)
+        self.view.addSubview(horizontalIndicator)
+        horizontalIndicator!.layoutTopInParentView()
         
         if let page = storyTypeScroller?.page {
             horizontalIndicator!.didChangePage(page)
@@ -145,7 +143,10 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     
     func numberOfPagesInScrollView(scrollView: DHPageScrollView) -> Int {
         var page = storyType.count
-        horizontalIndicator!.numberOfPages = page
+        
+        if let indicator = horizontalIndicator {
+            indicator.numberOfPages = page
+        }
         return page
     }
     

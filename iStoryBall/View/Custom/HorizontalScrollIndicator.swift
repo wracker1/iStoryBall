@@ -7,15 +7,24 @@
 //
 
 class HorizontalScrollIndicator: UIView {
-    var prevArrow: UIImageView
-    var nextArrow: UIImageView
+    var prevArrow: UIButton
+    var nextArrow: UIButton
     var numberOfPages: Int = 0
+    weak var scrollView: DHPageScrollView?
     
     init(frame: CGRect) {
-        prevArrow = UIImageView(image: UIImage(named: "prev_arrow"))
-        nextArrow = UIImageView(image: UIImage(named: "next_arrow"))
+        prevArrow = UIButton.buttonWithType(.Custom) as UIButton
+        prevArrow.setImage(UIImage(named: "prev_arrow"), forState: .Normal)
         
+        nextArrow = UIButton.buttonWithType(.Custom) as UIButton
+        nextArrow.setImage(UIImage(named: "next_arrow"), forState: .Normal)
+
         super.init(frame: frame)
+        
+        prevArrow.addTarget(self, action: Selector("buttonTouched:"), forControlEvents: UIControlEvents.TouchUpInside)
+        nextArrow.addTarget(self, action: Selector("buttonTouched:"), forControlEvents: UIControlEvents.TouchUpInside)
+        prevArrow.sizeToFit()
+        nextArrow.sizeToFit()
         
         self.addSubview(prevArrow)
         self.addSubview(nextArrow)
@@ -25,6 +34,28 @@ class HorizontalScrollIndicator: UIView {
         nextArrow.layoutRightInParentView(.Center, offset: CGPointMake(-inset, 0))
         
         self.backgroundColor = UIColor.clearColor()
+    }
+    
+    convenience init(scrollView: DHPageScrollView) {
+        self.init(frame: scrollView.bounds)
+        
+        self.scrollView = scrollView
+        self.addSubview(scrollView)
+        
+        self.bringSubviewToFront(prevArrow)
+        self.bringSubviewToFront(nextArrow)
+    }
+    
+    func buttonTouched(button: UIButton) {
+        if let s = scrollView {
+            var page = s.currentPage
+            
+            if button === prevArrow {
+                s.scrollToPage(page - 1, animated: true)
+            } else if button === nextArrow {
+                s.scrollToPage(page + 1, animated: true)
+            }
+        }
     }
     
     func didChangePage(page: Int) {

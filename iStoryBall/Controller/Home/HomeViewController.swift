@@ -90,18 +90,16 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         var width = self.view.bounds.size.width
         var frame = CGRectMake(0, 0, width, ComponentSize.HorinzontalScrollerHeight.valueOf())
         
-        horizontalIndicator = HorizontalScrollIndicator(frame: frame)
-        self.view.addSubview(horizontalIndicator!)
-        horizontalIndicator!.layoutBottomFromSibling(recommendStoryScrollView!)
-        
         var scrollView = DHPageScrollView(frame: frame, dataSource: self)
         dayOfWeekScrollView = scrollView
         dayOfWeekScrollView!.delegate = self
         dayOfWeekScrollView!.clipsToBounds = false
-        self.view.addSubview(dayOfWeekScrollView)
+        
+        horizontalIndicator = HorizontalScrollIndicator(scrollView: scrollView)
+        self.view.addSubview(horizontalIndicator!)
+        horizontalIndicator!.layoutBottomFromSibling(recommendStoryScrollView!)
         
         var pageCount = dayOfWeeksCount
-        dayOfWeekScrollView!.layoutBottomFromSibling(recommendStoryScrollView!)
         dayOfWeekScrollView!.reloadData {
             scrollView.scrollToPage(pageCount, animated: false)
             self.allowContentLoad = true
