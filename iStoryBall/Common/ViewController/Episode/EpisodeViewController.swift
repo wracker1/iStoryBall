@@ -300,22 +300,31 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
-        var diffX = scrollView.contentOffset.x - scrollViewOffset.x
-        var diffY = scrollView.contentOffset.y - scrollViewOffset.y
+        var offset = scrollView.contentOffset
+        var size = scrollView.bounds.size
+        var contentSize = scrollView.contentSize
         
-        if diffX == 0 {
-            if diffY > 0 {
-                checkAndHideToolbar()
-            } else {
-                checkAndShowToolbar()
-            }
-        } else if diffY == 0 {
-            if diffX > 0 {
-                checkAndHideToolbar()
-            } else {
-                checkAndShowToolbar()
+        if (contentSize.height - size.height - 30.0) < offset.y {
+            checkAndShowToolbar()
+        } else {
+            var diffX = offset.x - scrollViewOffset.x
+            var diffY = offset.y - scrollViewOffset.y
+            
+            if diffX == 0 {
+                if diffY > 0 {
+                    checkAndHideToolbar()
+                } else {
+                    checkAndShowToolbar()
+                }
+            } else if diffY == 0 {
+                if diffX > 0 {
+                    checkAndHideToolbar()
+                } else {
+                    checkAndShowToolbar()
+                }
             }
         }
+        
     }
     
     func checkAndHideToolbar() {
