@@ -43,11 +43,12 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         self.view.addSubview(headerImageView)
         
         if let h = headerImageView {
+            h.contentMode = UIViewContentMode.ScaleAspectFill
+            h.layoutTopInParentView()
+            h.clipsToBounds = true
+            
             if let imageUrl = url {
-                h.contentMode = UIViewContentMode.ScaleAspectFill
-                h.layoutTopInParentView()
                 h.setImageWithURL(NSURL(string: imageUrl))
-                h.clipsToBounds = true
             }
         }
     }
