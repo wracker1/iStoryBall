@@ -92,7 +92,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         
         var scrollView = DHPageScrollView(frame: frame, dataSource: self)
         dayOfWeekScrollView = scrollView
-        dayOfWeekScrollView!.delegate = self
+        dayOfWeekScrollView!._delegate = self
         dayOfWeekScrollView!.clipsToBounds = false
         
         horizontalIndicator = HorizontalScrollIndicator(scrollView: scrollView)

@@ -164,7 +164,9 @@ class DHPageScrollView: UIScrollView, NSCoding
             checkContentLeft(currentPage - 1)
             checkContentRight(currentPage + 1)
             
-            _delegate?.scrollView?(self, didChangePage: page)
+            if let d = _delegate {
+                d.scrollView?(self, didChangePage: page)
+            }
         }
     }
     
