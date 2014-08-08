@@ -36,6 +36,10 @@ func unique<T: Equatable>(a: [T], b: [T]) -> [T] {
     }
 }
 
+func isInternetConnected() -> Bool {
+    return AFNetworkReachabilityManager.sharedManager().reachable
+}
+
 extension CGFloat {
     func swValue() -> Float {
         return Float(self)
