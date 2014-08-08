@@ -56,8 +56,8 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
     func createTopFeaturingSlide() {
         var bounds = self.view.bounds
         recommendStoryScrollView = DHPageScrollView(frame: CGRectMake(1, 0, bounds.width, 90), dataSource: self)
-        recommendStoryScrollView!.delegate = self
-        self.view.addSubview(recommendStoryScrollView)
+        recommendStoryScrollView!._delegate = self
+        self.view.addSubview(recommendStoryScrollView!)
         recommendStoryScrollView!.layoutTopInParentView()
         
         createPageControl()
@@ -71,7 +71,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         recommendStoryPageControl!.currentPageIndicatorTintColor = UIColor.blueColor()
         recommendStoryPageControl!.pageIndicatorTintColor = UIColor.grayColor()
         recommendStoryPageControl!.addTarget(self, action: Selector("pageControlDidTouched"), forControlEvents: UIControlEvents.ValueChanged)
-        self.view.addSubview(recommendStoryPageControl)
+        self.view.addSubview(recommendStoryPageControl!)
         
         recommendStoryPageControl!.layoutBottomFromSibling(recommendStoryScrollView!, horizontalAlign: .Center, offset: CGPointMake(0, -7))
     }
@@ -83,7 +83,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         for fromNow in 0 ... dayOfWeeksCount {
             components.day = (fromNow * -1)
             var date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0))
-            dayOfWeeks += date
+            dayOfWeeks.append(date)
         }
         
         dayOfWeeks = dayOfWeeks.reverse()
@@ -115,7 +115,7 @@ class HomeViewController : SBViewController, DHPageScrollViewDataSource, DHPageS
         contentTableView!.delegate = self
         contentTableView!.layer.borderColor = UIColor.rgb(181, g: 182, b: 187).CGColor
         contentTableView!.layer.borderWidth = 1.0
-        self.view.addSubview(contentTableView)
+        self.view.addSubview(contentTableView!)
         
         contentTableView!.layoutBottomInParentView()
     }

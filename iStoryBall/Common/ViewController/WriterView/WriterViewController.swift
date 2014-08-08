@@ -58,7 +58,7 @@ class WriterViewController : SBViewController, UITableViewDataSource, UITableVie
                     data["description"] = element.itemWithQuery(".txt_desc")!.text().trim()
                     data["imageUrl"] = element.itemWithQuery("img")!.attributes["src"]
                     var writer = Writer(data: data)
-                    self.writerDataList += writer
+                    self.writerDataList.append(writer)
                 }
                 self.writerTableView!.reloadData()
             }

@@ -26,10 +26,10 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyType += ("1000","천공", "천개의 공감", 1, true)
-        storyType += ("soon", "곧천공", "공감 하나만 굽신", 1, true)
-        storyType += ("5000", "오천공", "오천개의 공감", 1, true)
-        storyType += ("all", "올천공", "모두 천공 달성", 1, true)
+        storyType.append(id: "1000", name: "천공", desc: "천개의 공감", page: 1, hasMore: true)
+        storyType.append(id: "soon", name: "곧천공", desc: "공감 하나만 굽신", page: 1, hasMore: true)
+        storyType.append(id: "5000", name: "오천공", desc: "오천개의 공감", page: 1, hasMore: true)
+        storyType.append(id: "all", name: "올천공", desc: "모두 천공 달성", page: 1, hasMore: true)
         
         id = "/episode/part/hit"
         var url = id! + "/" + storyType[0].id
@@ -62,8 +62,8 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var rowNum = stories.count
         
         for item in items {
-            stories += item
-            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+            stories.append(item)
+            indexPaths.append(NSIndexPath(forRow: rowNum++, inSection: 0))
         }
         
         storyDataList[key] = stories
@@ -78,11 +78,11 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         var frame = CGRect(origin: CGPointZero, size: size)
         
         storyTypeScroller = DHPageScrollView(frame: frame, dataSource: self)
-        storyTypeScroller!.delegate = self
+        storyTypeScroller!._delegate = self
         storyTypeScroller!.clipsToBounds = false
         
         horizontalIndicator = HorizontalScrollIndicator(scrollView: storyTypeScroller!)
-        self.view.addSubview(horizontalIndicator)
+        self.view.addSubview(horizontalIndicator!)
         horizontalIndicator!.layoutTopInParentView()
         
         if let page = storyTypeScroller?.page {
@@ -99,7 +99,7 @@ class SympathiesViewController : SBViewController, DHPageScrollViewDataSource, D
         storyTableView!.delegate = self
         storyTableViewManager = DHScrollViewManager(scrollView: storyTableView!, viewController: self)
         storyTableViewManager!.addTarget(self, bottomLoaderAction: Selector("loadMorePage"))
-        self.view.addSubview(storyTableView)
+        self.view.addSubview(storyTableView!)
         storyTableView!.layoutBottomInParentView()
     }
     

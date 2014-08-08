@@ -13,7 +13,7 @@ class WriterCell: SBTableViewCell
     var descriptionLabel: UILabel
     var profileSize = CGSizeMake(37, 37)
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+    override init() {
         nicknameLabel = UILabel.systemFontLabel("", fontSize: 15)
         nicknameLabel.textAlignment = .Left
         
@@ -22,7 +22,7 @@ class WriterCell: SBTableViewCell
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .Left
         
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: UITableViewCellStyle.Default, reuseIdentifier: WriterCell.reuseIdentifier())
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.addSubview(nicknameLabel)
@@ -34,7 +34,7 @@ class WriterCell: SBTableViewCell
         
         writerModel.loadProfileImage(nil) {
             if let s = self.profileView {
-                s.superview.removeFromSuperview()
+                s.superview?.removeFromSuperview()
             }
             self.layout(writerModel)
         }
@@ -78,7 +78,7 @@ class WriterCell: SBTableViewCell
         var profileSize = WriterCell.thumbnailSize()
         
         profileView = model.profileView
-        self.addSubview(profileView)
+        self.addSubview(profileView!)
         profileView!.layoutLeftInParentView(.Top, offset: CGPointMake(5, 5))
         
         nicknameLabel.text = model.name

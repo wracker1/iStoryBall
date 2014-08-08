@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPageScrollViewDelegate, UITableViewDataSource, UITableViewDelegate
+class PopularViewController : SBViewController, UITableViewDataSource, UITableViewDelegate, DHPageScrollViewDataSource, DHPageScrollViewDelegate
 {
     var numberOfItemsPerPage = 20
     
@@ -24,10 +24,10 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        storyType += ("hit","공감순", "공감 1등은 뉴규", 1, true)
-        storyType += ("share", "공유순", "나만 보기 아까워", 1, true)
-        storyType += ("subscribe", "구독순", "두고두고 볼꺼야", 1, true)
-        storyType += ("sale", "판매순", "돈내도 안아까워", 1, true)
+        storyType.append(id: "hit", name: "공감순", desc: "공감 1등은 뉴규", page: 1, hasMore: true)
+        storyType.append(id: "share", name: "공유순", desc: "나만 보기 아까워", page: 1, hasMore: true)
+        storyType.append(id: "subscribe", name: "구독순", desc: "두고두고 볼꺼야", page: 1, hasMore: true)
+        storyType.append(id: "sale", name: "판매순", desc: "돈내도 안아까워", page: 1, hasMore: true)
         
         id = "/story/pop"
         var url = id! + "/" + storyType[0].id
@@ -61,8 +61,8 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         var rowNum = stories.count
         
         for item in items {
-            stories += item
-            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+            stories.append(item)
+            indexPaths.append(NSIndexPath(forRow: rowNum++, inSection: 0))
         }
         
         storyDataList[key] = stories
@@ -76,7 +76,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         
         for item in list {
             var model = Story(hppleElement: item)
-            models += model
+            models.append(model)
         }
         
         return models
@@ -88,7 +88,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         var frame = CGRect(origin: CGPointZero, size: size)
         
         storyTypeScroller = DHPageScrollView(frame: frame, dataSource: self)
-        storyTypeScroller!.delegate = self
+        storyTypeScroller!._delegate = self
         storyTypeScroller!.clipsToBounds = false
         
         horizontalIndicator = HorizontalScrollIndicator(scrollView: storyTypeScroller!)
@@ -109,7 +109,7 @@ class PopularViewController : SBViewController, DHPageScrollViewDataSource, DHPa
         storyTableView!.delegate = self
         storyTableViewManager = DHScrollViewManager(scrollView: storyTableView!, viewController: self)
         storyTableViewManager!.addTarget(self, bottomLoaderAction: Selector("loadMorePage"))
-        self.view.addSubview(storyTableView)
+        self.view.addSubview(storyTableView!)
         storyTableView!.layoutBottomInParentView()
     }
     

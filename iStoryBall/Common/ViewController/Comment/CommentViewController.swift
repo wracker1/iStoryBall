@@ -85,8 +85,8 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
         var rowNum = commentDataList.count
         
         for comment in comments {
-            commentDataList += comment
-            indexPaths += NSIndexPath(forRow: rowNum++, inSection: 0)
+            commentDataList.append(comment)
+            indexPaths.append(NSIndexPath(forRow: rowNum++, inSection: 0))
         }
         
         pageIndex = page
@@ -109,7 +109,7 @@ class CommentViewController: SBViewController, UITableViewDataSource, UITableVie
                     var comment = Comment(data: item)
                     comment.imageUrl = self.commentImageUrl
                     comment.loadProfileImage(CommentCell.thumbnailSize(), finish: nil)
-                    comments += comment
+                    comments.append(comment)
                 }
             }
             

@@ -15,7 +15,7 @@ import UIKit
     func scrollView(scrollView: DHPageScrollView, pageViewAtPage page: Int) -> DHPageView?
 }
 
-@objc protocol DHPageScrollViewDelegate: UIScrollViewDelegate
+@objc protocol DHPageScrollViewDelegate: NSObjectProtocol, UIScrollViewDelegate
 {
     optional func scrollView(scrollView: DHPageScrollView!, didChangePage page: Int) -> Void
     
@@ -41,7 +41,11 @@ class DHPageView: UIScrollView
     }
     }
     
-    init(frame: CGRect) {
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
@@ -76,21 +80,11 @@ class DHPageView: UIScrollView
     }
 }
 
-class DHPageScrollView: UIScrollView
+class DHPageScrollView: UIScrollView, NSCoding
 {
     weak var dataSource: DHPageScrollViewDataSource!
     weak var _delegate: DHPageScrollViewDelegate!
-    override var delegate: UIScrollViewDelegate! {
-    set {
-        if newValue is DHPageScrollViewDelegate {
-            _delegate = newValue as DHPageScrollViewDelegate
-        }
-        super.delegate = newValue
-    }
-    get {
-        return super.delegate
-    }
-    }
+
     var currentPage = 0
     var reloadFinishBlock: (() -> Void)?
     var bufferSize = 2
@@ -106,6 +100,10 @@ class DHPageScrollView: UIScrollView
         }
         return p
     }
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     init(frame: CGRect, dataSource: DHPageScrollViewDataSource) {
@@ -125,7 +123,7 @@ class DHPageScrollView: UIScrollView
         self.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         if page != currentPage {
             changePage(page)
         }
@@ -217,7 +215,7 @@ class DHPageScrollView: UIScrollView
                     }
                     
                     if !contains(pageViews, item) {
-                        pageViews += item
+                        pageViews.append(item)
                     }
                     
                     item.frame = rectByPage(page)

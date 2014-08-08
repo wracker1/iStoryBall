@@ -15,7 +15,7 @@ class EmpathyListCell: SBTableViewCell {
     var iconImageView: UIImageView
     var iconImage: UIImage
     
-    init() {
+    override init() {
         var width = UIScreen.mainScreen().bounds.width
         thumbnailView = UIImageView(frame: CGRectMake(10, 10, width - 20, 115))
         
@@ -64,8 +64,8 @@ class EmpathyListCell: SBTableViewCell {
     }
     
     override func thumbnailUrl() -> NSString? {
-        var imageElement:TFHppleElement = data?.itemWithQuery(".thumb_img") as TFHppleElement
-        return imageElement.imageUrlFromHppleElement()
+        var imageElement = data?.itemWithQuery(".thumb_img")
+        return imageElement?.imageUrlFromHppleElement()
     }
     
     func sympathyCount() -> NSString? {

@@ -13,7 +13,7 @@ class StoryPageData: SBModel
     var pageNo: Int
     var imageUrlString: String?
     
-    init(data: Dictionary<String, AnyObject>) {
+    override init(data: Dictionary<String, AnyObject>) {
         var eId = data["episodeId"] as NSNumber
         episodeId = String(eId.integerValue)
         

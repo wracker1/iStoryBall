@@ -40,7 +40,7 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
         var thumbImageNode = doc!.itemWithQuery(".intro_img .thumb_img")
         var url = thumbImageNode?.imageUrlFromHppleElement()
         headerImageView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.width, 80))
-        self.view.addSubview(headerImageView)
+        self.view.addSubview(headerImageView!)
         
         if let h = headerImageView {
             h.contentMode = UIViewContentMode.ScaleAspectFill
@@ -55,59 +55,62 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
     
     func createStoryDescView() {
         var data = doc!.itemWithQuery(".intro_cont")
-        var horizontalMargin: CGFloat = 5.0
-        var maxWidth = self.view.bounds.size.width - (horizontalMargin * 2)
-        descView = UIView()
         
-        var title = data!.itemWithQuery(".tit_intro")
-        var titleLabel = UILabel.boldFontLabel(title!.text().trim(), fontSize: SBFontSize.font3.valueOf())
-        titleLabel.numberOfLines = 0
-        titleLabel.textAlignment = .Left
-        titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
-        titleLabel.sizeToFit()
-        descView!.addSubview(titleLabel)
-        titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
-        
-        var writer = data!.itemWithQuery(".intro_writer")!.text()
-        var regex = DHRegEx.regexWithPattern("\\s", error: nil)
-        writer = regex.stringByReplacingMatchesInString(writer, options: NSMatchingOptions(0), range: writer.range(), withTemplate: "")
-        var writerLabel = UILabel.systemFontLabel(writer, fontSize: SBFontSize.font1.valueOf())
-        writerLabel.textAlignment = .Left
-        descView!.addSubview(writerLabel)
-        writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
-        
-        var intro = data!.itemWithQuery(".txt_intro")
-        var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: SBFontSize.font1.valueOf())
-        introLabel.numberOfLines = 0
-        introLabel.textAlignment = .Left
-        introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
-        introLabel.frame = CGRectMake(0, 0, maxWidth, 0)
-        introLabel.sizeToFit()
-        descView!.addSubview(introLabel)
-        introLabel.layoutBottomFromSibling(writerLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
-        
-        var subscriptionDay = data!.itemWithQuery(".intro_day")
-        var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay!.text().trim(), fontSize: SBFontSize.font2.valueOf())
-        subscriptionDayLabel.textColor = UIColor.rgb(76, g: 134, b: 237)
-        subscriptionDayLabel.sizeToFit()
-        descView!.addSubview(subscriptionDayLabel)
-        subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
-        
-        var writerButton:UIButton = makeInfoButton("저자소개")
-        descView!.addSubview(writerButton)
-        writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
-        writerButton.addTarget(self, action: Selector("showWriterInfo"), forControlEvents: UIControlEvents.TouchUpInside)
-        
-        var shareButton:UIButton = makeInfoButton("공유하기")
-        descView!.addSubview(shareButton)
-        shareButton.layoutRightFromSibling(writerButton, verticalAlign:.Center, offset:CGPointMake(10, 0))
-        shareButton.addTarget(self, action: Selector("sharePage"), forControlEvents: UIControlEvents.TouchUpInside)
-        
-        self.view.addSubview(descView)
-        descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
-        
-        descView!.sizeToFit()
-        descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
+        if let d = data {
+            var horizontalMargin: CGFloat = 5.0
+            var maxWidth = self.view.bounds.size.width - (horizontalMargin * 2)
+            descView = UIView()
+            
+            var title = d.itemWithQuery(".tit_intro")
+            var titleLabel = UILabel.boldFontLabel(title!.text().trim(), fontSize: SBFontSize.font3.valueOf())
+            titleLabel.numberOfLines = 0
+            titleLabel.textAlignment = .Left
+            titleLabel.frame = CGRectMake(0, 0, maxWidth, 0)
+            titleLabel.sizeToFit()
+            descView!.addSubview(titleLabel)
+            titleLabel.layoutTopInParentView(.Left, offset: CGPointMake(horizontalMargin, 5))
+            
+            var writer = d.itemWithQuery(".intro_writer")!.text()
+            var regex = DHRegEx.regexWithPattern("\\s", error: nil)
+            writer = regex.stringByReplacingMatchesInString(writer, options: NSMatchingOptions(0), range: writer.range(), withTemplate: "")
+            var writerLabel = UILabel.systemFontLabel(writer, fontSize: SBFontSize.font1.valueOf())
+            writerLabel.textAlignment = .Left
+            descView!.addSubview(writerLabel)
+            writerLabel.layoutBottomFromSibling(titleLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
+            
+            var intro = d.itemWithQuery(".txt_intro")
+            var introLabel = UILabel.systemFontLabel(intro!.text().trim(), fontSize: SBFontSize.font1.valueOf())
+            introLabel.numberOfLines = 0
+            introLabel.textAlignment = .Left
+            introLabel.textColor = UIColor.rgb(192, g: 192, b: 192)
+            introLabel.frame = CGRectMake(0, 0, maxWidth, 0)
+            introLabel.sizeToFit()
+            descView!.addSubview(introLabel)
+            introLabel.layoutBottomFromSibling(writerLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
+            
+            var subscriptionDay = d.itemWithQuery(".intro_day")
+            var subscriptionDayLabel = UILabel.systemFontLabel(subscriptionDay!.text().trim(), fontSize: SBFontSize.font2.valueOf())
+            subscriptionDayLabel.textColor = UIColor.rgb(76, g: 134, b: 237)
+            subscriptionDayLabel.sizeToFit()
+            descView!.addSubview(subscriptionDayLabel)
+            subscriptionDayLabel.layoutBottomFromSibling(introLabel, horizontalAlign: .Left, offset: CGPointMake(0, 5))
+            
+            var writerButton:UIButton = makeInfoButton("저자소개")
+            descView!.addSubview(writerButton)
+            writerButton.layoutRightFromSibling(subscriptionDayLabel, verticalAlign:.Center, offset:CGPointMake(10, 0))
+            writerButton.addTarget(self, action: Selector("showWriterInfo"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            var shareButton:UIButton = makeInfoButton("공유하기")
+            descView!.addSubview(shareButton)
+            shareButton.layoutRightFromSibling(writerButton, verticalAlign:.Center, offset:CGPointMake(10, 0))
+            shareButton.addTarget(self, action: Selector("sharePage"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            self.view.addSubview(descView!)
+            descView!.frame = CGRectMake(0, 0, self.view.bounds.size.width, 10.0)
+            
+            descView!.sizeToFit()
+            descView!.layoutBottomFromSibling(headerImageView!, horizontalAlign: .Left)
+        }
     }
     
     func makeInfoButton(title:String) -> UIButton {
@@ -140,14 +143,16 @@ class ListViewController: SBViewController, UITableViewDataSource, UITableViewDe
     }
     
     func createEpisodeTableView() {
-        var size = self.view.bounds.size
-        var topMargin: CGFloat = 10.0
-        var height = size.height - (headerImageView!.bounds.size.height + descView!.bounds.size.height + topMargin)
-        episodeTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
-        episodeTableView!.dataSource = self
-        episodeTableView!.delegate = self
-        self.view.addSubview(episodeTableView)
-        episodeTableView!.layoutBottomFromSibling(descView!, horizontalAlign: .Left, offset: CGPointMake(0, topMargin))
+        if let d = descView {
+            var size = self.view.bounds.size
+            var topMargin: CGFloat = 10.0
+            var height = size.height - (headerImageView!.bounds.size.height + d.bounds.size.height + topMargin)
+            episodeTableView = UITableView(frame: CGRectMake(0, 0, size.width, height), style: .Plain)
+            episodeTableView!.dataSource = self
+            episodeTableView!.delegate = self
+            self.view.addSubview(episodeTableView!)
+            episodeTableView!.layoutBottomFromSibling(d, horizontalAlign: .Left, offset: CGPointMake(0, topMargin))
+        }
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {

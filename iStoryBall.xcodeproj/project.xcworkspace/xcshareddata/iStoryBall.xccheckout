@@ -10,29 +10,29 @@
 	<string>iStoryBall</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</key>
+		<key>1880D031135C8D49C4ADD3450D85C8AF0398DBB5</key>
 		<string>ssh://github.com/wracker1/iStoryBall.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iStoryBall.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</key>
+		<key>1880D031135C8D49C4ADD3450D85C8AF0398DBB5</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/wracker1/iStoryBall.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</string>
+	<string>1880D031135C8D49C4ADD3450D85C8AF0398DBB5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>916D694F-FD99-4506-AF9E-D4BAC6CC8E4B</string>
+			<string>1880D031135C8D49C4ADD3450D85C8AF0398DBB5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iStoryBall</string>
 		</dict>

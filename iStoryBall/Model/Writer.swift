@@ -13,7 +13,7 @@ class Writer: SBModel
     var imageUrl: String
     var profileView: UIImageView?
     
-    init(data: Dictionary<String, AnyObject>) {
+    override init(data: Dictionary<String, AnyObject>) {
         imageUrl = data["imageUrl"]! as String
         description = data["description"]! as String
         name = data["name"]! as String

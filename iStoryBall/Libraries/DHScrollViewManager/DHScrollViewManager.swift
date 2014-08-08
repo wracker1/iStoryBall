@@ -15,7 +15,7 @@ class DHScrollViewManager: NSObject {
         case Indicator = 10
     }
     
-    let ctx = UnsafePointer<()>()
+    let ctx = UnsafeMutablePointer<()>()
     let loaderHeight: CGFloat = 30.0
     let loadOffset: CGFloat = 150.0
     
@@ -39,7 +39,7 @@ class DHScrollViewManager: NSObject {
         scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: ctx)
     }
     
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         if (context == ctx) {
             var oldValue = change["old"]!.CGPointValue()
             var newValue = change["new"]!.CGPointValue()
@@ -61,8 +61,10 @@ class DHScrollViewManager: NSObject {
             bottomLoader?.sendActionsForControlEvents(UIControlEvents.ValueChanged)
         }
         
-        if !bottomLoader?.hidden {
-            bottomLoader!.frame = bottomLoaderFrame()
+        if let bottom = bottomLoader {
+            if !bottom.hidden {
+                bottom.frame = bottomLoaderFrame()
+            }
         }
     }
     
@@ -81,7 +83,7 @@ class DHScrollViewManager: NSObject {
         }
         
         bottomLoader = loader(target, action: bottomLoaderAction)
-        scrollView!.addSubview(bottomLoader)
+        scrollView!.addSubview(bottomLoader!)
     }
     
     func loader(target: AnyObject?, action: Selector) -> DHScrollLoader {

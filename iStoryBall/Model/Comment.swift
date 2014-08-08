@@ -17,7 +17,7 @@ class Comment: SBModel
     var profileView: UIImageView?
     var cellHeight: CGFloat?
     
-    init(data: Dictionary<String, AnyObject>) {
+    override init(data: Dictionary<String, AnyObject>) {
         emoticon = data["emoticon"]! as String
         commentContent = data["commentContent"]! as String
         daumName = data["daumName"]! as String

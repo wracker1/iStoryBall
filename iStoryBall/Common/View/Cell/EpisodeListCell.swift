@@ -15,7 +15,7 @@ class EpisodeListCell: SBTableViewCell {
     var titleFontSize: CGFloat
     var subTitleFontSize: CGFloat
     
-    init() {
+    override init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         
         titleFontSize = SBFontSize.cellTitle.valueOf()

@@ -14,11 +14,15 @@ class SBNavigationController : UINavigationController
         return SBNavigationController(rootViewController: viewController)
     }
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    init(rootViewController: UIViewController!) {
+    override init(rootViewController: UIViewController!) {
         super.init(rootViewController: rootViewController)
         
         var naviFont = UIFont.boldSystemFontOfSize(14)

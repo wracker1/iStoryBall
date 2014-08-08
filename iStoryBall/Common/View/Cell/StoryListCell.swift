@@ -11,7 +11,7 @@ class StoryListCell: SBTableViewCell {
     var titleLabel: UILabel
     var rankLabel: UILabel
     
-    init() {
+    override init() {
         thumbnailView = UIImageView(frame: CGRectMake(0, 0, 55, 43))
         
         titleLabel = UILabel.boldFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())

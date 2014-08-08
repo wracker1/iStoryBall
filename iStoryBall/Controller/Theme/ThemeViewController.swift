@@ -48,7 +48,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         
         for item in items {
             var theme = Theme(hppleElement: item)
-            themeList += theme
+            themeList.append(theme)
         }
         
         return themeList
@@ -60,7 +60,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         
         themeScroller = UIScrollView(frame: CGRectMake(0, 0, size.width, height))
         themeScroller!.showsHorizontalScrollIndicator = false
-        self.view.addSubview(themeScroller)
+        self.view.addSubview(themeScroller!)
         themeScroller!.layoutTopInParentView()
         
         var sibling: UIButton?
@@ -169,7 +169,7 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         themeEpisodeView!.delegate = self
         
         themeEpisodeView!.registerClass(ThemeEpisodeCell.classForCoder(), forCellWithReuseIdentifier: "Cell")
-        self.view.addSubview(themeEpisodeView)
+        self.view.addSubview(themeEpisodeView!)
         
         themeEpisodeView!.layoutBottomInParentView()
     }
@@ -180,16 +180,16 @@ class ThemeViewController : SBViewController, UICollectionViewDataSource, UIColl
         var themeCell = cell as ThemeEpisodeCell
         
         if let image = data.thumbnailView?.image {
-            themeCell.thumbnailView.image = image
+            themeCell.thumbnailView?.image = image
         } else {
-            themeCell.thumbnailView.setImageWithURL(NSURL(string: data.imageUrl))
+            themeCell.thumbnailView?.setImageWithURL(NSURL(string: data.imageUrl))
         }
 
         if let title = data.title {
             themeCell.title = title
         }
         
-        themeCell.finishedLabel.hidden = !data.finished
+        themeCell.finishedLabel?.hidden = !data.finished
         themeCell.sympathies = "\(data.sympathiesCount)"
         themeCell.share = "\(data.shareCount)"
     }

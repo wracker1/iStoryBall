@@ -16,7 +16,7 @@ class Theme: SBModel
     var shareCount: Int = 0
     var finished = false
     
-    init(hppleElement: TFHppleElement) {
+    override init(hppleElement: TFHppleElement) {
         super.init(hppleElement: hppleElement)
         
         let imageNode = hppleElement.itemWithQuery(".thumb_img")

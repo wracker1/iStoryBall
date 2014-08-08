@@ -33,7 +33,7 @@ class CommentCell: SBTableViewCell
         return 44.0
     }
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+    override init() {
         contentLabel = UILabel.systemFontLabel("", fontSize: SBFontSize.cellTitle.valueOf())
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .Left
@@ -47,7 +47,7 @@ class CommentCell: SBTableViewCell
         sepLabel = UILabel.systemFontLabel("|", fontSize: 7)
         sepLabel.textColor = UIColor.grayColor()
         
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: UITableViewCellStyle.Default, reuseIdentifier: CommentCell.reuseIdentifier())
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.addSubview(contentLabel)
@@ -61,7 +61,7 @@ class CommentCell: SBTableViewCell
         
         commentModel.loadProfileImage(CommentCell.thumbnailSize()) {
             if let s = self.profileView {
-                s.superview.removeFromSuperview()
+                s.superview?.removeFromSuperview()
             }
             
             self.layout(commentModel)
@@ -96,7 +96,7 @@ class CommentCell: SBTableViewCell
         var profileSize = CommentCell.thumbnailSize()
         
         profileView = model.profileView
-        self.addSubview(profileView)
+        self.addSubview(profileView!)
         profileView!.layoutLeftInParentView(.Center, offset: CGPointMake(5, 0))
         
         contentLabel.text = model.commentContent

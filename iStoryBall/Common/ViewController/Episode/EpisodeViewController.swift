@@ -222,7 +222,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         contentWebview = SBWebview(frame: CGRect(origin: CGPointZero, size: size))
         contentWebview!.scrollView.delegate = self
         contentWebview!.addGestureRecognizer(gestureRecognizer())
-        self.view.addSubview(contentWebview)
+        self.view.addSubview(contentWebview!)
         
         contentWebview!.layoutTopInParentView()
         contentWebview!.loadHTMLString(htmlString, baseURL: NetClient.instance.relativeManager?.baseURL)
@@ -248,7 +248,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         for item in list {
             var data = StoryPageData(data: item)
             data.loadImageUrl(nil)
-            dataList += data
+            dataList.append(data)
         }
         
         dataList.sort {
@@ -264,7 +264,7 @@ class EpisodeViewController: SBViewController, DHPageScrollViewDataSource, UIScr
         contentScroller = DHPageScrollView(frame: CGRect(origin: CGPointZero, size: size), dataSource: self)
         contentScroller!.addGestureRecognizer(gestureRecognizer())
         contentScroller!.delegate = self
-        self.view.addSubview(contentScroller)
+        self.view.addSubview(contentScroller!)
         
         contentScroller!.reloadData(nil)
     }

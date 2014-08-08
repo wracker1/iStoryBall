@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 Daum communications. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 func mainWindow() -> UIWindow {
     return UIApplication.sharedApplication().windows[0] as UIWindow
@@ -60,9 +60,10 @@ extension String {
     
     func replace(pattern: String, replacementPattern: String) -> String {
         var searchString = self
-        var error:NSError?
+        var error: NSError?
         let regex = NSRegularExpression .regularExpressionWithPattern(pattern, options: NSRegularExpressionOptions.DotMatchesLineSeparators, error: &error)
-        if (!error){
+        
+        if (error == nil){
             let replacedString = regex.stringByReplacingMatchesInString(searchString, options: NSMatchingOptions.fromMask(0), range: NSMakeRange(0, countElements(searchString)), withTemplate: replacementPattern)
             return replacedString
         }

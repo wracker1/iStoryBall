@@ -13,7 +13,7 @@ class Story: SBModel
     var imageUrl: String?
     var thumbnailView: UIImageView?
     
-    init(hppleElement: TFHppleElement) {
+    override init(hppleElement: TFHppleElement) {
         super.init(hppleElement: hppleElement)
         
         if let url = thumbnailUrl() {
